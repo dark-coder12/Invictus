@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: "Courier New", Courier, monospace;
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, #181818 23%, #3a0303 100%, rgba(0,212,255,1) 100%);
+}
+
+.home{
+    background-color: black;
+    height:100vh;
+}
+
+.gradientHover{
+  background: rgb(60,3,3);
+  background: linear-gradient(90deg, rgba(60,3,3,1) 0%, #3c0303 3%, rgba(14,15,16,1) 3%, rgba(48,13,13,1) 3%, rgba(37,23,24,1) 31%, rgba(14,15,16,1) 60%);  
+}
+
+.gradientHover:hover{
+  background: rgb(11, 0, 0);
+}
+.backgroundClr{
+  background-color: #1c0202;
+}
+
+.firstBGClr{
+
+}
+
+.bgcheck{
+  background: rgb(60,3,3);
+background: linear-gradient(90deg, rgba(60,3,3,1) 0%, rgba(0,0,0,1) 0%, rgba(22,5,6,1) 70%, rgba(25,4,4,1) 100%); 
+}
