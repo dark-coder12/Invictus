@@ -3,6 +3,7 @@ import { Landing, Signup, Home, CertificationLanding, AllCertifications } from '
 import SpotifyPlayer from './Components/SpotifyPlayer';
 import Profile from './Pages/Profile/Profile';
 
+// Newest version
 const App = () => {
 
   return(
