@@ -1,11 +1,11 @@
 import React from 'react';
-import { Landing, Signup, Home, CertificationLanding, AllCertifications } from './Pages';
+import { Landing, Signup, Home, CertificationLanding, AllCertifications, MCQTest } from './Pages';
 import SpotifyPlayer from './Components/SpotifyPlayer';
 
 const App = () => {
 
   return(
-    <Home />
+    <Home/>
   );
   
 };
