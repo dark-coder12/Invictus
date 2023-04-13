@@ -1,13 +1,13 @@
 import React from 'react';
 import { Landing, Signup, Home, CertificationLanding, AllCertifications } from './Pages';
 import SpotifyPlayer from './Components/SpotifyPlayer';
-import Profile from './Pages/Profile/Profile';
+import BlogPosts from './Pages/BlogPosts/BlogPosts';
 
 // Newest version
 const App = () => {
 
   return(
-    <Profile/>
+    <BlogPosts/>
   );
   
 };

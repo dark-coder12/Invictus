@@ -106,8 +106,8 @@ export default function EditProfileModal(props) {
 
         {/* Save and Cancel Buttons */}
         <div style={{display:"flex", padding:"2%"}}>
-        <Button  variant="outlined" color="success">Save</Button>
-        <Button style={{marginLeft:"5%"}} variant="outlined" color="error" >Cancel</Button>
+        <Button  variant="outlined" color="success" onClick={handleClose}>Save</Button>
+        <Button style={{marginLeft:"5%"}} variant="outlined" color="error"onClick={handleClose} >Cancel</Button>
         </div>
       </div>
       </div>
