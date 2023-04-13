@@ -7,7 +7,8 @@ import {
   } from "@material-tailwind/react";
   import { useState } from "react";
   
-  export default function CertificationCard({ title, image, mcqNum, description }) {
+  export default function CertificationCard({ title, image, mcqNum, description, bg }) {
+
     const [isHovered, setIsHovered] = useState(false);
   
     const handleHover = () => {
@@ -19,40 +20,38 @@ import {
     };
   
     return (
-      <Card
+      <div>
+ <Card
         shadow={false}
         className="relative grid h-[20rem] w-full max-w-[28rem] items-end justify-center overflow-hidden text-center"
         onMouseEnter={handleHover}
         onMouseLeave={handleLeave}
       >
-        <CardHeader
+       <CardHeader 
           floated={false}
           shadow={false}
           color="transparent"
-          className="absolute inset-0 m-0 h-full w-full rounded-none bg-[url('https://zaltek.co.uk/wp-content/uploads/2022/08/fotis-fotopoulos-DuHKoV44prg-unsplash-scaled-1.jpeg')] bg-cover bg-center opacity-[100]"
+       
+          className="absolute inset-0 m-0 h-full w-full bg-cover bg-center opacity-[100]"
           style={{
-            filter: isHovered ? "brightness(50%)" : "brightness(100%)",
+            border: 'none',
+            borderRadius:'0',
+            backgroundImage: `url(${bg})`,
+            filter: isHovered ? "brightness(10%)" : "brightness(40%)",
             transition: "filter 0.3s ease-in-out",
           }}
         >
+        
           <div
             className={`${
               isHovered ? "to-bg-black-90" : "to-bg-black-10"
             } absolute inset-0 h-full w-full bg-gradient-to-t`}
           >
-            <div
-              className={`${
-                isHovered ? "h-30" : "h-0"
-              } w-full absolute bottom-0 left-0 bg-black`}
-            >
-              <Typography variant="body1" className="text-white py-2 px-4">
-                 {description}
-              </Typography>
-            </div>
+            
           </div>
         </CardHeader>
         <CardBody className="relative py-14 px-6 md:px-12">
-          <div className="flex items-center justify-center mb-[10%]">
+          <div className="flex items-center justify-center mb-[20%]">
             <Typography
               variant="h2"
               color="white"
@@ -60,19 +59,24 @@ import {
             >
               {title}
             </Typography>
-            <Avatar
-              style={{ height: "100%" }}
-              variant="circular"
-              alt="candice wu"
-              src={image}
-            />
           </div>
   
-          <Typography variant="h5" className="mb-4 text-gray-400">
+          <Typography variant="h5" className="mb-10 text-gray-300 ">
             MCQs: {mcqNum}
           </Typography>
         </CardBody>
+        <div
+              className={`${
+                isHovered ? "h-20" : "h-0"
+              } w-full absolute bottom-0 left-0 bg-[#010101]`}
+            >
+              <Typography variant="body1" className="text-white py-2 px-4">
+                 {description}
+              </Typography>
+            </div>
       </Card>
+      </div>
+     
     );
   }
   

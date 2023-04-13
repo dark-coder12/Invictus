@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import LeftNav from "../../Components/LeftNav";
-import CertificationsList from "../../Components/CertificationsList";
+import CertificationDetails from "../../Components/CertificationDetails";
 
 const options = {
   fps_limit: 60,
@@ -72,7 +72,7 @@ const options = {
   retina_detect: true,
 };
 
-const AllCertifications = () => {
+const Certification = () => {
   const particlesInit = async (main) => {
     await loadFull(main);
   };
@@ -87,16 +87,9 @@ const AllCertifications = () => {
          <LeftNav/>
        </div>
 
-        <div className="bg-[#000000] bg-opacity-70 h-full w-[80%] pl-10 overflow-y-auto">
-         
-          <div className="flex flex-col w-[60%] pt-[5%]">
-                <h1 className="text-5xl m-0 pb-16">Browse through our latest catalog below.</h1>
-                <h1 className="text-l p-0 m-0 w-[60%] pb-2 leading-5">
-                Hover over any course you wish to take for more details, click to give it a shot now!
-                </h1>
-            </div>
+        <div className="bg-[#000000] bg-opacity-70 h-full w-[80%] pl-10 ">
             <div className="pl-[3%]">
-            <CertificationsList/>
+            <CertificationDetails/>
             </div>
         </div>
       </div>
@@ -111,4 +104,4 @@ const AllCertifications = () => {
   );
 };
 
-export default AllCertifications;
+export default Certification;

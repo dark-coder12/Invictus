@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
+import LeftNav from "../../Components/LeftNav";
+import MCQList from "../../Components/MCQList";
 
 const options = {
   fps_limit: 60,
@@ -78,8 +80,20 @@ const MCQTest = () => {
   const particlesLoaded = (container) => {};
 
   return (
-     <div>
-        
+    <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
+      <div className="w-[80%] h-[90%] flex flex-row z-10">
+       
+       <div className ='w-[15%]'>
+         <LeftNav/>
+       </div>
+
+        <div className="bg-[#000000] bg-opacity-70 h-full w-[80%] pl-10  overflow-y-auto scrollbar-thumb-transparent scrollbar-track-transparent">
+            <div className="pl-[3%]">
+            <MCQList/>
+            </div>
+        </div>
+      </div>
+
       <Particles
         className="z-0 absolute top-0 left-0 w-full h-full"
         init={particlesInit}
@@ -90,21 +104,4 @@ const MCQTest = () => {
   );
 };
 
-export default MCQTest ;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default MCQTest;

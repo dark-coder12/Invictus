@@ -33,7 +33,7 @@ body {
 }
 
 .bgcheck{
-  background: rgb(60,3,3);
+  background: #3c0303;
 background: linear-gradient(90deg, rgba(60,3,3,1) 0%, rgba(0,0,0,1) 0%, rgba(22,5,6,1) 70%, rgba(25,4,4,1) 100%); 
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Landing, Signup, Home, CertificationLanding, AllCertifications, MCQTest } from './Pages';
+import { Landing, Signup, Home, CertificationLanding, AllCertifications, MCQTest, Certification, Checkout } from './Pages';
 import SpotifyPlayer from './Components/SpotifyPlayer';
 import BlogPosts from './Pages/BlogPosts/BlogPosts';
 
@@ -7,7 +7,7 @@ import BlogPosts from './Pages/BlogPosts/BlogPosts';
 const App = () => {
 
   return(
-    <Home />
+    <Checkout />
   );
   
 };
