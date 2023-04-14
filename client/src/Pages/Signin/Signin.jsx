@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { BackgroundVideo } from "../../Components";
+
+import SignInForm from "../../Components/SignInForm";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
-import LeftNav from "../../Components/LeftNav";
-import CertificationsList from "../../Components/CertificationsList";
 
 const options = {
   fps_limit: 60,
   interactivity: {
     detect_on: "canvas",
     events: {
-      onclick: { enable: false, mode: "push" },
+      onclick: { enable: true, mode: "push" },
       onhover: {
-        enable: false,
+        enable: true,
         mode: "attract",
         parallax: { enable: false, force: 60, smooth: 10 },
       },
@@ -31,7 +32,16 @@ const options = {
       opacity: 0.4,
       width: 1,
     },
-
+    move: {
+      attract: { enable: false, rotateX: 600, rotateY: 1200 },
+      bounce: false,
+      direction: "none",
+      enable: true,
+      out_mode: "out",
+      random: false,
+      speed: 0.8,
+      straight: false,
+    },
     number: { density: { enable: true, value_area: 800 }, value: 80 },
     opacity: {
       anim: { enable: false, opacity_min: 0, speed: 1, sync: false },
@@ -54,7 +64,7 @@ const options = {
       },
       polygon: { nb_sides: 5 },
       stroke: { color: "#000000", width: 0 },
-      type: "none",
+      type: "circle",
     },
     size: {
       anim: { enable: false, size_min: 0.1, speed: 40, sync: false },
@@ -72,7 +82,7 @@ const options = {
   retina_detect: true,
 };
 
-const AllCertifications = () => {
+const Signin = () => {
   const particlesInit = async (main) => {
     await loadFull(main);
   };
@@ -80,29 +90,12 @@ const AllCertifications = () => {
   const particlesLoaded = (container) => {};
 
   return (
-    <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
-      <div className="w-[80%] h-[90%] flex flex-row z-10">
-       
-       <div className ='w-[15%]'>
-         <LeftNav/>
-       </div>
-
-        <div className="bg-[#000000] bg-opacity-70 h-full w-[80%] pl-10 overflow-y-auto">
-         
-          <div className="flex flex-col w-[60%] pt-[5%]">
-                <h1 className="text-5xl m-0 pb-16">Browse through our latest catalog below.</h1>
-                <h1 className="text-l p-0 m-0 w-[60%] pb-2 leading-5">
-                Hover over any course you wish to take for more details, click to give it a shot now!
-                </h1>
-            </div>
-            <div className="pl-[3%]">
-            <CertificationsList/>
-            </div>
-        </div>
+    <div className="relative flex items-center justify-center h-screen ">
+      <div className="z-10 max-w-8xl mx-auto py-6 px-5">
+        <SignInForm />
       </div>
 
-      <Particles
-        className="z-0 absolute top-0 left-0 w-full h-full"
+      <Particles className="z-0 absolute top-0 left-0 w-full h-full"
         init={particlesInit}
         loaded={particlesLoaded}
         options={options}
@@ -111,4 +104,4 @@ const AllCertifications = () => {
   );
 };
 
-export default AllCertifications;
+export default Signin;

@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputField = ({htmlFor, text, name, id, type, placeholder}) => {
+const InputField = ({htmlFor, text, name, id, type, placeholder,value}) => {
 
     return (
         <div className="mb-4">
@@ -15,6 +15,7 @@ const InputField = ({htmlFor, text, name, id, type, placeholder}) => {
             id= {id}
             type={type}
             placeholder={placeholder}
+            editable={false}
             />
           </div>
     )
