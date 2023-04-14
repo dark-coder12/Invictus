@@ -45,20 +45,27 @@ const DownloadCertificate = ({ name }) => {
   };
 
   return (
-    <div>
-      <div className='flex flex-col justify-center align-center gap-4 mb-12'>
-        <button disabled={!name} onClick={handleDownloadClick}>
-          Download Image
-        </button>
-      </div>
+    <div className='mt-12 flex flex-col justify-center items-center'>
+  
+  <canvas
+    ref={canvasRef}
+    style={{ width: '700px', height: '500px' }}
+    width={13000}
+    height={10000}
+  />
 
-      <canvas
-        ref={canvasRef}
-        style={{ width: '700px', height: '500px' }}
-        width={13000}
-        height={10000}
-      />
-    </div>
+  <div className='flex flex-row justify-center items-center gap-4 m-12'>
+    <button class="bg-[#3a0303] rounded-md py-2 px-4 hover:bg-[#2a0202]" disabled={!name} onClick={handleDownloadClick}>
+      Download your Certificate now!
+    </button>
+
+    <button class="bg-[#3a0303] rounded-md py-2 px-4 hover:bg-[#2a0202]" >
+      Back to Certifications
+    </button>
+  </div>
+
+</div>
+
   );
 };
 

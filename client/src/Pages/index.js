@@ -6,8 +6,8 @@ import AllCertifications from './Certification/AllCertifications';
 import MCQTest from './Certification/MCQTest';
 import Certification from './Certification/Certification';
 import Checkout from './Certification/Checkout';
-
+import CodeBot from './CodingBot/CodeBot';
 export{
-    Landing, Signup, Home, CertificationLanding, AllCertifications, MCQTest,  Certification, Checkout
+    Landing, Signup, Home, CertificationLanding, AllCertifications, MCQTest,  Certification, Checkout, CodeBot
 }
 

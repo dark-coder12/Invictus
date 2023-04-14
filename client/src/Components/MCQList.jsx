@@ -4,7 +4,7 @@ import MCQ from "./MCQ";
 function MCQList() {
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [timer, setTimer] = useState(5); 
+  const [timer, setTimer] = useState(15); 
   const [showTimerEnded, setShowTimerEnded] = useState(false);
 
   useEffect(() => {
