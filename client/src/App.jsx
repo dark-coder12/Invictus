@@ -6,7 +6,7 @@ import SpotifyPlayer from './Components/SpotifyPlayer';
 const App = () => {
 
   return(
-    <Home />
+    <AllCertifications/>
   );
   
 };
