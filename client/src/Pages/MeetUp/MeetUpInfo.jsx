@@ -117,13 +117,13 @@ export default function MeetUpInfo({}){
                         <div className="w-[50%]">
                             <img src='stacksevent.jpg' className='w-[50%] rounded-2xl h-[100%]'></img>
                         </div>
-                        <div className="glassmorph w-[50%] flex flex-col justify-center p-2">
-                            <div className="ml-[25%] flex flex-row">
+                        <div className="glassmorph w-[50%] flex flex-col justify-center">
+                            <div className="ml-[20%] flex flex-row">
                                 <DateRangeIcon/>
                                 <h1>Monday, April 24, 2023</h1>
                             </div>
                             <br/>
-                            <div className="ml-[25%] flex flex-row">
+                            <div className="ml-[20%] flex flex-row">
                                 <AccessTimeFilledIcon/>
                                 <h1>9:30 PM to 10:30 PM PKT</h1>
                             </div>
