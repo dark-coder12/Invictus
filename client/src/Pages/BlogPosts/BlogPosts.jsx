@@ -115,7 +115,7 @@ export default function BlogPosts () {
                   </div>
                   <div  style={{ width:"100%",overflow:"auto", padding:"2%"}} className='grid grid-cols-3'>
                     <div style={{margin:"2%",width:"auto",height:"auto"}}>
-                      <Blog blogName="Clases in java" description={classesInJava} imgSrc='java.png'/>
+                      <Blog authorName="Izzah Mujeeb" date="23/05/2023" blogName="Clases in java" description={classesInJava} imgSrc='java.png'/>
                     </div>
                     <div style={{margin:"2%",width:"auto",height:"auto"}}>
                       <Blog blogName="My Favorite Algorithim" description="It was so nice being in the mountains" imgSrc='algo.jpeg'/>

@@ -5,7 +5,9 @@ import Modal from '@mui/material/Modal';
 import Fab from '@mui/material/Fab';
 import SelectAutoWidth from './SelectAutoWidth';
 import { Avatar, AvatarGroup } from '@mui/material';
-
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 const style = {
   position: 'absolute',
@@ -19,7 +21,7 @@ const style = {
   p: 4,
 };
 
-export default function BlogModal({imgSrc,blogName,description}) {
+export default function BlogModal({imgSrc,blogName,description,authorName,date}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -46,45 +48,59 @@ export default function BlogModal({imgSrc,blogName,description}) {
         aria-describedby="modal-modal-description"
       >
         
-    <div className='w-[80%] bg-white m-[5%] ml-[10%] overflow-auto'>
-        <div>
-            <div className='m-[10%]  mb-[2%] flex '>
-                <div className='w-[50%]'>
-                        <h1 className='text-4xl'>
-                            {blogName}
-                        </h1>
-                    <small>{description}</small>
+    <div className='w-[80%] bg-white m-[5%] ml-[10%] overflow-auto '>
+            <div className="bg-white shadow-md rounded-lg p-4 text-black text-opacity-80 border border-black">
+              <div className="flex items-center mb-4 text-black text-opacity-80">
+                <img
+                  src={'https://avatars.githubusercontent.com/u/82564549?v=4'}
+                  alt="Author Icon"
+                  className="w-10 h-10 rounded-full mr-4 "
+                />
+                <div>
+                  <h2 className="text-lg font-bold text-black text-opacity-80">
+                    {blogName}
+                  </h2>
+                  <p className="text-black text-opacity-80 font-[300] text-xs">
+                    Izzah Mujeeb - 23/02/2023
+                  </p>
                 </div>
-                <div className='ml-[3%] w-[30%]'>
-                    <img src={imgSrc}></img>
                 </div>
-            </div>
+                <div className="flex flex-col items-center gap-5 text-justify">
+                  <p className="font-[500] text-xs">{description}</p>
+                  <img
+                    src={imgSrc}
+                    alt="Post Image"
+                    className="w-[50%] rounded-md mb-4"
+                  />
+                </div>
 
-            <div className='mt-[2%] ml-[10%] flex '>
-                <div className='flex flex-col justify-center mr-[2%]'>
-                    <h1>Posted by </h1>
-                </div>
-                <Avatar sx={{width:50, height:50,top:"25%"}} src="https://avatars.githubusercontent.com/u/82564549?v=4"/>
-                <div className='flex flex-col justify-center ml-[2%]'>
-                    <h1> on April 22, 2023</h1>
-                </div>
-            </div>
-
-            <div className='mt-[5%] ml-[10%] flex'>
-                <div className='flex flex-col justify-center mr-[2%]'>
-                    <h1>Liked by </h1>
-                </div>
-                <AvatarGroup max={2}>
-                    <Avatar sx={{width:50, height:50}} src="https://avatars.githubusercontent.com/u/82564549?v=4"/>
-                    <Avatar sx={{width:50, height:50}} src="https://avatars.githubusercontent.com/u/82564549?v=4"/>
-                    <Avatar sx={{width:50, height:50}} src="https://avatars.githubusercontent.com/u/82564549?v=4"/>
-                    <Avatar sx={{width:50, height:50}} src="https://avatars.githubusercontent.com/u/82564549?v=4"/>
-                </AvatarGroup>
+                <hr className="border-b-1 border-gray-900"></hr>
+                <div className='mt-[2%] ml-[1%] flex'>
+                  
+                  <div className='flex flex-col justify-center'>
+                      <FavoriteIcon sx={{width:50, height:50,color:"red"}}/>
+                  </div>
+                  <AvatarGroup max={2} className='flex flex-col justify-center'>
+                      <Avatar sx={{width:40, height:40}} src="https://avatars.githubusercontent.com/u/82564549?v=4"/>
+                      <Avatar sx={{width:40, height:40}} src="https://avatars.githubusercontent.com/u/82564549?v=4"/>
+                      <Avatar sx={{width:40, height:40}} src="https://avatars.githubusercontent.com/u/82564549?v=4"/>
+                      <Avatar sx={{width:40, height:40}} src="https://avatars.githubusercontent.com/u/82564549?v=4"/>
+                  </AvatarGroup>
                 <div className='flex flex-col justify-center mr-[2%]'>
                     <h1>and others.</h1>
                 </div>
+                
+                <div className='flex flex-row'>
+                      <EditIcon/>
+                      <DeleteIcon/>
+
+                </div>
             </div>
-        </div>
+              </div>
+
+            
+
+            
 
     </div>
 
