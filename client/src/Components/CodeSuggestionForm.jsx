@@ -3,7 +3,7 @@ import axios from "axios";
 import { Configuration, OpenAIApi } from "openai";
 import { FaRobot } from "react-icons/fa";
 
-const API_KEY = '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';
+const API_KEY = "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";
 const model = "text-davinci-002";
 
 const configuration = new Configuration({
@@ -51,7 +51,9 @@ function CodeSuggestionForm() {
       const letters = completedCode.split("");
       let currentLetterIndex = 0;
       const intervalId = setInterval(() => {
-        setCompletedCode(prevCompletedCode => prevCompletedCode + letters[currentLetterIndex]);
+        setCompletedCode(
+          (prevCompletedCode) => prevCompletedCode + letters[currentLetterIndex]
+        );
         currentLetterIndex++;
         if (currentLetterIndex === letters.length) {
           clearInterval(intervalId);
@@ -70,7 +72,10 @@ function CodeSuggestionForm() {
           <FaRobot className="w-8 h-8 mr-2" />
           <h2 className="text-xl font-bold">X12 Code Bot</h2>
         </div>
-        <p className="mb-8">Meet X12, the very own code bot of Invictus! Write down a phrase and watch X12 code it for you!</p>
+        <p className="mb-8">
+          Meet X12, the very own code bot of Invictus! Write down a phrase and
+          watch X12 code it for you!
+        </p>
         <textarea
           value={input}
           onChange={(event) => setInput(event.target.value)}
@@ -93,7 +98,5 @@ function CodeSuggestionForm() {
     </div>
   );
 }
-
-
 
 export default CodeSuggestionForm;
