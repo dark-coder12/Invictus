@@ -82,7 +82,7 @@ const options = {
   retina_detect: true,
 };
 
-const Signin = () => {
+function Signin () {
   const particlesInit = async (main) => {
     await loadFull(main);
   };
