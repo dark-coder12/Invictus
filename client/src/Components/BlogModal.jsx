@@ -7,6 +7,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -37,7 +38,7 @@ export default function BlogModal({imgSrc,blogName,description,authorName,date})
   }
 
   return (
-    <div>
+    <div className='overflow-auto'>
       <Button variant="contained" style={{backgroundColor:"white",color:"#3A0303"}} onClick={handleOpen}>Learn more</Button>
       <Modal
         open={open}
@@ -46,9 +47,9 @@ export default function BlogModal({imgSrc,blogName,description,authorName,date})
         aria-describedby="modal-modal-description"
       >
         
-    <div className='w-[80%] bg-white m-[5%] ml-[10%] overflow-auto rounded-lg'>
+    <div className='w-[80%] h-[90%] bg-white m-[5%] ml-[10%] overflow-scroll rounded-lg'>
             <div className="bg-white shadow-md rounded-lg p-4 text-black text-opacity-80 border border-black">
-              <div className="flex items-center mb-4 text-black text-opacity-80">
+              <div className="flex items-center mb-4 text-black text-opacity-80 pl-6 pt-6">
                 <img
                   src={'https://avatars.githubusercontent.com/u/82564549?v=4'}
                   alt="Author Icon"
@@ -64,11 +65,11 @@ export default function BlogModal({imgSrc,blogName,description,authorName,date})
                 </div>
                 </div>
                 <div className="flex flex-col items-center gap-5 text-justify">
-                  <p className="font-[500] text-xs">{description}</p>
+                  <p className="font-[500] text-lg text-justify pl-6 pt-6">{description}</p>
                   <img
-                    img={imgSrc}
+                    src={imgSrc}
                     alt="Post Image"
-                    className="w-[50%] rounded-md mb-4"
+                    className="w-[50%] rounded-md mt-12 mb-12"
                   />
                 </div>
 
