@@ -87,6 +87,7 @@ var bloggerDescription = 'As a blogger, I have the amazing opportunity to share 
 
 var blogText = 'This is a place holder text for each blog right now. The blogs will include mostly technical writing oriented content along with guides.'
 
+
 export default function BlogPosts () {
     const particlesInit = async (main) => {
         await loadFull(main);
