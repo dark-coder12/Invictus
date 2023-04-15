@@ -5,7 +5,7 @@ import { Landing, Signup, Home, CertificationLanding, AllCertifications, MCQTest
 const App = () => {
 
   return(
-    <MeetUpInfo/>
+    <BlogPosts/>
   );
   
 };
