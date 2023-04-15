@@ -7,7 +7,7 @@ import BlogPosts from './Pages/BlogPosts/BlogPosts';
 const App = () => {
 
   return(
-    <Checkout/>
+    <CodeBot/>
   );
   
 };
