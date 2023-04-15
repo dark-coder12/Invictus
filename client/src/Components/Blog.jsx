@@ -5,6 +5,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import BlogModal from './BlogModal';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 export default function Blog({blogName,description,imgSrc}) {
   return (
@@ -25,8 +27,11 @@ export default function Blog({blogName,description,imgSrc}) {
       </CardContent>
       
       <CardActions>
-        <Button size="small" sx={{color:"white"}} >Share</Button>
-        <Button size="small" sx={{color:"white"}} >Learn More</Button>
+        <Button size="small" sx={{color:"white"}} >
+          <FavoriteIcon/>
+          33
+        </Button>
+        <BlogModal imgSrc={imgSrc} blogName={blogName} description={description}/>
       </CardActions>
     </Card>
   );

@@ -83,6 +83,7 @@ const options = {
 };
 
 var bloggerDescription = 'As a blogger, I have the amazing opportunity to share my thoughts, ideas, and experiences with a vast audience. Its truly rewarding to express myself and connect with others who share my interests through my blog. To be a successful blogger, I understand the importance of having a clear focus for my blog and creating high-quality content that engages and informs my readers consistently. Additionally, I have developed skills in social media marketing and search engine optimization to help promote my blog and expand my audience. Despite its challenges, blogging is a fulfilling pursuit, and I am excited to continue on this journey and see where it takes me.';
+var classesInJava = 'Java is an object-oriented programming language.Everything in Java is associated with classes and objects, along with its attributes and methods. For example: in real life, a car is an object. The car has attributes, such as weight and color, and methods, such as drive and brake.A Class is like an object constructor, or a "blueprint" for creating objects.'
 
 export default function BlogPosts () {
     const particlesInit = async (main) => {
@@ -100,8 +101,6 @@ export default function BlogPosts () {
                     <LeftNav/>
                 </div>
                 
-
-          
                 <div style={{width:"80%", overflow:"auto"}}>
                   <div className='ml-8 flex'>
                     <div className="flex-col justify-center">
@@ -116,7 +115,7 @@ export default function BlogPosts () {
                   </div>
                   <div  style={{ width:"100%",overflow:"auto", padding:"2%"}} className='grid grid-cols-3'>
                     <div style={{margin:"2%",width:"auto",height:"auto"}}>
-                      <Blog blogName="Clases in java" description="Object is used to have multiple data srtuctures like arrays, integeres and all..." imgSrc='java.png'/>
+                      <Blog blogName="Clases in java" description={classesInJava} imgSrc='java.png'/>
                     </div>
                     <div style={{margin:"2%",width:"auto",height:"auto"}}>
                       <Blog blogName="My Favorite Algorithim" description="It was so nice being in the mountains" imgSrc='algo.jpeg'/>
