@@ -107,12 +107,12 @@ function Profile()  {
                     <div className="w-100 flex items-center justify-center">
                         <div className="w-50 m-20 flex flex-col items-center justify-center">
 
-                            <Avatar sx={{ width: 100, height: 100 }} className='hover:border-4' alt="Travis Howard" src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
+                            <Avatar sx={{ width: 100, height: 100 }}  className='hover:border-4' alt="Travis Howard" src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
                             <h1 className="text-center p-10">Burak Bin Munir</h1>
                             <div className='mb-10' >                            
                                 <EditProfileModal username='burakbinmunir' email='burakbinmunir@gmail.com'/>
                             </div>
-                            <Button variant="outlined" color="error" >Delete Account</Button>
+                            <Button variant="varient" color="error" >Delete Account</Button>
                         </div> 
 
                         <div className='h-50  bg-[#000000] bg-opacity-70 flex-column'>
