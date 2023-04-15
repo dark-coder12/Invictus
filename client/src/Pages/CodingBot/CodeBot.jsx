@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import LeftNav from "../../Components/LeftNav";
-import DownloadCertificate from "../../Components/DownloadCertificate";
-import PaymentPopup from "../../Components/PaymentPopup";
+import CodeSuggestionForm from "../../Components/CodeSuggestionForm";
 
 const options = {
   fps_limit: 60,
@@ -73,19 +72,9 @@ const options = {
   retina_detect: true,
 };
 
-const Checkout = () => {
-
-  const [paid, setPaid] = useState(false);
-
+const CodeBot = () => {
   const particlesInit = async (main) => {
     await loadFull(main);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-   
-    alert('Payment information submitted');
-    setPaid(true);
   };
 
   const particlesLoaded = (container) => {};
@@ -98,18 +87,11 @@ const Checkout = () => {
          <LeftNav/>
        </div>
 
-       <div className="bg-[#000000] bg-opacity-70 h-full w-[80%] pl-10  overflow-y-auto scrollbar-thumb-transparent scrollbar-track-transparent">
-        {
-            paid &&
+        <div className="bg-[#000000] bg-opacity-70 h-full w-[80%] pl-10 ">
             <div className="pl-[3%]">
-            <DownloadCertificate name="Izzah" />
+            <CodeSuggestionForm/>
             </div>
-        }
-        {
-          !paid && <PaymentPopup handleSubmit={handleSubmit}/>
-        }
         </div>
-        
       </div>
 
       <Particles
@@ -122,4 +104,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default CodeBot;
