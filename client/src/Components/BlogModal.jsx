@@ -1,9 +1,7 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import InputField from './inputField';
 import Modal from '@mui/material/Modal';
 import Fab from '@mui/material/Fab';
-import SelectAutoWidth from './SelectAutoWidth';
 import { Avatar, AvatarGroup } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -48,7 +46,7 @@ export default function BlogModal({imgSrc,blogName,description,authorName,date})
         aria-describedby="modal-modal-description"
       >
         
-    <div className='w-[80%] bg-white m-[5%] ml-[10%] overflow-auto '>
+    <div className='w-[80%] bg-white m-[5%] ml-[10%] overflow-auto rounded-lg'>
             <div className="bg-white shadow-md rounded-lg p-4 text-black text-opacity-80 border border-black">
               <div className="flex items-center mb-4 text-black text-opacity-80">
                 <img
@@ -68,7 +66,7 @@ export default function BlogModal({imgSrc,blogName,description,authorName,date})
                 <div className="flex flex-col items-center gap-5 text-justify">
                   <p className="font-[500] text-xs">{description}</p>
                   <img
-                    src={imgSrc}
+                    img={imgSrc}
                     alt="Post Image"
                     className="w-[50%] rounded-md mb-4"
                   />
@@ -90,10 +88,9 @@ export default function BlogModal({imgSrc,blogName,description,authorName,date})
                     <h1>and others.</h1>
                 </div>
                 
-                <div className='flex flex-row'>
-                      <EditIcon/>
-                      <DeleteIcon/>
-
+                <div className='ml-[65%]'>
+                      <EditIcon sx={{width:40, height:40}}/>
+                      <DeleteIcon sx={{width:40, height:40}}/>
                 </div>
             </div>
               </div>
