@@ -9,13 +9,13 @@ import Typography from '@mui/material/Typography';
 export default function Blog({blogName,description,imgSrc}) {
   return (
     
-    <Card className='hover:motion-safe:animate-spin hover:bg-none hover:bg-opacity-50 gradientHover cursor-pointer hover:font-[600]' sx={{ maxWidth: 345 }}>
+    <Card className='hover:bg-none hover:bg-opacity-50 gradientHover cursor-pointer hover:font-[600]' sx={{ maxWidth: 345 }}>
       <CardMedia
-        sx={{ height: 140 }}
+        sx={{ height: 100, width:"auto" }}
         image={imgSrc}
         title="green iguana"
       />
-      <CardContent className='text-white'>
+      <CardContent className='text-white min-h-25 max-h-25'>
         <Typography gutterBottom variant="h5" component="div">
           {blogName}
         </Typography>
