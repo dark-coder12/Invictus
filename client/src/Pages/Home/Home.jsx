@@ -19,7 +19,7 @@ import blogLogo from "../../Assets/pictures/blogLogo.png";
 import communityLogo from "../../Assets/pictures/communityLogo.png";
 import LinearWithValueLabel from "../../Components/ProgressBar";
 import badgeLogo from "../../Assets/pictures/badgeLogo.png";
-import halsey from "../../Assets/pictures/halsey.jpg";
+import techImg from "../../Assets/pictures/techImg.jpg"
 
 const options = {
   fps_limit: 60,
@@ -117,20 +117,20 @@ const Home = () => {
           </div>
           <div className="w-[60%] h-[40%] shadow-xl rounded-md flex flex-col gap-5 overflow-y-auto">
             <ConnectionPost
-              blogName='"Halsey is Cool"'
+              blogName='"Invictus: The New Fad"'
               authorName="Coolio"
               date="12/07/22"
               icon={displayPicture}
-              image={halsey}
+              image={techImg}
               text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             />
 
             <ConnectionPost
-              blogName='"Halsey is Cool"'
+              blogName='"The current advancements in Tech"'
               authorName="Coolio"
               date="12/07/22"
               icon={displayPicture}
-              image={halsey}
+              image={techImg}
               text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             />
           </div>

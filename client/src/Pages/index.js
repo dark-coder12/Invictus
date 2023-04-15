@@ -11,8 +11,9 @@ import MeetUp from './/MeetUp/MeetUp';
 import Signin from './Signin/Signin';
 import MeetUpInfo from './/MeetUp/MeetUpInfo';
 import BlogPosts from './BlogPosts/BlogPosts';
+import Profile from './Profile/Profile';
 
 export{
-    Landing, Signup, Home, CertificationLanding, AllCertifications, MCQTest,  Certification, Checkout, CodeBot, MeetUp, Signin, MeetUpInfo, BlogPosts
+    Landing, Signup, Home, CertificationLanding, AllCertifications, MCQTest,  Certification, Checkout, CodeBot, MeetUp, Signin, MeetUpInfo, BlogPosts, Profile
 }
 
