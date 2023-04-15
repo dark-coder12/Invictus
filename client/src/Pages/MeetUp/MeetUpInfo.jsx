@@ -2,7 +2,6 @@ import React from "react";
 import LeftNav from "../../Components/LeftNav";
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import DateRangeIcon from '@mui/icons-material/DateRange';
-import 'C:/Users/Mr  Rabbani/OneDrive - FAST National University/Semester-6/Web Engineering/Project/Invictus/client/src/index.css'
 import { Avatar, AvatarGroup} from "@mui/material";
 import Fab from '@mui/material/Fab';
 import Particles from "react-tsparticles";

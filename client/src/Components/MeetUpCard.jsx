@@ -1,12 +1,12 @@
 import React from "react";
-import 'C:/Users/Mr  Rabbani/OneDrive - FAST National University/Semester-6/Web Engineering/Project/Invictus/client/src/index.css'
 
 export default function MeetUpCard ({date,imgSrc,eventName,conductedBy,attending,description}) {
+
     return (
         <div className='border flex glassmorph p-2'>
 
             <div style={{borderRight:"1px solid white"}} className='p-2 flex flex-col justify-center w-1/4'> 
-                <img src={imgSrc}></img>
+                <img className='rounded-xl m-4' src={imgSrc}></img>
             </div>
             <div className="m-2 w-4/5">
 
