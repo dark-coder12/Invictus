@@ -3,7 +3,8 @@ import LeftNav from '../../Components/LeftNav';
 import MeetUpCard from '../../Components/MeetUpCard';
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
-import 'C:/Users/Mr  Rabbani/OneDrive - FAST National University/Semester-6/Web Engineering/Project/Invictus/client/src/index.css'
+import ccs from '../../Assets/pictures/ccs.jpg'
+
 const options = {
     fps_limit: 60,
     interactivity: {
@@ -90,31 +91,29 @@ export default function MeetUp () {
     const particlesLoaded = (container) => {};
     
     return (
-        <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
+        <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 flex justify-center items-center bg-black pt-[5%] pb-[5%]">
             <div className="w-[80%] h-[90%] flex flex-row z-10">
         
-                <div className ='w-[20%]'>
+                <div className ='w-[15%]'>
                     <LeftNav/>
                 </div>
 
-                <div className='m-2 w-[80%]'>
-                    <h1 className='text-4xl'>See what's happening around?</h1>
-                    <div className='m-2'>
-                        <MeetUpCard  date={'April, 15 2023 . 12:30 PK PKT'} description={'Jamming session where everyone can show case there skills'} imgSrc='fms.png' conductedBy={'Fast Music Society . FAST LHR'} eventName={'Jamming Session'} attending={12}/>
-                    </div>
-                     
-                    <div className='m-2'>
-                        <MeetUpCard  date={'April, 25 2023 . 4:30 PK PKT'} imgSrc='stacks.svg' description={'Meet up for the fundamentals of the blockchain'} conductedBy={'Stack FAST Chapter . Lahore PK'} eventName={'BlockChain Cohot 4.0'} attending={4}/>
-                    </div>
-                     
-                    <div className='m-2'>
-                        <MeetUpCard  date={'April, 25 2023 . 4:30 PK PKT'} imgSrc='stacks.svg' conductedBy={'Stack FAST Chapter . Lahore PK'} eventName={'BlockChain Cohot 4.0'} attending={4}/>
-                    </div>
-                     
-                    <div className='m-2'>
-                        <MeetUpCard  date={'April, 25 2023 . 4:30 PK PKT'} imgSrc='stacks.svg' conductedBy={'Stack FAST Chapter . Lahore PK'} eventName={'BlockChain Cohot 4.0'} attending={4}/>
+                <div className='m-2 w-[85%] pl-[5%]'>
+                    <h1 className='text-4xl pt-6 pl-6'>See what's happening around?</h1>
+                    <p className='pt-6 pb-6 pl-6'>Wish to attend what you like? Just register!</p>
+
+                    <div className='m-6'>
+                        <MeetUpCard  date={'April, 25 2023 . 4:30 PK PKT'} imgSrc='stacks.svg' conductedBy={'Stack FAST Chapter . Lahore PK'} eventName={'BlockChain Cohort 4.0'} attending={4}/>
                     </div>
                     
+  
+                    <div className='m-6'>
+                        <MeetUpCard  date={'April, 23 2023 . 7:30 PK PKT'} imgSrc={ccs} description={'Meet the most influential people of Pakistan and hear their perspectives on the things that actually matter!'} conductedBy={'Career Counseling Society . FAST LHR'} eventName={'NUCES Talks 23'} attending={4}/>
+                    </div>
+                     
+                    <div className='m-6 '>
+                        <MeetUpCard  date={'April, 15 2023 . 12:30 PK PKT'} description={'Jamming session where everyone can show case their skills.'} imgSrc='fms.png' conductedBy={'Fast Music Society . FAST LHR'} eventName={'Jamming Session'} attending={12}/>
+                    </div>
                     
                 </div>
 

@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import BlogModal from './BlogModal';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
+
 export default function Blog({blogName,description,imgSrc}) {
   return (
     
