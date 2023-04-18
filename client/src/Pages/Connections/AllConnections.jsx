@@ -1,10 +1,13 @@
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import LeftNav from "../../Components/LeftNav";
-import InputField from "../../Components/inputField";
-import NewCommunitiesList from "../../Components/NewCommunitiesList";
-import ExistingCommunities from "../../Components/ExistingCommunities";
+import MyConnections from "../../Components/MyConnections";
+import SearchedConnection from "../../Components/SearchedConnection";
+
+import bis from "../../Assets/pictures/bis.jpg";
+import iz from "../../Assets/pictures/iz.jpg";
 
 const options = {
     fps_limit: 60,
@@ -72,9 +75,9 @@ const options = {
       url: "",
     },
     retina_detect: true,
-  };  
+  };   
 
-const AllCommunities = () => {
+const AllConnections = () => {
 
     const particlesInit = async (main) => {
         await loadFull(main);
@@ -82,18 +85,28 @@ const AllCommunities = () => {
     
     const particlesLoaded = (container) => {};
 
-    return(
-     <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
-      <div className="w-[100%] h-[90%]  flex flex-row z-10 justify-center items-center" >
-         
-        <div className ='w-[15%]'>
-           <LeftNav/>
-        </div>
+    const allUsers = [
+      {
+          icon: bis,
+          name: 'Bisma-ashar246'
+      },
+      {
+          icon: iz,
+          name: 'Izza-coder12'
+      },
+    ]
 
-        <div className="bg-[#000000] bg-opacity-70 h-full w-[65%]">
-         
-          <div className="flex flex-col w-[60%] pt-[5%]">
-               <h1 className="text-4xl m-0 pb-10">Browse through the existing communities.</h1>
+    return(
+    <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
+      <div className="w-[80%] h-[90%] flex flex-row z-10">
+       
+       <div className ='w-[15%]'>
+         <LeftNav/>
+       </div>
+
+        <div className="bg-[#000000] bg-opacity-70 h-full w-[80%] pl-10 overflow-y-auto">       
+          <div className="flex flex-col w-[70%] pt-[5%]">
+               <h1 className="text-4xl m-0 pb-10">Invictus Connect - Find your kind of people!</h1>
                <div class="rounded-full bg-gray-100 flex flex-row items-center p-2 pl-5 w-[140%] h-[80%] mb-14">
                 <svg
                     class="svg-icon search-icon left-2 h-4 w-6 text-gray-500"
@@ -112,28 +125,42 @@ const AllCommunities = () => {
                 <input
                     type="text"
                     class="w-full rounded-full bg-gray focus:outline-none focus:ring-0 pl-4 font-[100] text-sm"
-                    placeholder="Explore Communities!"
+                    placeholder="Search Connections!"
                 />
-                </div>           
-          </div>
-            <div className="pl-[3%]">
-              <NewCommunitiesList/>
+                </div>
             </div>
-       </div>
-            <div className ='w-[20%]'>
-              <ExistingCommunities/>
-            </div>        
-      </div>
 
-      <Particles
+            <div>
+              {allUsers.map(user => (
+                <SearchedConnection 
+                icon={user.icon} 
+                name={user.name}
+                />
+              ))}
+            </div>
+        </div>
+
+        <div className="bg-[#020202] h-full w-[30%]    flex flex-col items-center gap-10 rounded-r-md ">
+          <div className="rounded-md  mt-10 w-[80%] h-[40%]">
+            <div>
+              <h1 className="ml-4 mb-4">View Your Connections!</h1>
+              <MyConnections
+              />
+            </div>
+          </div>
+        </div>
+
+
+       </div>
+        <Particles
         className="z-0 absolute top-0 left-0 w-full h-full"
         init={particlesInit}
         loaded={particlesLoaded}
         options={options}
       />
-     </div>
+    </div>
 
     )
 }
 
-export default AllCommunities
+export default AllConnections
