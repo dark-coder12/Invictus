@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import LeftNav from "../../Components/LeftNav";
-import MCQList from "../../Components/MCQList";
+import CodeSuggestionForm from "../../Components/CodeSuggestionForm";
 import { options } from "../../Assets/code/options";
 
-const MCQTest = () => {
+const CodeBot = () => {
   const particlesInit = async (main) => {
     await loadFull(main);
   };
@@ -19,9 +19,9 @@ const MCQTest = () => {
           <LeftNav />
         </div>
 
-        <div className="bg-[#000000] bg-opacity-70 h-full w-[80%] pl-10  overflow-y-auto scrollbar-thumb-transparent scrollbar-track-transparent">
+        <div className="bg-[#000000] bg-opacity-70 h-full w-[80%] pl-10 ">
           <div className="pl-[3%]">
-            <MCQList />
+            <CodeSuggestionForm />
           </div>
         </div>
       </div>
@@ -36,4 +36,4 @@ const MCQTest = () => {
   );
 };
 
-export default MCQTest;
+export default CodeBot;

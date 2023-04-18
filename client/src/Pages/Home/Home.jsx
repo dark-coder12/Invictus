@@ -19,75 +19,8 @@ import blogLogo from "../../Assets/pictures/blogLogo.png";
 import communityLogo from "../../Assets/pictures/communityLogo.png";
 import LinearWithValueLabel from "../../Components/ProgressBar";
 import badgeLogo from "../../Assets/pictures/badgeLogo.png";
-import halsey from "../../Assets/pictures/halsey.jpg";
-
-const options = {
-  fps_limit: 60,
-  interactivity: {
-    detect_on: "canvas",
-    events: {
-      onclick: { enable: false, mode: "push" },
-      onhover: {
-        enable: false,
-        mode: "attract",
-        parallax: { enable: false, force: 60, smooth: 10 },
-      },
-      resize: true,
-    },
-    modes: {
-      push: { quantity: 4 },
-      attract: { distance: 200, duration: 0.4, factor: 5 },
-    },
-  },
-  particles: {
-    color: { value: "#ffffff" },
-    line_linked: {
-      color: "#ffffff",
-      distance: 150,
-      enable: true,
-      opacity: 0.4,
-      width: 1,
-    },
-
-    number: { density: { enable: true, value_area: 800 }, value: 80 },
-    opacity: {
-      anim: { enable: false, opacity_min: 0, speed: 1, sync: false },
-      random: false,
-      value: 0.1,
-    },
-    shape: {
-      character: {
-        fill: false,
-        font: "Verdana",
-        style: "",
-        value: "*",
-        weight: "400",
-      },
-      image: {
-        height: 100,
-        replace_color: true,
-        src: "images/github.svg",
-        width: 100,
-      },
-      polygon: { nb_sides: 5 },
-      stroke: { color: "#000000", width: 0 },
-      type: "none",
-    },
-    size: {
-      anim: { enable: false, size_min: 0.1, speed: 40, sync: false },
-      random: true,
-      value: 5,
-    },
-  },
-  polygon: {
-    draw: { enable: false, lineColor: "#ffffff", lineWidth: 0.5 },
-    move: { radius: 10 },
-    scale: 1,
-    type: "none",
-    url: "",
-  },
-  retina_detect: true,
-};
+import techImg from "../../Assets/pictures/techImg.jpg";
+import { options } from "../../Assets/code/options";
 
 const Home = () => {
   const particlesInit = async (main) => {
@@ -99,10 +32,9 @@ const Home = () => {
   return (
     <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
       <div className="w-[80%] h-[90%] flex flex-row z-10">
-       
-       <div className ='w-[15%]'>
-         <LeftNav/>
-       </div>
+        <div className="w-[15%]">
+          <LeftNav />
+        </div>
 
         <div className="bg-[#000000] bg-opacity-70 h-full w-[65%] flex flex-col items-center justify-center gap-10">
           <div className="pt-5 flex flex-col items-center">
@@ -117,20 +49,20 @@ const Home = () => {
           </div>
           <div className="w-[60%] h-[40%] shadow-xl rounded-md flex flex-col gap-5 overflow-y-auto">
             <ConnectionPost
-              blogName='"Halsey is Cool"'
+              blogName='"Invictus: The New Fad"'
               authorName="Coolio"
               date="12/07/22"
               icon={displayPicture}
-              image={halsey}
+              image={techImg}
               text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             />
 
             <ConnectionPost
-              blogName='"Halsey is Cool"'
+              blogName='"The current advancements in Tech"'
               authorName="Coolio"
               date="12/07/22"
               icon={displayPicture}
-              image={halsey}
+              image={techImg}
               text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             />
           </div>

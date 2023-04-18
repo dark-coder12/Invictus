@@ -11,7 +11,7 @@ function LinearProgressWithLabel(props) {
       <Box sx={{ width: "100%", mr: 1 }}>
         <LinearProgress
           variant="determinate"
-          {...other} 
+          {...other}
           sx={{
             bgcolor: "#161616",
             borderRadius: 10,
@@ -24,7 +24,7 @@ function LinearProgressWithLabel(props) {
         />
       </Box>
       <Box>
-        {show && ( 
+        {show && (
           <Typography variant="body2" color="text.secondary">{`${Math.round(
             props.value
           )}%`}</Typography>
@@ -36,7 +36,7 @@ function LinearProgressWithLabel(props) {
 
 LinearProgressWithLabel.propTypes = {
   value: PropTypes.number.isRequired,
-  show: PropTypes.bool.isRequired, // 
+  show: PropTypes.bool.isRequired, //
 };
 
 export default function LinearWithValueLabel({ showPer }) {

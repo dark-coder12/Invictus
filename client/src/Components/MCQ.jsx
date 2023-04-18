@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 
 const MCQ = ({ question, options, answer, onOptionSelect }) => {
   const [selectedOption, setSelectedOption] = useState(null);
-  
+
   useEffect(() => {
     setSelectedOption(null);
   }, [question]);
-  
+
   const handleOptionClick = (index) => {
     setSelectedOption(index);
     onOptionSelect();
   };
-  
+
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <h2 className="text-3xl font-bold mb-8">{question}</h2>
@@ -33,6 +33,5 @@ const MCQ = ({ question, options, answer, onOptionSelect }) => {
     </div>
   );
 };
-  
 
 export default MCQ;
