@@ -9,11 +9,15 @@ import Checkout from './Certification/Checkout';
 import CodeBot from './CodingBot/CodeBot';
 import MeetUp from './/MeetUp/MeetUp';
 import Signin from './Signin/Signin';
-import MeetUpInfo from './/MeetUp/MeetUpInfo';
+import MeetUpInfo from './MeetUp/MeetUpInfo';
 import BlogPosts from './BlogPosts/BlogPosts';
 import Profile from './Profile/Profile';
+import AllCommunities from './Community/AllCommunities';
+import Community from './Community/Community';
+import AllConnections from './Connections/AllConnections';
+import OneConnection from './Connections/OneConnection';
 
 export{
-    Landing, Signup, Home, CertificationLanding, AllCertifications, MCQTest,  Certification, Checkout, CodeBot, MeetUp, Signin, MeetUpInfo, BlogPosts, Profile
+    Landing, Signup, Home, CertificationLanding, AllCertifications, MCQTest,  Certification, Checkout, CodeBot, MeetUp, Signin, MeetUpInfo, BlogPosts, Profile, AllCommunities, Community, AllConnections, OneConnection
 }
 

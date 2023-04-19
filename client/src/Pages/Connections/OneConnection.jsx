@@ -108,14 +108,14 @@ const OneConnection = () => {
       ]
     
     return(
-      <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
-        <div className="w-[80%] h-[90%] flex flex-row z-10">
+      <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black pt-[5%] pb-[5%]">
+        <div className="w-[80%] h-[100%] flex flex-row z-10">
        
           <div className ='w-[15%]'>
           <LeftNav/>
           </div> 
 
-          <div className="bg-[#000000] bg-opacity-70 h-full w-[85%] flex flex-col items-center justify-center border border-[#020202]">
+          <div className="bg-[#000000] bg-opacity-70 h-full w-[100%] flex flex-col items-center justify-center border border-[#020202] ml-[5%]">
           <div className="flex flex-row border border-[#3A0303]">
           
           <div className="w-[30%] border border-[#3A0303] p-6">
@@ -141,13 +141,13 @@ const OneConnection = () => {
            ))}
            </div>
 
-           <div className ='w-[15%] mt-20 align-center ml-7 flex flex-col'>
+           <div className ='w-[15%] mt-20 align-center flex flex-col'>
            <div><PieChartClass/></div>
          
-           <div className="pt-150 content-center text-[#979797] text-sm">
-            <h5 className="mt-60 justify-center hover:underline underline-offset-4">Email:bismaashar665@gmail.com</h5>
-            <p className="text-center hover:underline underline-offset-4">GitHub:https://github.com/bismaashar</p>
-            <p className="mb-10 text-center hover:underline underline-offset-4">Contact: 042-457-246</p>
+           <div className="content-center text-[#979797] text-sm ml-[10%] ">
+            <h5 className="text-justify pt-[80%] justify-center hover:underline underline-offset-4 mb-4">Email:<br></br>bismaashar665@gmail.com</h5>
+            <p className="text-justify text-center hover:underline underline-offset-4 mb-4">GitHub:<br></br>www.github.com/bismaashar</p>
+            <p className="mb-10 text-center hover:underline underline-offset-4 text-justify ">Contact:<br></br> 042-457-246</p>
            </div>
           </div> 
           </div>

@@ -37,13 +37,13 @@ const ExistingCommunities = () => {
       ];
 
     return (
-        <div className="bg-[#020202] h-full flex flex-col items-center rounded-r-md ">
+        <div className="h-full flex flex-col items-center rounded-r-md ">
           <div className="rounded-md  mt-10 h-[40%]">
-            <div className="flex flex-row flex-wrap gap-8 p-5 items-center justify-center bg-gray-black rounded-md bgcheck  bg-opacity-20">
+            <div className="flex flex-row flex-wrap gap-8 p-5 items-center justify-center  rounded-md bgcheck  bg-opacity-20">
             <p>My Communities</p>
-            <div className="text-lg flex flex-col gap-5 items-center justify-center pt-3 pl-3 pr-4 border border-white rounded-md">
+            <div className="text-lg flex flex-col gap-5 items-center justify-center pt-3 pl-10 pr-2">
             { existCommunity .map(community => (
-                <div className="flex flex-row bg-black h-[7rem] w-[15rem] p-2 items-center justify-center">
+                <div className="flex flex-row bg-black h-[7rem] w-[15rem] p-2 items-center justify-center rounded-md">
                 <img src={community.image} alt="pic" className="w-[60%] h-[60%] rounded-full"></img>
                 <p className="font-[20] text-sm justify-center ml-5 pr-10">{community.title}</p>
                 </div>

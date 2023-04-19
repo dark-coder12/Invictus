@@ -30,7 +30,7 @@ class PieChartClass extends React.Component {
    
 render() {
    return (
-      <PieChart margin={15} width={300} height={300}>
+      <PieChart margin={15} width={300} height={300}className='text-sm '>
       <Pie
          data={this.pieData}
          color="#000000"

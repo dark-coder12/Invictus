@@ -96,6 +96,10 @@ const AllConnections = () => {
       },
     ]
 
+    const isAdded = [
+      true,false
+    ];
+
     return(
     <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
       <div className="w-[80%] h-[90%] flex flex-row z-10">
@@ -131,10 +135,11 @@ const AllConnections = () => {
             </div>
 
             <div>
-              {allUsers.map(user => (
+              {allUsers.map((user,index) => (
                 <SearchedConnection 
                 icon={user.icon} 
                 name={user.name}
+                isAdded={isAdded[index]}
                 />
               ))}
             </div>

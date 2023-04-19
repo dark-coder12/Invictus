@@ -83,18 +83,19 @@ const AllCommunities = () => {
     const particlesLoaded = (container) => {};
 
     return(
-     <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
-      <div className="w-[100%] h-[90%]  flex flex-row z-10 justify-center items-center" >
+     <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center bg-black ">
+      <div className="w-[100%] h-[100%]  flex flex-row z-10 justify-center p-[3%]">
          
         <div className ='w-[15%]'>
            <LeftNav/>
         </div>
 
-        <div className="bg-[#000000] bg-opacity-70 h-full w-[65%]">
+        <div className="bg-[#000000] bg-opacity-70 h-full w-[65%] overflow-auto p-[2%] m-[3%] pt-0">
          
-          <div className="flex flex-col w-[60%] pt-[5%]">
-               <h1 className="text-4xl m-0 pb-10">Browse through the existing communities.</h1>
-               <div class="rounded-full bg-gray-100 flex flex-row items-center p-2 pl-5 w-[140%] h-[80%] mb-14">
+          <div className="flex flex-col w-[100%] pt-[5%]">
+           
+               <h1 className="text-4xl m-0 pb-10 w-[60%]">Browse through the existing communities.</h1>
+               <div class="rounded-full bg-gray-100 flex flex-row items-center p-2 pl-5 w-[100%] h-[80%] mb-14">
                 <svg
                     class="svg-icon search-icon left-2 h-4 w-6 text-gray-500"
                     aria-labelledby="title desc"
@@ -116,7 +117,7 @@ const AllCommunities = () => {
                 />
                 </div>           
           </div>
-            <div className="pl-[3%]">
+            <div>
               <NewCommunitiesList/>
             </div>
        </div>

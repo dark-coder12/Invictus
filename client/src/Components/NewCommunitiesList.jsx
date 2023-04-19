@@ -40,7 +40,7 @@ const NewCommunitiesList = () => {
   
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto py-8 flex flex-row justify-center">
       <div className="grid grid-cols-1 sm:grid-cols-2  gap-14 w-[80%] h-[60%]">
         {communities.map(community => (
           <CommunityCard

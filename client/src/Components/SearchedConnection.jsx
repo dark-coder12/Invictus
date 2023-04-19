@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchedConnection = ({icon,name}) => {
+const SearchedConnection = ({icon,name, isAdded}) => {
   return(
     <div className='flex flex-row rounded-md bg-[#000000] border border-white mb-5 h-[5rem] w-[45rem] justify-between'>
        <div className='flex flex-row'> 
@@ -8,14 +8,23 @@ const SearchedConnection = ({icon,name}) => {
        <h3 className='ml-3 mt-6'>{name}</h3>
        </div>
 
-       <div className='mt-4'>
-       <button class="text-xs ml-2 px-2 mt-3 py-1 text-white bg-[#3a0303] hover:bg-[#2B0202] rounded-lg focus:outline-none">
-        View Profile
-       </button>
-       <button className="text-xs ml-2 mr-3 px-2 mt-3 py-1 text-white bg-[#3a0303] hover:bg-[#2B0202] rounded-lg focus:outline-none" type="submit">
-        Add Connection
-       </button>
-       </div>
+      {isAdded &&
+      <div className='m-4'>
+        <button class="text-xs px-2 py-1 text-white bg-[#3a0303] hover:bg-[#2B0202] rounded-lg focus:outline-none">
+          View Connection
+        </button>
+      </div>
+       }
+       {
+        
+        !isAdded && 
+        <div className='m-4'>
+            <button className="text-xs  px-2 py-1 text-white bg-[#3a0303] hover:bg-[#2B0202] rounded-lg focus:outline-none" type="submit">
+          Add Connection
+        </button>
+        </div>
+       }
+       
     </div>
   )
 }
