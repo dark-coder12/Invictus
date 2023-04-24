@@ -1,6 +1,6 @@
 import React from "react";
 
-const PasswordField = ({ htmlFor, text, name, id, type, placeholder }) => {
+const PasswordField = ({ htmlFor, text, name, id, type, placeholder, value1, value2, onChange1, onChange2 }) => {
   return (
     <div className="mb-4 flex gap-2">
       <div className="w-1/2">
@@ -12,6 +12,8 @@ const PasswordField = ({ htmlFor, text, name, id, type, placeholder }) => {
           id="password"
           type={type}
           placeholder={placeholder}
+          value={value1}
+          onChange={onChange1}
         />
       </div>
       <div className="w-1/2">
@@ -23,6 +25,8 @@ const PasswordField = ({ htmlFor, text, name, id, type, placeholder }) => {
           id="confirmPassword"
           type={type}
           placeholder={placeholder}
+          value={value2}
+          onChange={onChange2}
         />
       </div>
     </div>

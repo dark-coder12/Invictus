@@ -23,6 +23,15 @@ import techImg from "../../Assets/pictures/techImg.jpg";
 import { options } from "../../Assets/code/options";
 
 const Home = () => {
+
+   const cookies = document.cookie.split(';').reduce((prev, current) => {
+    const [name, value] = current.trim().split('=');
+    prev[name] = value;
+    return prev;
+  }, {});
+
+  const isAuthenticated = cookies.authenticated === 'true';
+
   const particlesInit = async (main) => {
     await loadFull(main);
   };
@@ -30,7 +39,13 @@ const Home = () => {
   const particlesLoaded = (container) => {};
 
   return (
-    <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
+    
+    <div>
+    {isAuthenticated ? (
+      <h1 className="text-white">No</h1>
+    ) : (
+
+      <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
       <div className="w-[80%] h-[90%] flex flex-row z-10">
         <div className="w-[15%]">
           <LeftNav />
@@ -152,6 +167,8 @@ const Home = () => {
         options={options}
       />
     </div>
+    )}
+  </div>
   );
 };
 

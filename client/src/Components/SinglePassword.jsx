@@ -1,6 +1,6 @@
 import React from "react";
 
-const SinglePassword = ({ htmlFor, text, name, id, type, placeholder }) => {
+const SinglePassword = ({ htmlFor, text, name, id, type, placeholder, value, onChange }) => {
   return (
     <div className="mb-4 flex gap-2">
       <div className="w-full">
@@ -12,6 +12,8 @@ const SinglePassword = ({ htmlFor, text, name, id, type, placeholder }) => {
           id="password"
           type={type}
           placeholder={placeholder}
+          value = {value}
+          onChange = {onChange}
         />
       </div>
     </div>

@@ -3,10 +3,20 @@ import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { options } from "../../Assets/code/options";
 
+import { useNavigate } from 'react-router-dom';
+
 const Landing = () => {
+
+const navigate = useNavigate();
+
   const particlesInit = async (main) => {
     await loadFull(main);
   };
+
+  
+  function handleGetStartedClick() {
+    navigate('/signup');
+  }
 
   const particlesLoaded = (container) => {};
 
@@ -14,11 +24,11 @@ const Landing = () => {
     function handleScroll() {
       const heading = document.querySelector(".card");
       const scrollPosition = window.scrollY;
-      const opacity = 1 - scrollPosition / 400;
+      const opacity = 1 - scrollPosition / 300;
 
       const heading2 = document.querySelector(".info");
       const scrollPosition2 = window.scrollY;
-      const opacity2 = -1 + scrollPosition2 / 450;
+      const opacity2 = -1 + scrollPosition2 / 350;
 
       heading.style.opacity = opacity;
       heading2.style.opacity = opacity2;
@@ -46,7 +56,9 @@ const Landing = () => {
             that Izzah is the coolest.
           </p>
         </div>
-        <button className="mt-8 text-2xl transform transition-all duration-300 w-full z-10 hover:scale-110">
+        <button className="mt-8 text-2xl transform transition-all duration-300 w-full z-10 hover:scale-90" 
+        onClick={handleGetStartedClick}
+        >
           Let's get started <br />
           <p className="text-7xl">&rarr;</p>
         </button>
