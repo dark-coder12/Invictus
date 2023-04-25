@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
-import { Landing, Signup, Home, CertificationLanding, AllCertifications, MCQTest, Certification, Checkout,Profile, MeetUp, Signin, MeetUpInfo, BlogPosts, AllCommunities, Community, AllConnections, OneConnection } from './Pages';
+import { Landing, Signup, Home, CertificationLanding, AllCertifications, MCQTest, Certification, Checkout,Profile, MeetUp, Signin, MeetUpInfo, BlogPosts, AllCommunities, Community, AllConnections, OneConnection, VideoCall } from './Pages';
 
 const App = () => {
 
@@ -26,6 +26,7 @@ const App = () => {
         <Route path="/community/:id" element={<Community />} />
         <Route path="/all-connections" element={<AllConnections />} />
         <Route path="/connection/:id" element={<OneConnection />} />
+        <Route path = "/video-call" element = {<VideoCall/>}/>
       </Routes>
     </BrowserRouter>
   )
