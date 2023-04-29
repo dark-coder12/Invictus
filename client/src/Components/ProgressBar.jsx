@@ -5,12 +5,13 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 function LinearProgressWithLabel(props) {
-  const { show, ...other } = props;
+  const { show, value, ...other } = props;
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Box sx={{ width: "100%", mr: 1 }}>
         <LinearProgress
           variant="determinate"
+          value={value}
           {...other}
           sx={{
             bgcolor: "#161616",
@@ -26,7 +27,7 @@ function LinearProgressWithLabel(props) {
       <Box>
         {show && (
           <Typography variant="body2" color="text.secondary">{`${Math.round(
-            props.value
+            value
           )}%`}</Typography>
         )}
       </Box>
@@ -36,15 +37,13 @@ function LinearProgressWithLabel(props) {
 
 LinearProgressWithLabel.propTypes = {
   value: PropTypes.number.isRequired,
-  show: PropTypes.bool.isRequired, //
+  show: PropTypes.bool.isRequired,
 };
 
-export default function LinearWithValueLabel({ showPer }) {
-  const [progress, setProgress] = React.useState(40);
-
+export default function LinearWithValueLabel({ showPer, progress }) {
   return (
     <Box sx={{ width: "100%" }}>
-      <LinearProgressWithLabel value={progress} show={showPer} />
+      <LinearProgressWithLabel value={progress}  />
     </Box>
   );
 }

@@ -6,8 +6,31 @@ import DownloadCertificate from "../../Components/DownloadCertificate";
 import PaymentPopup from "../../Components/PaymentPopup";
 import { options } from "../../Assets/code/options";
 
+import axios from "axios";
+
 const Checkout = () => {
+
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+
   const [paid, setPaid] = useState(false);
+
+  useEffect(() => {
+    const userID = localStorage.getItem('userID');
+  
+    axios.post('http://localhost:8080/home', { userID })
+      .then(response => {
+
+        setFirstName(response.data.firstName);
+        setLastName(response.data.lastName);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+  }, []);
+
 
   const particlesInit = async (main) => {
     await loadFull(main);
@@ -32,7 +55,7 @@ const Checkout = () => {
         <div className="bg-[#000000] bg-opacity-70 h-full w-[80%] pl-10  overflow-y-auto scrollbar-thumb-transparent scrollbar-track-transparent">
           {paid && (
             <div className="pl-[3%]">
-              <DownloadCertificate name="Izzah" />
+              <DownloadCertificate name={firstName + ' ' + lastName} />
             </div>
           )}
           {!paid && <PaymentPopup handleSubmit={handleSubmit} />}

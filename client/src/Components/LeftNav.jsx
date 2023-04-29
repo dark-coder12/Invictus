@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 import SpotifyPlayer from "../Components/SpotifyPlayer";
 import invLogo from "../Assets/pictures/maroonLogo.png";
@@ -6,7 +6,30 @@ import profileLogo from "../Assets/pictures/profile.png";
 import displayPicture from "../Assets/pictures/display-picture.jpg";
 import headphone from "../Assets/pictures/maroonH.png";
 
+import axios from "axios";
+
 const LeftNav = () => {
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+
+  
+  useEffect(() => {
+   
+    const userID = localStorage.getItem('userID');
+
+    axios.post('http://localhost:8080/home', { userID })
+    .then(response => {
+  
+      setFirstName(response.data.firstName);
+      setLastName(response.data.lastName);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+  }, []);
+
   return (
     <div className="bg-[#020202] h-full flex flex-col justify-between rounded-l-md">
       <div>
@@ -36,7 +59,7 @@ const LeftNav = () => {
 
       <div className="flex flex-row justify-center items-center pb-[10%] gap-3">
         <img className="rounded-3xl w-8" src={displayPicture} />
-        <p>IzX12</p>
+        <p>{firstName} {lastName}</p>
       </div>
     </div>
   );

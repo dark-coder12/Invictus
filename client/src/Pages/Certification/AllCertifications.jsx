@@ -5,6 +5,7 @@ import LeftNav from "../../Components/LeftNav";
 import CertificationsList from "../../Components/CertificationsList";
 import { options } from "../../Assets/code/options";
 
+
 const AllCertifications = () => {
   const particlesInit = async (main) => {
     await loadFull(main);

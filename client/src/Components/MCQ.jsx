@@ -9,8 +9,9 @@ const MCQ = ({ question, options, answer, onOptionSelect }) => {
 
   const handleOptionClick = (index) => {
     setSelectedOption(index);
-    onOptionSelect();
+    onOptionSelect(options[index]);
   };
+  
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">

@@ -8,6 +8,11 @@ import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { options } from "../../Assets/code/options";
 
+import fast  from '../../Assets/pictures/fast.png';
+import stacksEvent from '../../Assets/pictures/stacksevent.jpg';
+import stacks from '../../Assets/pictures/stacks.svg';
+
+
 export default function MeetUpInfo({}) {
   const particlesInit = async (main) => {
     await loadFull(main);
@@ -27,7 +32,7 @@ export default function MeetUpInfo({}) {
             <h1 className="text-3xl pt-4 pb-2">Blockchain Cohort 4.0</h1>
             <div className="mt-2 mb-2">
               {/* for now the host */}
-              <img src="stacks.svg"></img>
+              <img src={stacks}></img>
             </div>
             <div>
               <h1>Hosted By</h1>
@@ -38,7 +43,7 @@ export default function MeetUpInfo({}) {
           <div className="flex justify-evenly mt-6">
             <div className="w-[50%]">
               <img
-                src="stacksevent.jpg"
+                src={stacksEvent}
                 className="w-[50%] rounded-2xl h-[100%]"
               ></img>
             </div>
@@ -56,6 +61,9 @@ export default function MeetUpInfo({}) {
           </div>
 
           <div className="mt-4">
+          <button class="mt-12 bg-[#3a0303] rounded-md py-2 px-4 hover:bg-[#2a0202]">
+          Register Now!
+        </button>
             <div>
               <h1 className="text-2xl underline py-4">Details</h1>
               <p className="text-sm text-justify">
@@ -86,15 +94,15 @@ export default function MeetUpInfo({}) {
             <div className="mt-2">
               <h1 className="text-2xl underline py-4">Venue</h1>
               <small>FAST NUCES LAHORE</small>
-              <img className="mt-4 rounded-lg" src="fast.png" />
+              <img className="mt-4 rounded-lg" src={fast} />
             </div>
             <div className="mt-2">
               <h1 className="text-2xl py-4 ">Speaker</h1>
               <div className="flex">
                 <Avatar
-                  src={"https://avatars.githubusercontent.com/u/82564549?v=4"}
+                  src={"https://cdn.mos.cms.futurecdn.net/HsDtpFEHbDpae6wBuW5wQo.jpg"}
                 />
-                <p className="ml-2 self-center">Izzah Mujeeb</p>
+                <p className="ml-2 self-center">Stephen Hawking</p>
               </div>
             </div>
             <div className="mt-2">

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { BackgroundVideo } from "../../Components";
-
 import SignInForm from "../../Components/SignInForm";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { options } from "../../Assets/code/options";
 
+function Signin(props) {
+  const { handleLogin, isUserLoggedIn } = props;
 
-function Signin() {
-  
   const particlesInit = async (main) => {
     await loadFull(main);
   };
@@ -18,7 +17,7 @@ function Signin() {
   return (
     <div className="relative flex items-center justify-center h-screen ">
       <div className="z-10 max-w-8xl mx-auto py-6 px-5">
-        <SignInForm />
+        <SignInForm handleLogin={handleLogin} isUserLoggedIn={isUserLoggedIn} />
       </div>
 
       <Particles

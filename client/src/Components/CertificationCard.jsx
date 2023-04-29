@@ -9,10 +9,10 @@ import { useState } from "react";
 
 export default function CertificationCard({
   title,
-  image,
   mcqNum,
   description,
   bg,
+  handleOnClick
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -25,7 +25,7 @@ export default function CertificationCard({
   };
 
   return (
-    <div>
+    <div onClick={handleOnClick}>
       <Card
         shadow={false}
         className="relative grid h-[20rem] w-full max-w-[28rem] items-end justify-center overflow-hidden text-center"

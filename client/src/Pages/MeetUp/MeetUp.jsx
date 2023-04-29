@@ -5,6 +5,8 @@ import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import ccs from "../../Assets/pictures/ccs.jpg";
 import { options } from "../../Assets/code/options";
+import fms  from '../../Assets/pictures/fms.png';
+import stacks  from '../../Assets/pictures/stacks.svg';
 
 export default function MeetUp() {
   const particlesInit = async (main) => {
@@ -29,7 +31,7 @@ export default function MeetUp() {
           <div className="m-6">
             <MeetUpCard
               date={"April, 25 2023 . 4:30 PK PKT"}
-              imgSrc="stacks.svg"
+              imgSrc={stacks}
               conductedBy={"Stack FAST Chapter . Lahore PK"}
               eventName={"BlockChain Cohort 4.0"}
               attending={4}
@@ -55,7 +57,7 @@ export default function MeetUp() {
               description={
                 "Jamming session where everyone can show case their skills."
               }
-              imgSrc="fms.png"
+              imgSrc={fms}
               conductedBy={"Fast Music Society . FAST LHR"}
               eventName={"Jamming Session"}
               attending={12}

@@ -1,35 +1,160 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-
-import { Landing, Signup, Home, CertificationLanding, AllCertifications, MCQTest, Certification, Checkout,Profile, MeetUp, Signin, MeetUpInfo, BlogPosts, AllCommunities, Community, AllConnections, OneConnection, VideoCall } from './Pages';
+import {
+  Landing,
+  Signup,
+  Home,
+  CertificationLanding,
+  AllCertifications,
+  MCQTest,
+  Certification,
+  Checkout,
+  Profile,
+  MeetUp,
+  Signin,
+  MeetUpInfo,
+  BlogPosts,
+  AllCommunities,
+  Community,
+  AllConnections,
+  OneConnection,
+  VideoCall,
+  CodeBot,
+} from './Pages';
 
 const App = () => {
 
-  return(
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(
+    Boolean(localStorage.getItem('authToken'))
+  );
+
+  const handleLogin = (token) => {
+    localStorage.setItem('authToken', token);
+    setIsUserLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    setIsUserLoggedIn(false);
+  };
+
+  return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path='/home' element={<Home/>} />
-        <Route path="/certification-landing" element={<CertificationLanding />} />
-        <Route path="/all-certifications" element={<AllCertifications />} />
-        <Route path="/mcq-test" element={<MCQTest />} />
-        <Route path="/certification/:id" element={<Certification />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/meetup" element={<MeetUp />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/meetup/:id" element={<MeetUpInfo />} />
-        <Route path="/blog-posts" element={<BlogPosts />} />
-        <Route path="/all-communities" element={<AllCommunities />} />
-        <Route path="/community/:id" element={<Community />} />
-        <Route path="/all-connections" element={<AllConnections />} />
-        <Route path="/connection/:id" element={<OneConnection />} />
-        <Route path = "/video-call" element = {<VideoCall/>}/>
-      </Routes>
-    </BrowserRouter>
-  )
+        <Route
+          path="/signup"
+          element={<Signup handleLogin={handleLogin} isUserLoggedIn={isUserLoggedIn} />}
+        />
+        <Route
+          path="/signin"
+          element={<Signin handleLogin={handleLogin} isUserLoggedIn={isUserLoggedIn} />}
+        />
+        <Route
+          path="/home"
+          element={
+            isUserLoggedIn ? <Home handleLogout={handleLogout}  /> : <Navigate to="/signin" replace={true} />
+          }
+        />
+        <Route
+          path="/certification-landing"
+          element={
+            isUserLoggedIn ? <CertificationLanding /> : <Navigate to="/signin" replace={true} />
+          }
+        />
+        <Route
+          path="/all-certifications"
+          element={
+            isUserLoggedIn ? <AllCertifications /> : <Navigate to="/signin" replace={true} />
+          }
+        />
+        <Route
+          path="/mcq-test/:id"
+          element={
+            isUserLoggedIn ? <MCQTest /> : <Navigate to="/signin" replace={true} />
+          }
+        />
+        <Route
+          path="/certification/:id"
+          element={
+            isUserLoggedIn ? <Certification /> : <Navigate to="/signin" replace={true} />
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            isUserLoggedIn ? <Checkout /> : <Navigate to="/signin" replace={true} />
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            isUserLoggedIn ? (
+              <Profile handleLogout={handleLogout} />
+            ) : (
+              <Navigate to="/signin" replace={true} />
+            )
+          }
+        />
+        <Route
+          path="/meetup"
+          element={
+            isUserLoggedIn ? <MeetUp /> : <Navigate to="/signin" replace={true} />
+          }
+        />
+        <Route
+          path="/meetup/:id"
+          element={
+            isUserLoggedIn ? <MeetUpInfo /> : <Navigate to="/signin" replace={true} />
+          }
+        />
+        <Route
+          path="/blog-posts"
+          element={
+            isUserLoggedIn ? <BlogPosts /> : <Navigate to="/signin" replace={true} />
+          }
+        />
+        <Route
+          path="/all-communities"
+          element={
+            isUserLoggedIn ? <AllCommunities /> : <Navigate to="/signin" replace={true} />
+          }
+        />
+        <Route
+          path="/community/:id"
+          element={
+            isUserLoggedIn ? <Community /> : <Navigate to="/signin" replace={true} />
+          }
+        />
+        <Route
+          path="/all-connections"
+          element={
+            isUserLoggedIn ? <AllConnections /> : <Navigate to="/signin" replace={true} />
+          }
+        />
+        <Route
+          path="connection/:id"
+          element={
+            isUserLoggedIn ? <OneConnection /> : <Navigate to="/signin" replace={true} />
+          }
+        />
+        <Route
+          path="/video-call"
+          element={
+            isUserLoggedIn ? <VideoCall meetingId ='https://us04web.zoom.us/j/73148481186?pwd=NhHC2nZBo2NK5jwAyrhpjVJBspbotU.1' /> : <Navigate to="/signin" replace={true} />
+            
+          }
+        />
+        <Route
+          path="/codebot"
+          element={
+            isUserLoggedIn ? <CodeBot /> : <Navigate to="/signin" replace={true} />
+            
+          }
+        />
+        </Routes>
+        </BrowserRouter>
+  );
 };
-
 export default App;

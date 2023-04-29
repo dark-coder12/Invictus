@@ -1,55 +1,51 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import BackgroundVideo from "./BackgroundVideo";
 import FirebaseAuth from "./firebaseAuth";
 import InputField from "./inputField";
 import SinglePassword from "./SinglePassword";
-
 import axios from "axios";
-
 import { useNavigate } from 'react-router-dom';
 
-function SignInForm() {
+function SignInForm({ handleLogin, isUserLoggedIn }) {
 
+  
   const navigate = useNavigate();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleSignUp (){
+  function handleSignUp () {
     navigate('/signup');
   }
 
-
   const handleSignIn = (e) => {
-
     e.preventDefault();
 
     axios.post('http://localhost:8080/signin', {
       email,
       password: password.trim()
     })
-
     .then((response) => {
-
-      if (response.data == 'correct_credentials') {
-
+     
+        localStorage.setItem('userID', response.data.userID);
         alert('You have been successfully logged in!');
-        localStorage.setItem('authenticated', true.toString());
+       
+        handleLogin(true);
         navigate('/home');
-      } 
+      
     })
     .catch((error) => {
-
       if (error.response.data == 'user_does_not_exist') {
-
         alert('User not found');
       } else if (error.response.data == 'password_incorrect') {
-
         alert('Incorrect password');
       }
       console.log(error);
     });
   };
+
+  if (isUserLoggedIn) {
+    navigate('/home');
+  }
 
   return (
     <div className="font-mono text-white bg-black bg-opacity-60 rounded-xl shadow-lg flex">
@@ -68,16 +64,16 @@ function SignInForm() {
             id="email"
             type="email"
             placeholder="e.g. izx12@hotmail.com"
-            value = {email}
-            onChange = {(e) => setEmail(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           <SinglePassword
             name="appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-gray-800"
             type="password"
             placeholder="*******"
-            value = {password}
-            onChange = {(e) => setPassword(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <div className="mt-4 pt-4 text-center flex justify-center">
@@ -90,7 +86,7 @@ function SignInForm() {
           <div className="mt-4 pt-12">
             <p className="text-center">
               Don't have an account?{" "}
-              <button className="text-blue-500 hover:text-blue-700" onClick = {handleSignUp}>
+              <button className="text-blue-500 hover:text-blue-700" onClick={handleSignUp}>
                 Signup here instead
               </button>
             </p>
@@ -100,4 +96,5 @@ function SignInForm() {
     </div>
   );
 }
+
 export default SignInForm;

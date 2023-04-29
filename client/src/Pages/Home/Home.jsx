@@ -22,15 +22,50 @@ import badgeLogo from "../../Assets/pictures/badgeLogo.png";
 import techImg from "../../Assets/pictures/techImg.jpg";
 import { options } from "../../Assets/code/options";
 
-const Home = () => {
+import { useNavigate } from "react-router-dom";
 
-   const cookies = document.cookie.split(';').reduce((prev, current) => {
-    const [name, value] = current.trim().split('=');
-    prev[name] = value;
-    return prev;
-  }, {});
+import axios from 'axios';
 
-  const isAuthenticated = cookies.authenticated === 'true';
+const Home = (props) => {
+
+  const [certifications, setCertifications] = useState([]);
+
+  const [topicOfTheDay, setTopicOfTheDay] = useState({});
+
+  const [show, setShow] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+
+    const userID = localStorage.getItem('userID');
+  
+     axios.get(`http://localhost:8080/get-certifications/${userID}`)
+      .then(response => {
+
+        setCertifications(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+      
+      axios.get(`http://localhost:8080/topic-of-the-day`)
+      .then(response => {
+
+       setTopicOfTheDay(response.data)
+      })
+      .catch(error => {
+        console.error(error);
+      });
+      
+
+  }, []);
+
+
+  const showTopic = () => {
+    
+    setShow(true);
+  }
 
   const particlesInit = async (main) => {
     await loadFull(main);
@@ -38,24 +73,33 @@ const Home = () => {
 
   const particlesLoaded = (container) => {};
 
+  const handleLogOut = () => {
+
+    if (window.confirm("Are you sure you want to logout?")) {
+      props.handleLogout();
+    } 
+  }
+
+  const handleCertificationsClick = () => {
+
+    navigate('/all-certifications');
+
+  }
   return (
     
     <div>
-    {isAuthenticated ? (
-      <h1 className="text-white">No</h1>
-    ) : (
-
-      <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
+      <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 flex justify-center items-center bg-black h-screen">
+     
       <div className="w-[80%] h-[90%] flex flex-row z-10">
         <div className="w-[15%]">
-          <LeftNav />
+          <LeftNav/>
         </div>
 
         <div className="bg-[#000000] bg-opacity-70 h-full w-[65%] flex flex-col items-center justify-center gap-10">
           <div className="pt-5 flex flex-col items-center">
             <h1 className="text-2xl p-0 m-0">Newest in 'Topic of the Day'</h1>
-            <h1 className="text-l p-0 m-0 hover:underline hover:cursor-pointer underline">
-              State & Props in React JS
+            <h1 className="text-l p-0 m-0 hover:underline hover:cursor-pointer underline" onClick = {showTopic}>
+              {topicOfTheDay.topicName}
             </h1>
           </div>
 
@@ -108,32 +152,19 @@ const Home = () => {
               />
               <img
                 className="w-10  hover:rounded-md hover:p-1"
-                src={communityLogo}
+                src={certificateLogo}
+                onClick = {handleCertificationsClick}
               />
             </div>
 
-            <div className="w-[100%] flex flex-row justify-center ">
-              <div className="w-[80%] pt-10">
-                <p>C#</p>
-                <LinearWithValueLabel show="False" />
-              </div>
+            <div className="w-[100%] flex flex-wrap justify-left gap-4 pt-5">
+            {certifications.map((certification) => (
 
-              <div className="w-[80%] pt-10">
-                <p>Java</p>
-                <LinearWithValueLabel show="False" />
-              </div>
+            <div className="w-[45%] pt-4" key={certification.certificationName}>
+              <p>{certification.certificationName}</p>
+              <LinearWithValueLabel value={certification.percentage} showPer={true} />
             </div>
-
-            <div className="w-[100%] flex flex-row justify-center">
-              <div className="w-[80%] pt-10">
-                <p>Ruby</p>
-                <LinearWithValueLabel show="False" />
-              </div>
-
-              <div className="w-[80%] pt-10">
-                <p>Swift</p>
-                <LinearWithValueLabel show="False" />
-              </div>
+           ))}
             </div>
 
             <div className="text-md flex flex-col items-center justify-center">
@@ -145,20 +176,23 @@ const Home = () => {
                 className="w-10 hover:bg-white hover:rounded-md hover:p-1"
                 src={badgeLogo}
               />
-
               <img
                 className="w-10 hover:bg-white hover:rounded-md hover:p-1"
                 src={badgeLogo}
               />
-
               <img
                 className="w-10 hover:bg-white hover:rounded-md hover:p-1"
                 src={badgeLogo}
               />
             </div>
+            <div className='flex flex-row justify-center p-4'>
+            <button onClick={handleLogOut}>Logout</button>
+            </div>
+            
           </div>
         </div>
       </div>
+      
 
       <Particles
         className="z-0 absolute top-0 left-0 w-full h-full"
@@ -167,8 +201,25 @@ const Home = () => {
         options={options}
       />
     </div>
-    )}
-  </div>
+    {show &&  <div className="">
+      <div className={`flex flex-row w-full absolute inset-0 z-40 ${show ? 'bg-black bg-opacity-50' : ''}`} />
+      <div className="absolute inset-0 z-50 flex items-center justify-center">
+        {show && (
+          <div className="w-[50%] bg-white p-6 rounded-lg">
+            <div className = 'flex flex-row justify-between px-4 pb-8 items-center'>
+            <p className="block font-bold text-lg">Topic of the day</p>
+             <button className="flex flex-row justify-center bg-[#3a0303] hover:bg-[#2b0202] text-white font-bold py-2 px-4 rounded" onClick={() => setShow(false)}>
+              Close
+            </button>
+            </div>
+            <p className="text-gray-800 font-md text-justify">{topicOfTheDay.topicDescription}</p>
+
+          </div>
+        )}
+      </div>
+      </div>
+      }
+    </div>
   );
 };
 
