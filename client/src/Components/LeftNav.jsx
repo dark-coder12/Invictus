@@ -17,15 +17,14 @@ const LeftNav = () => {
   useEffect(() => {
    
     const userID = localStorage.getItem('userID');
-
+ 
     axios.post('http://localhost:8080/home', { userID })
     .then(response => {
-  
+    
       setFirstName(response.data.firstName);
       setLastName(response.data.lastName);
     })
     .catch(error => {
-      console.error(error);
     });
 
   }, []);

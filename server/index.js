@@ -11,7 +11,13 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const TopicOfTheDay = require('./mongodb/models/topicOfTheDay');
 
+
 const app = express();
+
+const stripe = require("stripe")('sk_test_51MwWGPJ5XPx7sfMfIVeSjhWOlDlkaV7TeaeKSGP3jsR7ERAShkyrxnYqIbyXyFPzkl1zksq6BpYzHUK0607H2fgH007F1A1vSc');
+
+app.use(express.static("public"));
+app.use(express.json());
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -19,6 +25,13 @@ app.use(bodyParser.json());
 const http = require('http')
 
 const MONGODB_URL = "mongodb+srv://izx12:faithlehane@cluster0.yc42gjo.mongodb.net/?retryWrites=true&w=majority"
+
+const calculateOrderAmount = (items) => {
+  // Replace this constant with a calculation of the order's amount
+  // Calculate the order total on the server to prevent
+  // people from directly manipulating the amount on the client
+  return 1400;
+};
 
 const startServer = () => {
 
@@ -86,10 +99,10 @@ const startServer = () => {
           app.post('/home', async (req, res) => {
 
             try {
-              
-             
-              const user = await User.findOne({ id: req.body.userID });
+  
+              const user = await User.findOne({ userID: req.body.userID });
           
+  
               if (!user) {
                 return res.status(400).send('user_does_not_exist');
               }
@@ -165,7 +178,7 @@ const startServer = () => {
 
                 const intID = parseInt(userID);
 
-                const certifications = await UserCertification.find({ intID });
+                const certifications = await UserCertification.find({ userID: intID });
 
                 const result = certifications.map(({ certificationName, percentage }) => ({ certificationName, percentage }));
 
@@ -190,13 +203,28 @@ const startServer = () => {
 
               const topic = await TopicOfTheDay.findOne({id: randomID});
           
-              console.log(randomID, topic)
               res.status(200).json(topic);
 
             });
 
 
 
+            app.post("/create-payment-intent", async (req, res) => {
+              const { items } = req.body;
+            
+              const paymentIntent = await stripe.paymentIntents.create({
+                amount: calculateOrderAmount(items),
+                currency: "usd",
+                automatic_payment_methods: {
+                  enabled: true,
+                },
+              });
+            
+              res.send({
+                clientSecret: paymentIntent.client_secret,
+              });
+            });
+            
         app.listen(8080, () => console.log("Server running at http://localhost:8080"));
 
     } catch (error) {

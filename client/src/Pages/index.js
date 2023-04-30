@@ -17,8 +17,10 @@ import Community from './Community/Community';
 import AllConnections from './Connections/AllConnections';
 import OneConnection from './Connections/OneConnection';
 import VideoCall from './VideoCall/VideoCall';
+import CheckoutSuccess from './Certification/CheckoutSuccess';
+import DownloadHandler from './Certification/DownloadHandler';
 
 export{
-    Landing, Signup, Home, CertificationLanding, AllCertifications, MCQTest,  Certification, Checkout, CodeBot, MeetUp, Signin, MeetUpInfo, BlogPosts, Profile, AllCommunities, Community, AllConnections, OneConnection, VideoCall
+    Landing, Signup, Home, CertificationLanding, AllCertifications, MCQTest,  Certification, Checkout, CodeBot, MeetUp, Signin, MeetUpInfo, BlogPosts, Profile, AllCommunities, Community, AllConnections, OneConnection, VideoCall, CheckoutSuccess, DownloadHandler
 }
 

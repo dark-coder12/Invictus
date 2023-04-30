@@ -2,46 +2,22 @@ import React, { useEffect, useState } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import LeftNav from "../../Components/LeftNav";
-import DownloadCertificate from "../../Components/DownloadCertificate";
-import PaymentPopup from "../../Components/PaymentPopup";
+
 import { options } from "../../Assets/code/options";
 
-import axios from "axios";
+import StripeCheckout from "../../Components/StripeCheckout";
 
 const Checkout = () => {
-
-
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-
-  const [paid, setPaid] = useState(false);
-
-  useEffect(() => {
-    const userID = localStorage.getItem('userID');
-  
-    axios.post('http://localhost:8080/home', { userID })
-      .then(response => {
-
-        setFirstName(response.data.firstName);
-        setLastName(response.data.lastName);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-
-  }, []);
-
 
   const particlesInit = async (main) => {
     await loadFull(main);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    alert("Payment information submitted");
-    setPaid(true);
-  };
+  const handleClick = () => {
+    const successUrl = "http://localhost:3000/download-certificate"; // or any other success URL
+    const url = `https://buy.stripe.com/test_5kA4hSaPPh2kctW8wx?success_url=${encodeURIComponent(successUrl)}&cancel_url=${encodeURIComponent(window.location.href)}`;
+    window.open(url, "_blank");
+  }
 
   const particlesLoaded = (container) => {};
 
@@ -52,13 +28,18 @@ const Checkout = () => {
           <LeftNav />
         </div>
 
-        <div className="bg-[#000000] bg-opacity-70 h-full w-[80%] pl-10  overflow-y-auto scrollbar-thumb-transparent scrollbar-track-transparent">
-          {paid && (
-            <div className="pl-[3%]">
-              <DownloadCertificate name={firstName + ' ' + lastName} />
-            </div>
-          )}
-          {!paid && <PaymentPopup handleSubmit={handleSubmit} />}
+        <div className="bg-[#000000] bg-opacity-70  w-[80%] pl-10  overflow-y-auto scrollbar-thumb-transparent scrollbar-track-transparent flex flex-col items-center justify-center pt-12">
+         <div className='bg-white rounded-md p-12 bg-opacity-70'>
+          <StripeCheckout/>
+          </div>
+
+            {/* <button className='bg-[#3a0303] hover:bg-[#2b0202] px-2 py-1 rounded-lg m-4'
+            onClick={handleClick}>Pay through Stripe's Website Instead</button> */}
+    
+          <p className='text-xs font-thin'>&copy; Invictus-Stripe Partnership </p>
+        </div>
+        <div>
+          
         </div>
       </div>
 

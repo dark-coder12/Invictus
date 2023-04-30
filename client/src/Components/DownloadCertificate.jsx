@@ -1,7 +1,8 @@
 import React, { useRef, useEffect } from "react";
 import template from "../Assets/pictures/certificate.png";
 
-const DownloadCertificate = ({ name }) => {
+const DownloadCertificate = ({ name, handleToCertifications }) => {
+
   const canvasRef = useRef(null);
 
   const drawTemplate = (canvas, image) => {
@@ -62,7 +63,8 @@ const DownloadCertificate = ({ name }) => {
           Download your Certificate now!
         </button>
 
-        <button class="bg-[#3a0303] rounded-md py-2 px-4 hover:bg-[#2a0202]">
+        <button class="bg-[#3a0303] rounded-md py-2 px-4 hover:bg-[#2a0202]"
+        onClick={handleToCertifications}>
           Back to Certifications
         </button>
       </div>

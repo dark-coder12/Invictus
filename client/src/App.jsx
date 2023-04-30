@@ -21,6 +21,8 @@ import {
   OneConnection,
   VideoCall,
   CodeBot,
+  CheckoutSuccess,
+  DownloadHandler
 } from './Pages';
 
 const App = () => {
@@ -142,7 +144,7 @@ const App = () => {
         <Route
           path="/video-call"
           element={
-            isUserLoggedIn ? <VideoCall meetingId ='https://us04web.zoom.us/j/73148481186?pwd=NhHC2nZBo2NK5jwAyrhpjVJBspbotU.1' /> : <Navigate to="/signin" replace={true} />
+            isUserLoggedIn ? <VideoCall /> : <Navigate to="/signin" replace={true} />
             
           }
         />
@@ -153,6 +155,20 @@ const App = () => {
             
           }
         />
+
+        <Route
+          path="/checkout-success"
+          element={
+            isUserLoggedIn ? <CheckoutSuccess /> : <Navigate to="/signin" replace={true} />
+          }
+        />
+        <Route
+          path="/download-certificate"
+          element={
+            isUserLoggedIn ? <DownloadHandler /> : <Navigate to="/signin" replace={true} />
+          }
+        />
+
         </Routes>
         </BrowserRouter>
   );

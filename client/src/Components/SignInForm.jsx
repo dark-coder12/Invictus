@@ -25,7 +25,7 @@ function SignInForm({ handleLogin, isUserLoggedIn }) {
       password: password.trim()
     })
     .then((response) => {
-     
+
         localStorage.setItem('userID', response.data.userID);
         alert('You have been successfully logged in!');
        
