@@ -27,6 +27,7 @@ function CertificationsList() {
 
   const handleOnClick = (index) => {
 
+    console.log(index);
     navigate(`/certification/${index}`);
   }
 

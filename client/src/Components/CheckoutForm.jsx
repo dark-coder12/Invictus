@@ -6,7 +6,10 @@ import {
   useElements
 } from "@stripe/react-stripe-js";
 
+import { useNavigate } from "react-router-dom";
+
 export default function CheckoutForm() {
+
   const stripe = useStripe();
   const elements = useElements();
 
@@ -14,6 +17,8 @@ export default function CheckoutForm() {
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const[error, setError] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!stripe) {
@@ -100,7 +105,8 @@ export default function CheckoutForm() {
       </button>
       {message && <div id="payment-message">{message}</div>}
 
-      {error && <button className='text-white bg-black rounded-md py-1 px-2 mt-4 hover:bg-white hover:text-black'>Go back to Certifications</button>}
+      {error && <button className='text-white bg-black rounded-md py-1 px-2 mt-4 hover:bg-white hover:text-black'
+      onClick={() => {navigate('/all-certifications')}}>Go back to Certifications</button>}
     </form>
   );
 }

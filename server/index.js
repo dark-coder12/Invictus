@@ -119,9 +119,9 @@ const startServer = () => {
           
           app.get('/get-certifications', async (req, res) => { 
 
-
             try {
-              const certifications = await CertificationTile.find({}, null, { maxTimeMS: 700000 });
+              var mysort = { id: 1 };
+              const certifications = await CertificationTile.find().sort(mysort);
               res.send(certifications);
             
             } catch (err) {
