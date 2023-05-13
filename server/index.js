@@ -4,7 +4,7 @@ const CertificationTile = require('./mongodb/models/certificationTile')
 const CertificationDetail = require('./mongodb/models/certificationDetail')
 const mcqList = require('./mongodb/models/mcqList')
 const UserCertification = require('./mongodb/models/userCertification');
-
+const BlogPosts = require('./mongodb/models/blogPosts');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -40,7 +40,7 @@ const startServer = () => {
         
         app.post('/signup', async (req, res) => {
             try {
-                const { email, firstName, lastName, userName, password, confirmPassword } = req.body;
+                const { email, firstName, lastName, userName, password, confirmPassword,imgUrl } = req.body;
 
                 if(password != confirmPassword){
                     res.status(400).send("password_error");
@@ -50,7 +50,7 @@ const startServer = () => {
                 
                     const userID = await User.countDocuments() + 1;
 
-                    const newUser = new User({ email, firstName, lastName, userName, password, confirmPassword, userID});
+                    const newUser = new User({ email, firstName, lastName, userName, password, confirmPassword, userID,imgUrl});
 
                     await newUser.save();
 
@@ -95,26 +95,92 @@ const startServer = () => {
             }
           });
 
-
-          app.post('/home', async (req, res) => {
-
+        app.get('/get-myblogs/:userID', async (req, res) => {
             try {
-  
-              const user = await User.findOne({ userID: req.body.userID });
-          
-  
-              if (!user) {
-                return res.status(400).send('user_does_not_exist');
-              }
-          
-              const firstName = user.firstName;
-              const lastName = user.lastName;
-          
-              return res.status(200).json({ firstName, lastName });
+              const { userID } = req.params;
+              const intID = parseInt(userID);
+              const myBlogs = await BlogPosts.find({ userID: intID });
+              console.log(myBlogs);
+              res.status(200).json(myBlogs);
             } catch (error) {
               res.status(500).send(error.message);
             }
           });
+
+        app.post('/create-blog', async (req, res) => {  
+          try{
+            const {userID,userDescription,blogName,imgUrl,date,description} = req.body;
+            
+            const intUserID = parseInt(userID);
+          
+            const newBlog = new BlogPosts();
+            newBlog.userID = intUserID;
+            newBlog.userDescription = userDescription;
+            newBlog.userBlogs.push({blogName:blogName,imgUrl:imgUrl,date:date,description:description});
+
+            const sucess = await newBlog.save();
+            if (sucess){
+              res.status(200).send("blog_created");
+            }
+            else{
+              res.status(400).send("blog_not_saved");
+            }
+          }
+          catch(error){ 
+            res.status(500).send(error.message);
+          }
+        })
+        app.post('/userexists',async (req,res)=>{
+          try { 
+            const {email} = req.body;
+            const user = await User.findOne({ email:email });
+            if (!user) {
+              return res.status(200).send('user_does_not_exist');
+            }
+            else {
+              return res.status(200).send({userID: user.userID});
+            }
+          }
+          catch (error){
+            res.status(500).send("Error aya hai");
+          }
+        });
+
+        app.get('/get-user/:userID', async (req, res)=>{
+          const {userID} = req.params;
+          
+          try {
+            const intID = parseInt(userID);
+            const result = await User.findOne({userID:intID});
+            res.status(200).json(result);
+          }
+          catch(error){
+            console.error(error);
+            res.status(500).send('Error retrieving user');
+          }
+        });
+
+        
+        app.post('/home', async (req, res) => {
+
+          try {
+
+            const user = await User.findOne({ userID: req.body.userID });
+        
+
+            if (!user) {
+              return res.status(400).send('user_does_not_exist');
+            }
+        
+            const firstName = user.firstName;
+            const lastName = user.lastName;
+        
+            return res.status(200).json({ firstName, lastName });
+          } catch (error) {
+            res.status(500).send(error.message);
+          }
+        });
+
 
           
           app.get('/get-certifications', async (req, res) => { 
