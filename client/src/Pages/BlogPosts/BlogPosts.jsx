@@ -6,6 +6,7 @@ import LeftNav from "../../Components/LeftNav";
 import { Avatar } from "@mui/material";
 import displayImage from "../../Assets/pictures/display-picture.jpg";
 import { options } from "../../Assets/code/options";
+import axios from "axios";
 
 var bloggerDescription =
   "As a blogger, I have the amazing opportunity to share my thoughts, ideas, and experiences with a vast audience. Its truly rewarding to express myself and connect with others who share my interests through my blog.";
@@ -20,6 +21,18 @@ export default function BlogPosts() {
 
   const particlesLoaded = (container) => {};
 
+  const [userDescription, setUserDescription] = React.useState("");
+  const [blogs, setBlogs] = React.useState([]);
+  const getBlogs = () => {
+    // fetch all blogs from database
+    // return all blogs
+    const userID = localStorage.getItem("userID");
+    axios.get(`http://localhost:8080/get-myblogs/${userID}`).then((response)=>{
+      setUserDescription(response.data[0].userDescription);
+      setBlogs(response.data[0].userBlogs);
+    });
+  };
+
   return (
     <div>
       <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
@@ -30,13 +43,13 @@ export default function BlogPosts() {
           >
             <LeftNav />
           </div>
-
+          {getBlogs()}
           <div style={{ width: "100%", overflow: "auto" }}>
             <div className="ml-8 flex mb-12 items-center justify-center pt-[5%]">
               <div className="flex-col justify-center items-center">
                 <Avatar
                   sx={{ width: 100, height: 100, top: "25%" }}
-                  src={displayImage}
+                  src={localStorage.getItem("imgUrl")}
                 />
               </div>
 
@@ -49,7 +62,7 @@ export default function BlogPosts() {
                 }}
               >
                 <h1 className="text-2xl mb-[1%]">IzX12</h1>
-                <p className="text-sm">{bloggerDescription}</p>
+                <p className="text-sm">{userDescription}</p>
               </div>
             </div>
             <div
@@ -57,13 +70,21 @@ export default function BlogPosts() {
               className="grid grid-cols-3 gap-12"
             >
               <div style={{ margin: "2%", width: "auto", height: "auto" }}>
-                <Blog
-                  blogName="Classes in java"
-                  description={blogText}
-                  imgSrc="java.png"
-                />
+                {
+                  blogs.map((blog)=>{
+                    return <Blog
+                      blogName={blog.blogName}
+                      description={blog.description}
+                      imgSrc={blog.imgUrl}
+                      authorName = {localStorage.getItem("firstName")+" "+localStorage.getItem("lastName")}
+                      date={blog.date}
+                      authorImg = {localStorage.getItem("imgUrl")}
+                    />
+                  } )
+                }
+                
               </div>
-              <div style={{ margin: "2%", width: "auto", height: "auto" }}>
+              {/*<div style={{ margin: "2%", width: "auto", height: "auto" }}>
                 <Blog
                   blogName="My Favorite Algorithim"
                   description={blogText}
@@ -105,7 +126,7 @@ export default function BlogPosts() {
                   description={blogText}
                   imgSrc="solidity.png"
                 />
-              </div>
+              </div>*/}
             </div>
           </div>
         </div>
