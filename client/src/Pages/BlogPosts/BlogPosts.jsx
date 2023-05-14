@@ -61,7 +61,7 @@ export default function BlogPosts() {
                   justifyContent: "center",
                 }}
               >
-                <h1 className="text-2xl mb-[1%]">IzX12</h1>
+                <h1 className="text-2xl mb-[1%]">{localStorage.getItem('firstName')+ ' '+localStorage.getItem('lastName')}</h1>
                 <p className="text-sm">{userDescription}</p>
               </div>
             </div>

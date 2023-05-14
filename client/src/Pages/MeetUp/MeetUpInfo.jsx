@@ -1,4 +1,4 @@
-import React from "react";
+import {React,useMemo} from "react";
 import LeftNav from "../../Components/LeftNav";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import DateRangeIcon from "@mui/icons-material/DateRange";
@@ -7,21 +7,55 @@ import Fab from "@mui/material/Fab";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { options } from "../../Assets/code/options";
-
 import fast  from '../../Assets/pictures/fast.png';
 import stacksEvent from '../../Assets/pictures/stacksevent.jpg';
 import stacks from '../../Assets/pictures/stacks.svg';
 
+import Map from "../../Components/Map";
 
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import GoogleMapReact from 'google-map-react'
+
+import './meetup.css';
 export default function MeetUpInfo({}) {
   const particlesInit = async (main) => {
     await loadFull(main);
   };
 
+  const location = {
+    address: '1600 Amphitheatre Parkway, Mountain View, california.',
+    lat: 37.42216,
+    lng: -122.08427,
+  }
+
+  // const { isLoaded } = useLoadScript({
+  //   googleMapsApiKey: 'AIzaSyDs82A5rbcPL0OTOSNbORhLFrk35NiffvY'
+  // });
+
+  // const center = useMemo(() => ({ lat:22.563540, lng: 72.956284 }), []);
+  // const customMarker = {
+  //   path: "M29.395,0H17.636c-3.117,0-5.643,3.467-5.643,6.584v34.804c0,3.116,2.526,5.644,5.643,5.644h11.759   c3.116,0,5.644-2.527,5.644-5.644V6.584C35.037,3.467,32.511,0,29.395,0z M34.05,14.188v11.665l-2.729,0.351v-4.806L34.05,14.188z    M32.618,10.773c-1.016,3.9-2.219,8.51-2.219,8.51H16.631l-2.222-8.51C14.41,10.773,23.293,7.755,32.618,10.773z M15.741,21.713   v4.492l-2.73-0.349V14.502L15.741,21.713z M13.011,37.938V27.579l2.73,0.343v8.196L13.011,37.938z M14.568,40.882l2.218-3.336   h13.771l2.219,3.336H14.568z M31.321,35.805v-7.872l2.729-0.355v10.048L31.321,35.805",
+  //   fillColor: "red",
+  //   fillOpacity: 2,
+  //   strokeWeight: 1,
+  //   rotation: 0,
+  //   scale: 1,
+  // };
+
   const particlesLoaded = (container) => {};
 
   return (
     <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
+      
+          
+      {/* <GoogleMap
+          mapContainerClassName="map-container"
+          center={center}
+          zoom={10}
+        >
+          <Marker position={{ lat: 31.496556, lng: 74.415500 }} icon={customMarker}/>
+          </GoogleMap> */}
+
       <div className="w-[80%] h-[90%] flex flex-row z-10">
         <div className="w-[15%]">
           <LeftNav />

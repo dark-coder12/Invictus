@@ -28,13 +28,13 @@ function Profile() {
                 sx={{ width: 100, height: 100 }}
                 className="hover:border-4"
                 alt="Travis Howard"
-                src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                src={localStorage.getItem('imgUrl')}
               />
-              <h1 className="text-center p-10">Burak Bin Munir</h1>
+              <h1 className="text-center p-10">{localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName')}</h1>
               <div className="mb-10">
                 <EditProfileModal
-                  username="burakbinmunir"
-                  email="burakbinmunir@gmail.com"
+                  username={localStorage.getItem('userName')}
+                  email={localStorage.getItem('email')}
                 />
               </div>
               <Button variant="varient" color="error">
@@ -53,14 +53,14 @@ function Profile() {
                   sx={{ width: 25, height: 25 }}
                   className="hover:border-4 mr-2"
                   alt="Travis Howard"
-                  src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                  src={localStorage.getItem('imgUrl')}
                 />
-                <small className="text-center">burakbinmunir</small>
+                <small className="text-center">{localStorage.getItem('userName')}</small>
               </div>
 
               <div className="flex mt-2">
                 <Avatar sx={{ width: 25, height: 25 }}>@</Avatar>
-                <small className="ml-2">burakbinmunir@gmail.com</small>
+                <small className="ml-2">{localStorage.getItem('email')}</small>
               </div>
               <br></br>
 

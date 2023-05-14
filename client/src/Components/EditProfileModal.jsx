@@ -5,6 +5,7 @@ import Modal from "@mui/material/Modal";
 import Fab from "@mui/material/Fab";
 import SelectAutoWidth from "./SelectAutoWidth";
 
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -22,8 +23,9 @@ export default function EditProfileModal(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const col = React.useRef(null);
+  const skills = [];
 
-  const changeColor = (e) => {
+  const changeColor = (e,skill) => {
     if (e.target.style.backgroundColor !== "white") {
       e.target.style.backgroundColor = "white";
       e.target.style.color = "#3A0303";
@@ -31,7 +33,13 @@ export default function EditProfileModal(props) {
       e.target.style.backgroundColor = "#3A0303";
       e.target.style.color = "white";
     }
+    skills.push(skill);
+    console.log(skills);
   };
+
+  const [phdDegree, setPhdDegree] = React.useState("");
+  const [phdInstitute, setPhdInstitute] = React.useState("");
+
 
   return (
     <div>
@@ -81,8 +89,12 @@ export default function EditProfileModal(props) {
 
             <label className="block font-bold mb-2">Education</label>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ display: "flex" }}>
-                <SelectAutoWidth selectFor="Phd" flag={true} />
+           
+               <div style={{ display: "flex" }}>
+             
+                <SelectAutoWidth selectFor="Phd" setVal={setPhdDegree} flag = {true} />
+                </div>
+                {/* {console.log('Phd:',phdDegree)}
                 <SelectAutoWidth selectFor="Institute" flag={false} />
               </div>
               <div style={{ display: "flex" }}>
@@ -92,7 +104,8 @@ export default function EditProfileModal(props) {
               <div style={{ display: "flex" }}>
                 <SelectAutoWidth selectFor="Bachelors" flag={true} />
                 <SelectAutoWidth selectFor="Institute" flag={false} />
-              </div>
+              </div>  */}
+              
             </div>
 
             {/* Technical Skills */}
@@ -100,7 +113,7 @@ export default function EditProfileModal(props) {
             <label className="block font-bold mb-2">Technical Skills</label>
             <div style={{ display: "flex", flexWrap: "wrap" }}>
               <Fab
-                onClick={(e) => changeColor(e)}
+                onClick={(e) => changeColor(e,'OOP')}
                 style={{
                   margin: "1%",
                   color: "white",
@@ -113,7 +126,7 @@ export default function EditProfileModal(props) {
               </Fab>
 
               <Fab
-                onClick={changeColor}
+                onClick={(e) => changeColor(e,'Blockchain')}
                 style={{
                   margin: "1%",
                   color: "white",
@@ -126,7 +139,7 @@ export default function EditProfileModal(props) {
               </Fab>
 
               <Fab
-                onClick={changeColor}
+                onClick={(e) => changeColor(e,'UI/UX')}
                 style={{
                   margin: "1%",
                   color: "white",
@@ -139,7 +152,7 @@ export default function EditProfileModal(props) {
               </Fab>
 
               <Fab
-                onClick={changeColor}
+                onClick={(e) => changeColor(e,'NLP')}
                 style={{
                   margin: "1%",
                   color: "white",
@@ -152,7 +165,7 @@ export default function EditProfileModal(props) {
               </Fab>
 
               <Fab
-                onClick={changeColor}
+                onClick={(e) => changeColor(e,'AI')}
                 style={{
                   margin: "1%",
                   color: "white",
@@ -165,7 +178,7 @@ export default function EditProfileModal(props) {
               </Fab>
 
               <Fab
-                onClick={changeColor}
+                onClick={(e) => changeColor(e,'Web Dev')}
                 style={{
                   margin: "1%",
                   color: "white",
@@ -178,7 +191,7 @@ export default function EditProfileModal(props) {
               </Fab>
 
               <Fab
-                onClick={changeColor}
+                onClick={(e) => changeColor(e,'App Dev')}
                 style={{
                   margin: "1%",
                   color: "white",
