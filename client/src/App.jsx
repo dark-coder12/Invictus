@@ -144,8 +144,8 @@ const App = () => {
         <Route
           path="/video-call"
           element={
-            isUserLoggedIn ? <VideoCall /> : <Navigate to="/signin" replace={true} />
-            
+            // isUserLoggedIn ? <VideoCall /> : <Navigate to="/signin" replace={true} />
+            <VideoCall/>
           }
         />
         <Route
