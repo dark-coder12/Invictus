@@ -3,9 +3,9 @@ import Button from "@mui/material/Button";
 import InputField from "./inputField";
 import Modal from "@mui/material/Modal";
 import Fab from "@mui/material/Fab";
-import SelectAutoWidth from "./SelectAutoWidth";
-
-
+import DegreeSelector from "./DegreeSelector";
+import InstituteSelector from "./InstituteSelector";
+import axios from "axios";
 const style = {
   position: "absolute",
   top: "50%",
@@ -19,11 +19,47 @@ const style = {
 };
 
 export default function EditProfileModal(props) {
+  const [phdDegree, setPhdDegree] = React.useState("");
+  const [phdInstitute, setPhdInstitute] = React.useState("");
+
+  const [mastersDegree, setMastersDegree] = React.useState("");
+  const [mastersInstitute, setMastersInstitute] = React.useState("");
+
+  const [bachelorsDegree, setBachelorsDegree] = React.useState("");
+  const [bachelorsInstitute, setBachelorsInstitute] = React.useState("");
+
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const col = React.useRef(null);
   const skills = [];
+
+  const handleClose = () =>{
+    console.log("Phd Degree: ", phdDegree);
+    console.log("Phd Institute: ", phdInstitute);
+    console.log("Masters Degree: ", mastersDegree);
+    console.log("Masters Institute: ", mastersInstitute);
+    console.log("Bachelors Degree: ", bachelorsDegree);
+    console.log("Bachelors Institute: ", bachelorsInstitute);
+    axios.post("http://localhost:8080/edit-profile", {
+      userID: localStorage.getItem("userID"),
+      userName: props.username,
+      email: props.email,
+      phdDegree: phdDegree,
+      phdInstitute: phdInstitute,
+      mastersDegree: mastersDegree,
+      mastersInstitute: mastersInstitute,
+      bachelorsDegree: bachelorsDegree,
+      bachelorsInstitute: bachelorsInstitute,
+      skills: skills
+    }).then((res) => {
+      console.log(res);
+    }).catch((err) => {
+      console.log(err);
+    });
+
+    setOpen(false);
+  }
+  const col = React.useRef(null);
 
   const changeColor = (e,skill) => {
     if (e.target.style.backgroundColor !== "white") {
@@ -36,9 +72,6 @@ export default function EditProfileModal(props) {
     skills.push(skill);
     console.log(skills);
   };
-
-  const [phdDegree, setPhdDegree] = React.useState("");
-  const [phdInstitute, setPhdInstitute] = React.useState("");
 
 
   return (
@@ -90,21 +123,21 @@ export default function EditProfileModal(props) {
             <label className="block font-bold mb-2">Education</label>
             <div style={{ display: "flex", flexDirection: "column" }}>
            
-               <div style={{ display: "flex" }}>
+              <div style={{ display: "flex" }}>
              
-                <SelectAutoWidth selectFor="Phd" setVal={setPhdDegree} flag = {true} />
-                </div>
-                {/* {console.log('Phd:',phdDegree)}
-                <SelectAutoWidth selectFor="Institute" flag={false} />
+                <DegreeSelector selectFor="Phd" setVal={setPhdDegree} />
+                <InstituteSelector selectFor="Institute" setVal={setPhdInstitute} />
               </div>
               <div style={{ display: "flex" }}>
-                <SelectAutoWidth selectFor="Masters" flag={true} />
-                <SelectAutoWidth selectFor="Institute" flag={false} />
+                <DegreeSelector selectFor="Masters" setVal={setMastersDegree} />
+                <InstituteSelector selectFor="Institute" setVal={setMastersInstitute} />
+
               </div>
               <div style={{ display: "flex" }}>
-                <SelectAutoWidth selectFor="Bachelors" flag={true} />
-                <SelectAutoWidth selectFor="Institute" flag={false} />
-              </div>  */}
+                <DegreeSelector selectFor="Bachelors" setVal={setBachelorsDegree} />
+                <InstituteSelector selectFor="Institute" setVal={setBachelorsInstitute} />
+              </div>
+               
               
             </div>
 

@@ -6,6 +6,7 @@ import { Avatar, Button } from "@mui/material";
 import Fab from "@mui/material/Fab";
 import EditProfileModal from "../../Components/EditProfileModal";
 import { options } from "../../Assets/code/options";
+import axios from "axios";
 
 function Profile() {
   const particlesInit = async (main) => {
@@ -14,13 +15,43 @@ function Profile() {
 
   const particlesLoaded = (container) => {};
 
+  const [phdDegree, setPhdDegree] = React.useState("");
+  const [phdInstitute, setPhdInstitute] = React.useState("");
+  
+  const [mastersDegree, setMastersDegree] = React.useState("");
+  const [mastersInstitute, setMastersInstitute] = React.useState("");
+
+  const [bachelorsDegree, setBachelorsDegree] = React.useState("");
+  const [bachelorsInstitute, setBachelorsInstitute] = React.useState("");
+
+  const loadSkills = () => {
+    const userID = localStorage.getItem("userID");
+    console.log(userID);
+    
+    axios.post("http://localhost:8080/get-skills",{
+      userID: userID
+    }).then((res) => {
+      console.log(res);
+      setPhdDegree(res.data.phdDegree);
+      setPhdInstitute(res.data.phdInstitute);
+      setMastersDegree(res.data.mastersDegree);
+      setMastersInstitute(res.data.mastersInstitute);
+      setBachelorsDegree(res.data.bachelorsDegree);
+      setBachelorsInstitute(res.data.bachelorsInstitute);
+      console.log(res.data);
+    }).catch((err) => { 
+      console.log(err);
+    });
+  }
+
+
   return (
     <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
       <div className="w-[80%] h-[90%] flex flex-row z-10">
         <div className="w-[15%]">
           <LeftNav />
         </div>
-
+        
         <div className="bg-[#000000] bg-opacity-70 h-full w-[65%] flex flex-col items-center justify-center gap-10">
           <div className="w-100 flex items-center justify-center">
             <div className="w-50 m-20 flex flex-col items-center justify-center">
@@ -37,7 +68,7 @@ function Profile() {
                   email={localStorage.getItem('email')}
                 />
               </div>
-              <Button variant="varient" color="error">
+              <Button variant="varient" color="error" onClick={loadSkills}>
                 Delete Account
               </Button>
             </div>
@@ -68,26 +99,26 @@ function Profile() {
               <br></br>
 
               <small style={{ color: "#3A0303", backgroundColor: "white" }}>
-                Doctor of Philosophy in Software Project Management
+                Doctor of Philosophy in {phdDegree}
               </small>
               <br></br>
-              <small>Lahore University of Management - 2028</small>
+              <small>{phdInstitute}</small>
               <hr></hr>
               <br></br>
 
               <small style={{ color: "#3A0303", backgroundColor: "white" }}>
-                Masters in Software Project Management
+                Masters in {mastersDegree}
               </small>
               <br></br>
-              <small>Lahore University of Management - 2026</small>
+              <small>{mastersInstitute}</small>
               <hr></hr>
               <br></br>
 
               <small style={{ color: "#3A0303", backgroundColor: "white" }}>
-                Bachelors of Science in Software Engineering
+                Bachelors of Science in {bachelorsDegree}
               </small>
               <br></br>
-              <small>Fast-NUCES - 2024</small>
+              <small>{bachelorsInstitute}</small>
               <hr></hr>
               <br></br>
 
