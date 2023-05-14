@@ -8,10 +8,8 @@ import Typography from "@mui/material/Typography";
 import BlogModal from "./BlogModal";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
-var blogDescription =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
-export default function Blog({ blogName, description, imgSrc }) {
+export default function Blog({ blogName, description, imgSrc,authorName,date,authorImg }) {
   return (
     <Card
       className="hover:bg-none hover:bg-opacity-50 gradientHover cursor-pointer hover:font-[600]"
@@ -39,7 +37,10 @@ export default function Blog({ blogName, description, imgSrc }) {
         <BlogModal
           imgSrc={imgSrc}
           blogName={blogName}
-          description={blogDescription}
+          description={description}
+          authorName={authorName}
+          date = {date}
+          authorImg = {authorImg}
         />
       </CardActions>
     </Card>

@@ -25,6 +25,7 @@ export default function BlogModal({
   description,
   authorName,
   date,
+  authorImg
 }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -60,7 +61,7 @@ export default function BlogModal({
           <div className="bg-white shadow-md rounded-lg p-4 text-black text-opacity-80 border border-black">
             <div className="flex items-center mb-4 text-black text-opacity-80 pl-6 pt-6">
               <img
-                src={"https://avatars.githubusercontent.com/u/82564549?v=4"}
+                src={authorImg}
                 alt="Author Icon"
                 className="w-10 h-10 rounded-full mr-4 "
               />
@@ -69,7 +70,7 @@ export default function BlogModal({
                   {blogName}
                 </h2>
                 <p className="text-black text-opacity-80 font-[300] text-xs">
-                  Izzah Mujeeb - 23/02/2023
+                  {authorName} - {date}
                 </p>
               </div>
             </div>
