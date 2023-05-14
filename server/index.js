@@ -10,7 +10,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const TopicOfTheDay = require('./mongodb/models/topicOfTheDay');
-
+const Skills = require('./mongodb/models/skills');
 
 const app = express();
 
@@ -128,6 +128,7 @@ const startServer = () => {
             res.status(500).send(error.message);
           }
         })
+
         app.post('/userexists',async (req,res)=>{
           try { 
             const {email} = req.body;
@@ -144,6 +145,94 @@ const startServer = () => {
           }
         });
 
+        app.post('/get-skills',async (req,res)=>{
+          try{
+            const {userID} = req.body.userID;
+            console.log(userID);
+
+            const intUserID = parseInt(userID);
+            const skills = await Skills.findOne({ userID:intUserID });
+            if (!skills) {
+              return res.status(200).send('skills_does_not_exist');
+            }
+            else {
+              return res.status(200).send(skills);
+            }
+          }
+          catch (error){
+            res.status(500).send(error.message);
+          }
+        });
+
+        app.post('/edit-profile',async (req,res)=>{ 
+          try{
+            console.log(req.body)
+              const {userName,email,phdDegree,phdInstitute,mastersDegree,mastersInstitute,bachelorsDegree,bachelorsInstitute,userID,skills} = req.body;
+              const intUserID = parseInt(userID);
+              const user = await User.findOne({ userID:intUserID });
+              if (!user) {
+                return res.status(400).send('user_does_not_exist');
+              }
+              else {
+                user.userName = userName;
+                user.email = email;
+              }
+              const sucess = await user.save();
+              if (sucess){
+                console.log("User saved");
+              }
+              else{
+                console.log("User not saved");
+              }
+
+              const userSkills = await Skills.findOne({ userID:intUserID });
+              if (!skills) {
+                const newSkills = new Skills();
+                newSkills.userID = intUserID;
+                newSkills.phdDegree = phdDegree;
+                newSkills.phdInstitute = phdInstitute;
+                newSkills.mastersDegree = mastersDegree;
+                newSkills.mastersInstitute = mastersInstitute;
+                newSkills.bachelorsDegree = bachelorsDegree;
+                newSkills.bachelorsInstitute = bachelorsInstitute;
+                newSkills.skills = skills;
+                const skillSuccess = await newSkills.save();
+
+                if (skillSuccess){
+                  console.log("Skills saved");
+                  res.status(200).send("user_updated");
+                }
+                else{
+                  console.log("Skills not saved");    
+                  res.status(400).send("user_not_updated");
+                }
+                
+              }
+              else {
+                userSkills.phdDegree = phdDegree;
+                userSkills.phdInstitute = phdInstitute;
+                userSkills.mastersDegree = mastersDegree;
+                userSkills.mastersInstitute = mastersInstitute;
+                userSkills.bachelorsDegree = bachelorsDegree;
+                userSkills.bachelorsInstitute = bachelorsInstitute;
+                userSkills.skills = skills;
+                const sucess = await userSkills.save();
+                
+                if (skillSuccess){
+                  res.status(200).send("user_updated");
+                }
+                else{
+                  res.status(400).send("user_not_updated");
+                }
+              }
+
+             
+        }
+        catch(error){
+          res.status(500).send(error.message);
+        }
+        });
+        
         app.get('/get-user/:userID', async (req, res)=>{
           const {userID} = req.params;
           
