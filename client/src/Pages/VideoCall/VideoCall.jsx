@@ -6,11 +6,14 @@ import io from "socket.io-client"
 import { loadFull } from "tsparticles";
 import Particles from "react-tsparticles";
 import { options } from "../../Assets/code/options";
-
-
-const socket = io.connect('http://localhost:5000')
+const socket = io("https://video-call-server-invictus.onrender.com/", {
+  extraHeaders: {
+    "my-custom-header": "abcd"
+  }
+});
 
 function VideoCall() {
+	console.log("VideoCall.jsx");
 
   const particlesInit = async (main) => {
     await loadFull(main);

@@ -1,5 +1,6 @@
 import LeftNav from "../../Components/LeftNav";
 import React from "react";
+import { useEffect } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { Avatar, Button } from "@mui/material";
@@ -24,27 +25,53 @@ function Profile() {
   const [bachelorsDegree, setBachelorsDegree] = React.useState("");
   const [bachelorsInstitute, setBachelorsInstitute] = React.useState("");
 
+  const [skills, setSkills] = React.useState([]);
+  const [skillsArr, setSkillsArr] = React.useState([]);
+
   const loadSkills = () => {
     const userID = localStorage.getItem("userID");
-    console.log(userID);
     
     axios.post("http://localhost:8080/get-skills",{
       userID: userID
     }).then((res) => {
-      console.log(res);
       setPhdDegree(res.data.phdDegree);
       setPhdInstitute(res.data.phdInstitute);
       setMastersDegree(res.data.mastersDegree);
       setMastersInstitute(res.data.mastersInstitute);
       setBachelorsDegree(res.data.bachelorsDegree);
       setBachelorsInstitute(res.data.bachelorsInstitute);
-      console.log(res.data);
-    }).catch((err) => { 
+      setSkills(res.data.skills);
+      res.data.skills.forEach((skill) => {
+        const temp = <Fab style={{margin: "1%",color: "white",backgroundColor: "#3A0303"}} variant="extended" sx={{ width: 150, height: 25 }}>{skill}</Fab>
+        const tempArr = skillsArr;
+        tempArr.push(temp);
+        setSkillsArr(tempArr);
+        console.log('Skills st to ,',skillsArr)
+      });
+     }).catch((err) => { 
       console.log(err);
     });
   }
 
+  useEffect(() => {
+    loadSkills();
+    console.log('Skills array: ',skillsArr);
+    console.log('Skills: ',skills);
+  },[]);
 
+  const deleteUser = () => {
+    const userID = localStorage.getItem("userID");
+    axios.delete("http://localhost:8080/delete-user",{
+      userID: userID
+    }).then((res) => {
+      console.log(res);
+      localStorage.clear();
+      setSkillsArr([]);
+      window.location.href = "/";
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
   return (
     <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
       <div className="w-[80%] h-[90%] flex flex-row z-10">
@@ -68,7 +95,7 @@ function Profile() {
                   email={localStorage.getItem('email')}
                 />
               </div>
-              <Button variant="varient" color="error" onClick={loadSkills}>
+              <Button variant="varient" color="error" onClick={deleteUser}>
                 Delete Account
               </Button>
             </div>
@@ -124,19 +151,10 @@ function Profile() {
 
               <h1>Technical Skills</h1>
               <div style={{ display: "flex", flexWrap: "wrap" }}>
-                <Fab
-                  style={{
-                    margin: "1%",
-                    color: "white",
-                    backgroundColor: "#3A0303",
-                  }}
-                  variant="extended"
-                  sx={{ width: 150, height: 25 }}
-                >
-                  OOP
-                </Fab>
-
-                <Fab
+                {
+                  skillsArr
+                }
+                {/* <Fab
                   style={{
                     margin: "1%",
                     color: "white",
@@ -206,7 +224,7 @@ function Profile() {
                   sx={{ width: 150, height: 25 }}
                 >
                   App Dev
-                </Fab>
+                </Fab> */}
               </div>
             </div>
           </div>

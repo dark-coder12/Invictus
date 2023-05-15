@@ -31,16 +31,12 @@ export default function EditProfileModal(props) {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const skills = [];
+  const [skills,setSkills] = React.useState([]);
 
   const handleClose = () =>{
-    console.log("Phd Degree: ", phdDegree);
-    console.log("Phd Institute: ", phdInstitute);
-    console.log("Masters Degree: ", mastersDegree);
-    console.log("Masters Institute: ", mastersInstitute);
-    console.log("Bachelors Degree: ", bachelorsDegree);
-    console.log("Bachelors Institute: ", bachelorsInstitute);
-    axios.post("http://localhost:8080/edit-profile", {
+    
+
+    axios.put("http://localhost:8080/edit-profile", {
       userID: localStorage.getItem("userID"),
       userName: props.username,
       email: props.email,
@@ -69,8 +65,9 @@ export default function EditProfileModal(props) {
       e.target.style.backgroundColor = "#3A0303";
       e.target.style.color = "white";
     }
-    skills.push(skill);
-    console.log(skills);
+    const tempArr = skills;
+    tempArr.push(skill);
+    setSkills(tempArr);
   };
 
 
@@ -246,7 +243,7 @@ export default function EditProfileModal(props) {
                 style={{ marginLeft: "5%" }}
                 variant="outlined"
                 color="error"
-                onClick={handleClose}
+                onClick={setOpen(false)}
               >
                 Cancel
               </Button>
