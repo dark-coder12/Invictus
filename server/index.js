@@ -108,6 +108,80 @@ const startServer = () => {
             }
           });
 
+        
+        app.post('/addBlog', async (req, res) => {
+          
+            try {
+              const { userID, blogName, imgUrl, date, description } = req.body;
+              const intID = parseInt(userID);
+              
+              const blog = await BlogPosts.findOne({ userID: intID });
+
+              if (blog) {
+                
+                blog.userBlogs.push({ blogName: blogName, imgUrl: imgUrl, date: date, description: description });
+                const success = await blog.save();
+                if (success) {
+                  res.status(200).send("blog_added");
+                }
+                else {
+                  res.status(400).send("blog_not_added");
+                }
+              }
+              else {
+                const newBlog = new BlogPosts();
+                newBlog.userID = intID;
+                newBlog.userBlogs.push({ blogName: blogName, imgUrl: imgUrl, date: date, description: description });
+                const success = await newBlog.save();
+                if (success) {
+                  res.status(200).send("blog_added");
+                }
+                else {
+                  res.status(400).send("blog_not_added");
+                }
+
+              }
+            }
+            catch (error) {
+              res.status(500).send(error.message);
+            }
+        });
+
+        app.post('/deleteBlog', async (req, res) => {
+          try {
+            const userID  = req.body.userID;
+            const blogName = req.body.blogName;
+            
+            const blog = await BlogPosts.findOne({ userID: userID });
+            if (blog) {
+              const index = await blog.userBlogs.findIndex((blog) => blog.blogName === blogName);
+              if (index !== -1) {
+                blog.userBlogs.splice(index, 1);
+                const success = await blog.save();
+                if (success) {
+                  res.status(200).send("blog_deleted");
+                }
+                else {
+                  res.status(400).send("blog_not_deleted");
+                }
+              }
+              else {
+                res.status(400).send("blog_not_found");
+              }
+            }
+            else {
+              res.status(400).send("blog_not_found");
+            }
+          }
+          catch (error) {
+            res.status(500).send(error.message);
+          }
+        });
+
+        
+            
+
+
         app.post('/create-blog', async (req, res) => {  
           try{
             const {userID,userDescription,blogName,imgUrl,date,description} = req.body;
