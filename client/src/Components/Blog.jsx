@@ -9,11 +9,11 @@ import BlogModal from "./BlogModal";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 
-export default function Blog({ blogName, description, imgSrc,authorName,date,authorImg }) {
+export default function Blog({ blogName, description, imgSrc,authorName,date,authorImg,likedBy}) {
   return (
     <Card
-      className="hover:bg-none hover:bg-opacity-50 gradientHover cursor-pointer hover:font-[600]"
-      sx={{ maxWidth: 345 }}
+      className="hover:bg-none hover:bg-opacity-50 gradientHover cursor-pointer hover:font-[600] m-2" 
+      style={{ width: "30%", height: "auto" }}
     >
       <CardMedia
         sx={{ height: 100, width: "auto" }}
@@ -32,7 +32,8 @@ export default function Blog({ blogName, description, imgSrc,authorName,date,aut
       <CardActions>
         <Button size="small" sx={{ color: "white" }}>
           <FavoriteIcon />
-          33
+          {console.log(likedBy)}
+          {likedBy.length}
         </Button>
         <BlogModal
           imgSrc={imgSrc}

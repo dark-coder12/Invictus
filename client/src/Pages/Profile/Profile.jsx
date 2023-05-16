@@ -55,8 +55,6 @@ function Profile() {
 
   useEffect(() => {
     loadSkills();
-    console.log('Skills array: ',skillsArr);
-    console.log('Skills: ',skills);
   },[]);
 
   const deleteUser = () => {
@@ -154,77 +152,7 @@ function Profile() {
                 {
                   skillsArr
                 }
-                {/* <Fab
-                  style={{
-                    margin: "1%",
-                    color: "white",
-                    backgroundColor: "#3A0303",
-                  }}
-                  variant="extended"
-                  sx={{ width: 150, height: 25 }}
-                >
-                  Blockchain
-                </Fab>
-
-                <Fab
-                  style={{
-                    margin: "1%",
-                    color: "white",
-                    backgroundColor: "#3A0303",
-                  }}
-                  variant="extended"
-                  sx={{ width: 150, height: 25 }}
-                >
-                  UI / UX
-                </Fab>
-
-                <Fab
-                  style={{
-                    margin: "1%",
-                    color: "white",
-                    backgroundColor: "#3A0303",
-                  }}
-                  variant="extended"
-                  sx={{ width: 150, height: 25 }}
-                >
-                  NLP
-                </Fab>
-
-                <Fab
-                  style={{
-                    margin: "1%",
-                    color: "white",
-                    backgroundColor: "#3A0303",
-                  }}
-                  variant="extended"
-                  sx={{ width: 150, height: 25 }}
-                >
-                  AI
-                </Fab>
-
-                <Fab
-                  style={{
-                    margin: "1%",
-                    color: "white",
-                    backgroundColor: "#3A0303",
-                  }}
-                  variant="extended"
-                  sx={{ width: 150, height: 25 }}
-                >
-                  Web Dev
-                </Fab>
-
-                <Fab
-                  style={{
-                    margin: "1%",
-                    color: "white",
-                    backgroundColor: "#3A0303",
-                  }}
-                  variant="extended"
-                  sx={{ width: 150, height: 25 }}
-                >
-                  App Dev
-                </Fab> */}
+                
               </div>
             </div>
           </div>
