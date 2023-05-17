@@ -15,13 +15,69 @@ import burak from "../../Assets/pictures/burak.jpg";
 import badgeLogo from "../../Assets/pictures/badgeLogo.png";
 import { options } from "../../Assets/code/options";
 
+import { useState, useEffect } from "react";
+import axios from 'axios';
+
+import { useParams } from "react-router-dom";
+
 const Community = () => {
 
+  const {id} = useParams();
+  const cID = id;
+  var isUserJoined = false;
+  const uID = localStorage.getItem('userID');
+  const [communityDets, setCommunityDets] = useState([]);
+
+  useEffect(() => {
+
+    axios.get(`http://localhost:8080/get-community/${cID}`)
+
+      .then((response) => {
+    
+        console.log(response.data);
+        setCommunityDets(response.data);
+       
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    
+      axios.get(`http://localhost:8080/is-user-joined/${cID}/${uID}`)
+
+      .then((response) => {
+      
+      isUserJoined = response.data.joined;
+       
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+  
     const particlesInit = async (main) => {
         await loadFull(main);
       };
     
     const particlesLoaded = (container) => {};
+
+    const addCommunity = () => {
+
+      axios.post(`http://localhost:8080/add-user-community/${cID}/${uID}`, {
+        title: communityDets.title,
+        bg: communityDets.bg
+      })
+
+      .then((response) => {
+
+       
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
+
+  
 
     const posts = [
         {
@@ -54,8 +110,26 @@ const Community = () => {
 
         <div className="bg-[#000000] bg-opacity-70 h-full w-[80%] pl-10 overflow-y-auto">      
           <div>
-               < CommunityHeader/>               
+              {communityDets.map(cd => (
+               < CommunityHeader
+                 title = {cd.title}
+                 description = {cd.description}
+                 bg = {cd.bg}
+               />    
+              ))}           
           </div>
+          {
+            isUserJoined ?  <button className="text-sm ml-2 px-2 w-[5rem] h-[1.5rem] mt-3 py-1 text-white bg-[#3a0303] hover:bg-[#2B0202] rounded-lg focus:outline-none" 
+            type="submit" onClick={addCommunity}>
+            Join
+          </button>
+          : 
+          <button className="text-sm ml-2 px-2 w-[5rem] h-[1.5rem] mt-3 py-1 text-white bg-[#3a0303] hover:bg-[#2B0202] rounded-lg focus:outline-none" 
+          >
+          Already Joined
+        </button>
+          }
+         
 
           <div className="flex flex-row mt-10">
             <div className="grid gap-5">
@@ -71,7 +145,7 @@ const Community = () => {
 
             <div className="flex flex-col">
             <div className="ml-10 w-[25rem]">
-              <AddToCommunity/>
+              <AddToCommunity isUserJoined = {isUserJoined}/>
             </div>
 
             <div className="bg-[#000010] rounded-md border border-white p-2  ml-10 flex flex-col">

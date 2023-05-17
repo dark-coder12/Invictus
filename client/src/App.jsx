@@ -120,13 +120,15 @@ const App = () => {
         <Route
           path="/all-communities"
           element={
-            isUserLoggedIn ? <AllCommunities /> : <Navigate to="/signin" replace={true} />
+            // isUserLoggedIn ? <AllCommunities /> : <Navigate to="/signin" replace={true} />
+            <AllCommunities />
           }
         />
         <Route
           path="/community/:id"
           element={
-            isUserLoggedIn ? <Community /> : <Navigate to="/signin" replace={true} />
+            // isUserLoggedIn ? <Community /> : <Navigate to="/signin" replace={true} />
+            <Community />
           }
         />
         <Route

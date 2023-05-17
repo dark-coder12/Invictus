@@ -11,6 +11,9 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const TopicOfTheDay = require('./mongodb/models/topicOfTheDay');
 const Skills = require('./mongodb/models/skills');
+const CommunityTile = require('./mongodb/models/communityTile')
+const UserCommunities = require('./mongodb/models/userCommunities')
+const CommunityDetails = require('./mongodb/models/communityDetails')
 
 const app = express();
 
@@ -67,7 +70,6 @@ const startServer = () => {
              
               const { email, password } = req.body;
 
-            
               const user = await User.findOne({ email });
           
               if (!user) {
@@ -344,6 +346,115 @@ const startServer = () => {
               }
             });
 
+            //communities page
+            app.get('/get-communities', async (req, res) => { 
+
+              try {
+                var mysort = { id: 1 };
+                const communities = await CommunityTile.find().sort(mysort);
+                res.send(communities);
+                console.log(communities)
+              
+              } catch (err) {
+                console.error(err);
+              } finally {
+               
+            }});
+
+            app.get('/get-user-communities/:userID', async (req, res) => { 
+
+              const { userID } = req.params;  
+              
+
+              try {
+                const intID = parseInt(userID);
+                const userCommunities = await UserCommunities.find({ userID: intID });
+                const result = userCommunities.map(({ title, bg}) => ({title, bg}));
+                
+                res.status(200).json(result);
+
+                console.log("user ki hain ab////////")
+                console.log(userCommunities)
+              
+              } catch (err) {
+                console.error(err);
+              } finally {
+               
+            }});
+
+            //for one connection - 1
+            app.get('/get-user-profile/:userID', async (req, res) => { 
+
+              const {userID} = req.params;  
+              try {
+                const intID = parseInt(userID);
+                const userDets = await User.find({userID: intID});
+                const result = userDets.map(({email, firstName , lastName , imgUrl}) => ({email, firstName , lastName , imgUrl}));
+                
+                res.status(200).json(result);
+                console.log(userDets)
+              
+              } catch (err) {
+                console.error(err);
+              } finally {
+               
+            }});
+
+             //for one connection - 2
+             app.get('/get-user-skills/:userID', async (req, res) => { 
+
+              const {userID} = req.params;  
+              try {
+                const intID = parseInt(userID);
+                const userSkills = await Skills.find({userID: intID});
+                const result = userSkills.map(({phdDegree , phdInstitute , mastersDegree , mastersInstitute , bachelorsDegree , bachelorsInstitute , skills}) => 
+                                              ({phdDegree , phdInstitute , mastersDegree , mastersInstitute , bachelorsDegree , bachelorsInstitute , skills}));
+                
+                res.status(200).json(result);
+                console.log(userDets)
+              
+              } catch (err) {
+                console.error(err);
+              } finally {
+               
+            }});
+
+
+            app.post('/add-user-community/:cID/:uID', async (req, res) => { 
+
+              const { cID, uID } = req.params;   
+              const {name, picture} = req.body;
+
+              try {
+                  const userCommunity = new UserCommunities({
+                  communityID: parseInt(cID),
+                  userID: parseInt(uID),
+                  title: name,
+                  bg: picture
+                });
+            
+                await userCommunity.save();
+                res.status(200).send('User community added successfully!');
+              } catch (error) {
+                res.status(500).send('Error adding user community');
+            
+            }});
+
+      
+            app.get(`/get-community/:cID`, async (req, res) => {
+            
+              const {cID} = req.params;  
+              try {            
+                const community = await CommunityDetails.findOne({id : cID});
+                console.log("Data : " + community)
+                
+                res.json(community);
+              } catch (err) {
+                
+                res.status(500).json({ message: 'Server Error' });
+              }
+            });
+
 
             app.get('/topic-of-the-day', async(req, res) => {
 
@@ -360,7 +471,32 @@ const startServer = () => {
 
             });
 
+            
 
+            app.get('/is-user-joined/:cID/:uID', async(req, res) => {
+
+              const { cID, uID } = req.params;  
+              
+
+              try {
+                const intID = parseInt(uID);
+                const c_ID = parseInt(cID);
+
+                var joined = false;
+
+                const userCommunities = await UserCommunities.findOne({ communityID: c_ID, userID: intID });
+
+                if(userCommunities != null){
+                  joined = true;
+                
+                }else joined = false;
+                res.status(200).json(joined);
+              }catch(err){
+                console.log(err);
+                
+              res.status(404).json(err);
+              }
+    });
 
             app.post("/create-payment-intent", async (req, res) => {
               const { items } = req.body;

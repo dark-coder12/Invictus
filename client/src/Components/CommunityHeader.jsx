@@ -3,7 +3,7 @@ import Artificialis from "../Assets/pictures/Artificialis.jpg";
 import { Card,CardHeader,CardBody,Typography,Avatar,} from "@material-tailwind/react";
 import { useState } from "react";
 
-const CommunityHeader = () => {
+const CommunityHeader = ({title , description , bg}) => {
 
     const [isHovered, setIsHovered] = useState(false);
   
@@ -32,7 +32,7 @@ const CommunityHeader = () => {
           style={{
             border: 'none',
             borderRadius:'0',
-            backgroundImage: `url('https://cdn.discordapp.com/discovery-splashes/853221870244331521/50c1d1f745512a8b733fb9bd32485aa4.jpg?size=2048')`,
+            backgroundImage: {bg},
             filter: isHovered ? "brightness(10%)" : "brightness(40%)",
             transition: "filter 0.3s ease-in-out",
           }}
@@ -52,7 +52,7 @@ const CommunityHeader = () => {
               color="white"
               className=" font-medium leading-[1.5] pt-10"
             >
-            Artificialis Scout
+            {title}
             </Typography>
           </div>
   
@@ -63,7 +63,7 @@ const CommunityHeader = () => {
               } w-full absolute bottom-0 left-0 bg-[#010101]`}
             >
               <Typography variant="body1" className="text-white py-2 px-4">
-               This server is all about finding a community full of data science, machine learning and technology enthusiasts
+               {description}         
               </Typography>
             </div>
       </Card>

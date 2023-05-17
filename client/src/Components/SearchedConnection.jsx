@@ -1,11 +1,11 @@
 import React from 'react';
 
-const SearchedConnection = ({icon,name, isAdded}) => {
+const SearchedConnection = ({imgUrl, firstName, lastName, isAdded}) => {
   return(
     <div className='flex flex-row rounded-md bg-[#000000] border border-white mb-5 h-[5rem] w-[45rem] justify-between'>
        <div className='flex flex-row'> 
-       <img src = {icon} alt="dp" className='rounded-full p-2'></img>
-       <h3 className='ml-3 mt-6'>{name}</h3>
+       <img src = {imgUrl} alt="dp" className='rounded-full p-2'></img>
+       <h3 className='ml-3 mt-6'>{firstName} {lastName}</h3>
        </div>
 
       {isAdded &&

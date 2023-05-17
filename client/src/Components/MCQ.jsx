@@ -11,7 +11,6 @@ const MCQ = ({ question, options, answer, onOptionSelect }) => {
     setSelectedOption(index);
     onOptionSelect(options[index]);
   };
-  
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">

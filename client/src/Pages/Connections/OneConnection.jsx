@@ -7,10 +7,47 @@ import LeftConnectionProfile from "../../Components/LeftConnectionProfile";
 import RightConnectionProfile from "../../Components/RightConnectionProfile";
 import PieChartClass from "../../Components/PieChartClass";
 import { options } from "../../Assets/code/options";
-  
+import axios from "axios";
 
 const OneConnection = () => {
-   
+  
+  const [userDets, setUserDets] = useState([]);
+  const [userSkills, setUserSkills] = useState([]);
+
+  useEffect(() => {
+    const userID = localStorage.getItem('userID');
+    console.log(userID)
+
+    axios.get(`http://localhost:8080/get-user-profile/${userID}`)
+
+    .then((response) => {
+  
+      console.log(response.data);
+      setUserDets(response.data);
+     
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }, []);
+
+  useEffect(() => {
+    const userID = localStorage.getItem('userID');
+    console.log(userID)
+
+    axios.get(`http://localhost:8080/get-user-skills/${userID}`)
+
+    .then((response) => {
+  
+      console.log(response.data);
+      setUserSkills(response.data);
+     
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }, []);
+
     const particlesInit = async (main) => {
         await loadFull(main);
       };
@@ -43,23 +80,26 @@ const OneConnection = () => {
           <div className="flex flex-row border border-[#3A0303]">
           
           <div className="w-[30%] border border-[#3A0303] p-6">
-           {UserDetails.map(user => (
+           {userDets.map(user => (
             <LeftConnectionProfile
-             icon = {user.icon}
-             name = {user.name}
-             username = {user.username}
-             bio = {user.bio}
-             followers = {user.followers}
-             communities = {user.communities}
+             imgUrl = {user.imgUrl}
+             firsrtName = {user.firstName}
+             lastName = {user.lastName}
+             bio = "this is a filler bio"
+             email = {user.email}
             />
            ))}
            </div>
 
            <div className="w-[40%] border border-[#3A0303] p-2">
-           {UserDetails.map(user => (
+           {userSkills.map(user => (
             <RightConnectionProfile
-             education = {user.education}
-             institute = {user.institute}
+             phdDegree = {user.phdDegree}
+             phdInstitute = {user.phdInstitute}
+             mastersDegree = {user.mastersDegree}
+             mastersInstitute = {user.mastersInstitute}
+             bachelorsDegree = {user.bachelorsDegree}
+             bachelorsInstitute = {user.bachelorsInstitute}
              skills = {user.skills}
             />
            ))}
@@ -69,7 +109,6 @@ const OneConnection = () => {
            <div><PieChartClass/></div>
          
            <div className="content-center text-[#979797] text-sm ml-[10%] ">
-            <h5 className="text-justify pt-[80%] justify-center hover:underline underline-offset-4 mb-4">Email:<br></br>bismaashar665@gmail.com</h5>
             <p className="text-justify text-center hover:underline underline-offset-4 mb-4">GitHub:<br></br>www.github.com/bismaashar</p>
             <p className="mb-10 text-center hover:underline underline-offset-4 text-justify ">Contact:<br></br> 042-457-246</p>
            </div>

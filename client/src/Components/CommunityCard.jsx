@@ -1,7 +1,7 @@
 import { Card,CardHeader,CardBody,Typography,Avatar,} from "@material-tailwind/react";
 import { useState } from "react";
   
-export default function CertificationCard({ title, image, members, description, bg }) {
+export default function CertificationCard({ title, image, members, description, bg , handleOnClick}) {
 
     const [isHovered, setIsHovered] = useState(false);
   
@@ -14,8 +14,8 @@ export default function CertificationCard({ title, image, members, description, 
     };
   
     return (
-      <div>
- <Card
+      <div onClick={handleOnClick}>
+     <Card
         shadow={false}
         className="relative grid h-[20rem] w-full max-w-[28rem] items-end justify-center overflow-hidden text-center"
         onMouseEnter={handleHover}

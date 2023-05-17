@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 
-const AddToCommunity = () => {
+const AddToCommunity = ({isUserLogged}) => {
 
   const [postText, setPostText] = useState('');
 
@@ -29,19 +29,19 @@ const AddToCommunity = () => {
           value={postText}
           onChange={handlePostChange}
         />
-        <div className="flex justify-between items-center ">
+        { isUserLogged ?  <div className="flex justify-between items-center ">
           <div className="flex ">
             <button className="text-sm ml-2 px-2 w-[5rem] h-[1.5rem] mt-3 py-1 text-white bg-[#3a0303] hover:bg-[#2B0202] rounded-lg focus:outline-none" type="submit">
               Post
             </button>
           </div>
           <div className="flex">
-          <button className="mt-3 text-xs ml-2 px-2 w-[5rem] h-[1.5rem] py-1 text-white bg-[#3a0303] hover:bg-[#2B0202] rounded-lg focus:outline-none" type="submit">
-              Attach
-            </button>
-           
           </div>
-        </div>
+        </div> :
+         <p className="text-sm ml-2 px-2 w-[5rem] h-[1.5rem] mt-3 py-1 text-white bg-[#3a0303] hover:bg-[#2B0202] rounded-lg focus:outline-none">
+        Join this community first!
+       </p>
+        }
       </form>
       </div>
     )

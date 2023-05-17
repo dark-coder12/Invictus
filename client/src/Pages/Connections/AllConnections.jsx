@@ -10,8 +10,28 @@ import bis from "../../Assets/pictures/bis.jpg";
 import iz from "../../Assets/pictures/iz.jpg";
 
 import { options } from "../../Assets/code/options";
+import axios from "axios";
 
 const AllConnections = () => {
+
+  const [userDets, setUserDets] = useState([]);
+
+  useEffect(() => {
+    const userID = localStorage.getItem('userID');
+    console.log(userID)
+
+    axios.get(`http://localhost:8080/get-user-profile/${userID}`)
+
+    .then((response) => {
+  
+      console.log(response.data);
+      setUserDets(response.data);
+     
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }, []);
 
     const particlesInit = async (main) => {
         await loadFull(main);
@@ -69,10 +89,11 @@ const AllConnections = () => {
             </div>
 
             <div>
-              {allUsers.map((user,index) => (
+              {userDets.map((user,index) => (
                 <SearchedConnection 
-                icon={user.icon} 
-                name={user.name}
+                imgUrl={user.imgUrl} 
+                firstName={user.firstName}
+                lastName={user.lastName}
                 isAdded={isAdded[index]}
                 />
               ))}
