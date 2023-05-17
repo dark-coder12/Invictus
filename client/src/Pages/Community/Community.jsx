@@ -26,23 +26,18 @@ const Community = () => {
   const cID = id;
   var isUserJoined = false;
   const uID = localStorage.getItem('userID');
-  const [communityDets, setCommunityDets] = useState([]);
+  const [communityDets, setCommunityDets] = useState({});
 
   useEffect(() => {
 
-    axios.get(`http://localhost:8080/get-community/${cID}`)
+    const fetchCurrentCommunity = async () => {
 
-      .then((response) => {
-    
-        console.log(response.data);
-        setCommunityDets(response.data);
-       
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+      const myCommunity = axios.get(`http://localhost:8080/get-community/${cID}`)
+      console.log(myCommunity.data);
+      setCommunityDets(myCommunity.data);
+    }
+    fetchCurrentCommunity();
 
-    
       axios.get(`http://localhost:8080/is-user-joined/${cID}/${uID}`)
 
       .then((response) => {

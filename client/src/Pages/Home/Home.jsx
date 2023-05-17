@@ -147,6 +147,7 @@ const Home = (props) => {
               <img
                 className="w-10  hover:rounded-md hover:p-1"
                 src={connectionsLogo}
+                onClick={()=>navigate('/codebot')}
               />
               <img className="w-10 hover:rounded-md hover:p-1" src={AILogo} />
               <img

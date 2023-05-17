@@ -5,7 +5,7 @@ import { FaRobot } from "react-icons/fa";
 
 import LoadingSpin from "react-loading-spin";
 
-const API_KEY = "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";
+const API_KEY = "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";
 const model = "text-davinci-002";
 
 const configuration = new Configuration({

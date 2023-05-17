@@ -45,6 +45,8 @@ function SignUpForm() {
         localStorage.setItem('imgUrl', response.data.imgUrl);
         localStorage.setItem('firstName', response.data.firstName);
         localStorage.setItem('lastName', response.data.lastName);
+
+        console.log(response.data);
       }
     })
     .catch((error) => {

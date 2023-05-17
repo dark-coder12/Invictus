@@ -12,8 +12,11 @@ import mongoDBLogo from "../../Assets/pictures/mongoDBLogo.png";
 import mySQLLogo from "../../Assets/pictures/mySQLLogo.png";
 import displayPicture from "../../Assets/pictures/display-picture.jpg";
 import { options } from "../../Assets/code/options";
+import { useNavigate } from "react-router-dom";
 
 const Certification = () => {
+
+  const navigate = useNavigate();
 
   const particlesInit = async (main) => {
     await loadFull(main);
@@ -70,11 +73,8 @@ const Certification = () => {
                
                 <div className = 'flex flex-row pt-4'>
                    
-                    <button class="bg-[#3a0303] text-white rounded-full py-1 px-2 w-[8rem]">
-                        Learn More
-                    </button>
-                    <button class="bg-[#3a0303] text-white rounded-full py-1 px-2 ml-5 w-[9rem]">
-                        Go to Courses
+                    <button class="bg-[#3a0303] text-white rounded-full py-1 px-2 w-[8rem]" onClick={()=> navigate('/all-certifications')}>
+                      Go to Courses
                     </button>
                 </div>
             </div>
@@ -143,8 +143,8 @@ const Certification = () => {
       
 
                 <div className = 'flex flex-row justify-center'>
-                <button class="text-white py-1 px-2 w-[70%] text-2xl underline font-[100]">
-                            Go to Courses
+                <button class="text-white py-1 px-2 w-[90%] text-2xl underline font-[100]">
+                         Go to Courses
                 </button>
             </div>
             </div>

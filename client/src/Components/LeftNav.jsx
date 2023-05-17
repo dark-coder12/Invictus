@@ -45,11 +45,11 @@ const LeftNav = () => {
         </div>
         <div className="flex items-center pb-2 pt-2 hover:bg-none hover:bg-opacity-50 gradientHover cursor-pointer pl-[15%]">
           <img src={people} className="w-4" />
-          <span className="ml-2">Community</span>
+          <span className="ml-2" onClick={()=> navigate('/all-communities')}>Community</span>
         </div>
         <div className="flex items-center pb-2 pt-2 hover:bg-none hover:bg-opacity-50 gradientHover cursor-pointer pl-[15%]">
           <img src={connect} className="w-4" />
-          <span className="ml-2">Connect</span>
+          <span className="ml-2" onClick={()=> navigate('/all-connections')}>Connect</span>
         </div>
       </div>
 
