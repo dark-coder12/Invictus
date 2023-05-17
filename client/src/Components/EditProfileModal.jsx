@@ -6,6 +6,7 @@ import Fab from "@mui/material/Fab";
 import DegreeSelector from "./DegreeSelector";
 import InstituteSelector from "./InstituteSelector";
 import axios from "axios";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -19,6 +20,9 @@ const style = {
 };
 
 export default function EditProfileModal(props) {
+
+  const [newUsername, setNewUsername] = React.useState(props.username);
+  const [newEmail, setNewEmail] = React.useState(props.email);
   const [phdDegree, setPhdDegree] = React.useState("");
   const [phdInstitute, setPhdInstitute] = React.useState("");
 
@@ -34,28 +38,37 @@ export default function EditProfileModal(props) {
   const [skills,setSkills] = React.useState([]);
 
   const handleClose = () =>{
-    
-
+    var tempUserName = props.username;
+    var tempEmail = props.email;
+    if (newUsername !== props.username) {
+      tempUserName = newUsername;
+    } 
+    if (newEmail !== props.email) {
+      tempEmail = newEmail;
+    }
     axios.put("http://localhost:8080/edit-profile", {
-      userID: localStorage.getItem("userID"),
-      userName: props.username,
-      email: props.email,
-      phdDegree: phdDegree,
-      phdInstitute: phdInstitute,
-      mastersDegree: mastersDegree,
-      mastersInstitute: mastersInstitute,
-      bachelorsDegree: bachelorsDegree,
-      bachelorsInstitute: bachelorsInstitute,
-      skills: skills
-    }).then((res) => {
-      console.log(res);
-    }).catch((err) => {
-      console.log(err);
-    });
+       userID: localStorage.getItem("userID"),
+       userName: tempUserName,
+       email: tempEmail,
+       phdDegree: phdDegree,
+       phdInstitute: phdInstitute,
+       mastersDegree: mastersDegree,
+       mastersInstitute: mastersInstitute,
+       bachelorsDegree: bachelorsDegree,
+       bachelorsInstitute: bachelorsInstitute,
+       skills: skills
+     }).then((res) => {
+       if (res.data === 'user_updated'){
+          localStorage.setItem("userName",tempUserName);
+          localStorage.setItem("email",tempEmail);
+          window.location.reload();
+       }
+       console.log(res);
+    })
 
     setOpen(false);
   }
-  const col = React.useRef(null);
+  
 
   const changeColor = (e,skill) => {
     if (e.target.style.backgroundColor !== "white") {
@@ -105,6 +118,7 @@ export default function EditProfileModal(props) {
               id="username"
               type="text"
               placeholder={props.username}
+              onChange={(e) => setNewUsername(e.target.value)}
             />
             <InputField
               htmlFor="email"
@@ -113,6 +127,7 @@ export default function EditProfileModal(props) {
               id="emial"
               type="email"
               placeholder={props.email}
+              onChange={(e) => setNewEmail(e.target.value)}
             />
 
             {/* Education */}
@@ -137,8 +152,8 @@ export default function EditProfileModal(props) {
                
               
             </div>
-
-            {/* Technical Skills */}
+        
+             {/* Technical Skills  */}
 
             <label className="block font-bold mb-2">Technical Skills</label>
             <div style={{ display: "flex", flexWrap: "wrap" }}>
@@ -233,21 +248,16 @@ export default function EditProfileModal(props) {
                 App Dev
               </Fab>
             </div>
+          
 
-            {/* Save and Cancel Buttons */}
+             {/* Save and Cancel Buttons  */}
             <div style={{ display: "flex", padding: "2%" }}>
               <Button variant="outlined" color="success" onClick={handleClose}>
                 Save
               </Button>
-              <Button
-                style={{ marginLeft: "5%" }}
-                variant="outlined"
-                color="error"
-                onClick={setOpen(false)}
-              >
-                Cancel
-              </Button>
-            </div>
+              <Button style={{ marginLeft: "5%" }} variant="outlined" color="error" onClick={()=> setOpen(false)} >Cancel</Button>
+            </div> 
+            
           </div>
         </div>
       </Modal>

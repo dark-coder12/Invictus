@@ -28,34 +28,31 @@ function Profile() {
   const [skills, setSkills] = React.useState([]);
   const [skillsArr, setSkillsArr] = React.useState([]);
 
-  const loadSkills = () => {
-    const userID = localStorage.getItem("userID");
-    
-    axios.post("http://localhost:8080/get-skills",{
-      userID: userID
-    }).then((res) => {
-      setPhdDegree(res.data.phdDegree);
-      setPhdInstitute(res.data.phdInstitute);
-      setMastersDegree(res.data.mastersDegree);
-      setMastersInstitute(res.data.mastersInstitute);
-      setBachelorsDegree(res.data.bachelorsDegree);
-      setBachelorsInstitute(res.data.bachelorsInstitute);
-      setSkills(res.data.skills);
-      res.data.skills.forEach((skill) => {
-        const temp = <Fab style={{margin: "1%",color: "white",backgroundColor: "#3A0303"}} variant="extended" sx={{ width: 150, height: 25 }}>{skill}</Fab>
-        const tempArr = skillsArr;
-        tempArr.push(temp);
-        setSkillsArr(tempArr);
-        console.log('Skills st to ,',skillsArr)
-      });
-     }).catch((err) => { 
-      console.log(err);
-    });
-  }
 
   useEffect(() => {
-    loadSkills();
-  },[]);
+    setSkillsArr([]);
+    const userID = localStorage.getItem("userID");
+     axios.post("http://localhost:8080/get-skills",{
+       userID: userID
+     }).then((res) => {
+       setPhdDegree(res.data.phdDegree);
+       setPhdInstitute(res.data.phdInstitute);
+       setMastersDegree(res.data.mastersDegree);
+       setMastersInstitute(res.data.mastersInstitute);
+       setBachelorsDegree(res.data.bachelorsDegree);
+       setBachelorsInstitute(res.data.bachelorsInstitute);
+       setSkills(res.data.skills);
+       res.data.skills.forEach((skill) => {
+         const temp = <Fab style={{margin: "1%",color: "white",backgroundColor: "#3A0303"}} variant="extended" sx={{ width: 150, height: 25 }}>{skill}</Fab>
+         const tempArr = skillsArr;
+         tempArr.push(temp);
+         setSkillsArr(tempArr);
+         console.log('Skills st to ,',skillsArr)
+       });
+      }).catch((err) => { 
+     console.log(err);
+    });
+   },[]);
 
   const deleteUser = () => {
     const userID = localStorage.getItem("userID");
@@ -77,8 +74,8 @@ function Profile() {
           <LeftNav />
         </div>
         
-        <div className="bg-[#000000] bg-opacity-70 h-full w-[65%] flex flex-col items-center justify-center gap-10">
-          <div className="w-100 flex items-center justify-center">
+        <div className="bg-[#000000] bg-opacity-70 h-full w-[65%] flex ">
+          <div className="w-[30%] flex m-[12%] items-center">
             <div className="w-50 m-20 flex flex-col items-center justify-center">
               <Avatar
                 sx={{ width: 100, height: 100 }}
@@ -87,18 +84,21 @@ function Profile() {
                 src={localStorage.getItem('imgUrl')}
               />
               <h1 className="text-center p-10">{localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName')}</h1>
-              <div className="mb-10">
-                <EditProfileModal
-                  username={localStorage.getItem('userName')}
-                  email={localStorage.getItem('email')}
-                />
-              </div>
-              <Button variant="varient" color="error" onClick={deleteUser}>
-                Delete Account
-              </Button>
-            </div>
+                <div className="mb-10">
+                  <EditProfileModal
+                    username={localStorage.getItem('userName')}
+                    email={localStorage.getItem('email')}
+                  /> 
+                
+                  </div>
+                    <Button variant="varient" color="error" onClick={deleteUser}>
+                      Delete Account
+                    </Button>
+                  </div>
+          </div>
 
-            <div className="h-50  bg-[#000000] bg-opacity-70 flex-column">
+
+            <div className="h-50 w-[40%] bg-[#000000] bg-opacity-70 flex-column">
               <h1>
                 <b>Personal Information</b>
               </h1>
@@ -115,8 +115,8 @@ function Profile() {
               </div>
 
               <div className="flex mt-2">
-                <Avatar sx={{ width: 25, height: 25 }}>@</Avatar>
-                <small className="ml-2">{localStorage.getItem('email')}</small>
+                  <Avatar sx={{ width: 25, height: 25 }}>@</Avatar>
+                  <small className="ml-2">{localStorage.getItem('email')}</small>
               </div>
               <br></br>
 
@@ -152,12 +152,15 @@ function Profile() {
                 {
                   skillsArr
                 }
+                 
                 
               </div>
-            </div>
+
+          </div>
           </div>
         </div>
-      </div>
+      
+      
       <Particles
         className="z-0 absolute top-0 left-0 w-full h-full"
         init={particlesInit}
