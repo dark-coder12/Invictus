@@ -3,7 +3,10 @@ import React, {useState, useEffect} from "react";
 import SpotifyPlayer from "../Components/SpotifyPlayer";
 import invLogo from "../Assets/pictures/maroonLogo.png";
 import profileLogo from "../Assets/pictures/profile.png";
-import displayPicture from "../Assets/pictures/display-picture.jpg";
+
+import people from "../Assets/pictures/people.png";
+import connect from "../Assets/pictures/connect.png";
+
 import headphone from "../Assets/pictures/maroonH.png";
 import { useNavigate } from "react-router-dom";
 
@@ -42,11 +45,11 @@ const LeftNav = () => {
           <span className="ml-2" onClick={()=> navigate('/home')}>Home</span>
         </div>
         <div className="flex items-center pb-2 pt-2 hover:bg-none hover:bg-opacity-50 gradientHover cursor-pointer pl-[15%]">
-          <img src={profileLogo} className="w-4" />
+          <img src={people} className="w-4" />
           <span className="ml-2">Community</span>
         </div>
         <div className="flex items-center pb-2 pt-2 hover:bg-none hover:bg-opacity-50 gradientHover cursor-pointer pl-[15%]">
-          <img src={profileLogo} className="w-4" />
+          <img src={connect} className="w-4" />
           <span className="ml-2">Connect</span>
         </div>
       </div>

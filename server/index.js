@@ -503,7 +503,7 @@ const startServer = () => {
 
             app.get('/get-certifications/:userID', async (req, res) => {
               const { userID } = req.params;
-            
+            console.log(userID)
               try {
 
                 const intID = parseInt(userID);
