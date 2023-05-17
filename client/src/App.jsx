@@ -106,7 +106,7 @@ const App = () => {
           }
         />
         <Route
-          path="/meetup/:id"
+          path="/meetupinfo"
           element={
             isUserLoggedIn ? <MeetUpInfo /> : <Navigate to="/signin" replace={true} />
           }

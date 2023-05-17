@@ -2,15 +2,23 @@
 import React, { useEffect, useRef, useState } from "react"
 
 import Peer from "simple-peer"
-import io from "socket.io-client"
+
 import { loadFull } from "tsparticles";
 import Particles from "react-tsparticles";
 import { options } from "../../Assets/code/options";
 
+import { io } from "socket.io-client";
 
-const socket = io.connect('http://localhost:5000')
+// https://video-call-server-invictus.onrender.com/
+
+const socket = io("http://localhost:5000", {
+  extraHeaders: {
+    "my-custom-header": "abcd"
+  }
+});
 
 function VideoCall() {
+	console.log("VideoCall.jsx");
 
   const particlesInit = async (main) => {
     await loadFull(main);
@@ -132,7 +140,7 @@ function VideoCall() {
                 />
                 <span class="text-white font-bold text-lg ">Mars</span>
                 </div>
-                }
+              }
               </div>
 
             </div>

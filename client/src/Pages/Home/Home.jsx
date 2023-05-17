@@ -76,6 +76,7 @@ const Home = (props) => {
   const handleLogOut = () => {
 
     if (window.confirm("Are you sure you want to logout?")) {
+      localStorage.clear();
       props.handleLogout();
     } 
   }
@@ -136,10 +137,12 @@ const Home = (props) => {
               <img
                 className="w-10 hover:rounded-md hover:p-1"
                 src={phoneLogo}
+                onClick={()=>navigate('/video-call')}
               />
               <img
                 className="w-10 hover:rounded-md hover:p-1"
                 src={eventLogo}
+                onClick={()=>navigate('/meetup')}
               />
               <img
                 className="w-10  hover:rounded-md hover:p-1"
@@ -149,6 +152,7 @@ const Home = (props) => {
               <img
                 className="w-10  hover:rounded-md hover:p-1"
                 src={blogLogo}
+                onClick={()=>navigate('/blog-posts')}
               />
               <img
                 className="w-10  hover:rounded-md hover:p-1"

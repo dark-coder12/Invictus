@@ -27,6 +27,12 @@ function SignInForm({ handleLogin, isUserLoggedIn }) {
     .then((response) => {
 
         localStorage.setItem('userID', response.data.userID);
+        localStorage.setItem('userName', response.data.userName);
+        localStorage.setItem('email', response.data.email);
+        localStorage.setItem('imgUrl', response.data.imgUrl);
+        localStorage.setItem('firstName', response.data.firstName);
+        localStorage.setItem('lastName', response.data.lastName);
+
         alert('You have been successfully logged in!');
        
         handleLogin(true);
@@ -54,7 +60,7 @@ function SignInForm({ handleLogin, isUserLoggedIn }) {
       </div>
 
       <div className="w-1/2 p-6 flex flex-col justify-center">
-        <h2 className="text-center text-2xl font-bold mb-4">SignIn</h2>
+        <h2 className="text-center text-2xl font-bold mb-4">Sign In</h2>
 
         <form className="px-5">
           <InputField

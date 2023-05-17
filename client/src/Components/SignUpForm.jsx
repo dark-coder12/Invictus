@@ -36,9 +36,15 @@ function SignUpForm() {
       userName
     })
     .then((response) => {
-
-      if(response.data == 'user_saved'){
-        alert('You have been successfully logged in!');
+      console.log(response.data);
+      if(response){
+        
+        localStorage.setItem('userID', response.data.userID);
+        localStorage.setItem('userName', response.data.userName);
+        localStorage.setItem('email', response.data.email);
+        localStorage.setItem('imgUrl', response.data.imgUrl);
+        localStorage.setItem('firstName', response.data.firstName);
+        localStorage.setItem('lastName', response.data.lastName);
       }
     })
     .catch((error) => {

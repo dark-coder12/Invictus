@@ -7,6 +7,8 @@ import ccs from "../../Assets/pictures/ccs.jpg";
 import { options } from "../../Assets/code/options";
 import fms  from '../../Assets/pictures/fms.png';
 import stacks  from '../../Assets/pictures/stacks.svg';
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function MeetUp() {
   const particlesInit = async (main) => {
@@ -14,6 +16,23 @@ export default function MeetUp() {
   };
 
   const particlesLoaded = (container) => {};
+  const [meetups,setMeetups] = React.useState([])
+  
+  useEffect(() => {
+    
+    axios.get('http://localhost:8080/getMeetups').then((res) => {
+      const temp = [];
+      res.data.forEach((meetup) => {
+      
+        const newMeetup = <MeetUpCard location = {meetup.location} name = {meetup.name} time={meetup.time} date={meetup.date} imgSrc={meetup.image} conductedBy={meetup.conductedBy} eventName={meetup.eventName} attending={meetup.attending} description={meetup.description} />
+        temp.push(newMeetup)
+
+      })
+      setMeetups(temp)
+    
+    }) 
+  }, [])
+
 
   return (
     <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 flex justify-center items-center bg-black pt-[5%] pb-[5%]">
@@ -24,11 +43,11 @@ export default function MeetUp() {
 
         <div className="m-2 w-[85%] pl-[5%]">
           <h1 className="text-4xl pt-6 pl-6">See what's happening around?</h1>
-          <p className="pt-6 pb-6 pl-6">
+          <p className="pt-6 pb-6 pl-6 m-6">
             Wish to attend what you like? Just register!
           </p>
-
-          <div className="m-6">
+          {meetups}
+          {/* <div className="m-6">
             <MeetUpCard
               date={"April, 25 2023 . 4:30 PK PKT"}
               imgSrc={stacks}
@@ -62,7 +81,7 @@ export default function MeetUp() {
               eventName={"Jamming Session"}
               attending={12}
             />
-          </div>
+          </div> */}
         </div>
       </div>
       <Particles
