@@ -46,6 +46,18 @@ export default function EditProfileModal(props) {
     if (newEmail !== props.email) {
       tempEmail = newEmail;
     }
+    if (phdDegree === "" || phdInstitute === "") {
+      alert('Complete your Phd Information')
+    }
+
+    if (mastersDegree === "" || mastersInstitute === "") {
+      alert('Complete your Masters Information')
+    }
+
+    if (bachelorsDegree === "" || bachelorsInstitute === "") {
+      alert('Complete your Bachelors Information')
+    }
+
     axios.put("http://localhost:8080/edit-profile", {
        userID: localStorage.getItem("userID"),
        userName: tempUserName,
