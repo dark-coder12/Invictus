@@ -44,8 +44,6 @@ const startServer = () => {
                     res.status(400).send("password_error");
                 }
                 else{
-
-                
                     const userID = await User.countDocuments() + 1;
 
                     const newUser = new User({ email, firstName, lastName, userName, password, confirmPassword, userID,imgUrl});
