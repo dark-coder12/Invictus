@@ -55,6 +55,7 @@ function Profile() {
    },[]);
 
   const deleteUser = () => {
+    alert('Are you sure you want to delete your account?');
     const userID = localStorage.getItem("userID");
     axios.delete("http://localhost:8080/delete-user",{
       userID: userID
