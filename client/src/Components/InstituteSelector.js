@@ -15,7 +15,7 @@ export default function DegreeSelector({ selectFor,setVal }) {
   const degree = ["Software Engineering", "Artifcial Intelligence"];
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 120 }} style={{width:"20%", margin:"1%", marginBottom:"2%"}}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">{selectFor}</InputLabel>
         <Select

@@ -22,7 +22,6 @@ const LeftNav = () => {
  
     axios.post('http://localhost:8080/home', { userID })
     .then(response => {
-    
       setFirstName(response.data.firstName);
       setLastName(response.data.lastName);
     })
