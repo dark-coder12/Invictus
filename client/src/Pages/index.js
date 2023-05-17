@@ -19,8 +19,9 @@ import OneConnection from './Connections/OneConnection';
 import VideoCall from './VideoCall/VideoCall';
 import CheckoutSuccess from './Certification/CheckoutSuccess';
 import DownloadHandler from './Certification/DownloadHandler';
+import ErrorPage from './ErrorPage/ErrorPage';
 
 export{
-    Landing, Signup, Home, CertificationLanding, AllCertifications, MCQTest,  Certification, Checkout, CodeBot, MeetUp, Signin, MeetUpInfo, BlogPosts, Profile, AllCommunities, Community, AllConnections, OneConnection, VideoCall, CheckoutSuccess, DownloadHandler
+    Landing, Signup, Home, CertificationLanding, AllCertifications, MCQTest,  Certification, Checkout, CodeBot, MeetUp, Signin, MeetUpInfo, BlogPosts, Profile, AllCommunities, Community, AllConnections, OneConnection, VideoCall, CheckoutSuccess, DownloadHandler, ErrorPage
 }
 

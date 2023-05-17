@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, redirect } from 'react-router-dom';
+
 
 import {
   Landing,
@@ -22,7 +23,8 @@ import {
   VideoCall,
   CodeBot,
   CheckoutSuccess,
-  DownloadHandler
+  DownloadHandler, 
+  ErrorPage
 } from './Pages';
 
 const App = () => {
@@ -171,6 +173,7 @@ const App = () => {
           }
         />
 
+        <Route component={ErrorPage} />
         </Routes>
         </BrowserRouter>
   );

@@ -27,7 +27,8 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 
-const http = require('http')
+const http = require('http');
+const UserConnections = require('./mongodb/models/userConnections');
 
 const MONGODB_URL = "mongodb+srv://izx12:faithlehane@cluster0.yc42gjo.mongodb.net/?retryWrites=true&w=majority"
 
@@ -506,7 +507,7 @@ const startServer = () => {
 
             app.get('/get-certifications/:userID', async (req, res) => {
               const { userID } = req.params;
-            console.log(userID)
+       
               try {
 
                 const intID = parseInt(userID);
@@ -531,7 +532,7 @@ const startServer = () => {
                 var mysort = { id: 1 };
                 const communities = await CommunityTile.find().sort(mysort);
                 res.send(communities);
-                console.log(communities)
+               
               
               } catch (err) {
                 console.error(err);
@@ -551,8 +552,7 @@ const startServer = () => {
                 
                 res.status(200).json(result);
 
-                console.log("user ki hain ab////////")
-                console.log(userCommunities)
+          
               
               } catch (err) {
                 console.error(err);
@@ -570,7 +570,6 @@ const startServer = () => {
                 const result = userDets.map(({email, firstName , lastName , imgUrl}) => ({email, firstName , lastName , imgUrl}));
                 
                 res.status(200).json(result);
-                console.log(userDets)
               
               } catch (err) {
                 console.error(err);
@@ -589,7 +588,7 @@ const startServer = () => {
                                               ({phdDegree , phdInstitute , mastersDegree , mastersInstitute , bachelorsDegree , bachelorsInstitute , skills}));
                 
                 res.status(200).json(result);
-                console.log(userDets)
+              
               
               } catch (err) {
                 console.error(err);
@@ -624,7 +623,7 @@ const startServer = () => {
               const {cID} = req.params;  
               try {            
                 const community = await CommunityDetails.findOne({id : cID});
-                console.log("Data : " + community)
+    
                 
                 res.json(community);
               } catch (err) {
@@ -648,8 +647,6 @@ const startServer = () => {
               res.status(200).json(topic);
 
             });
-
-            
 
             app.get('/is-user-joined/:cID/:uID', async(req, res) => {
 
@@ -676,6 +673,101 @@ const startServer = () => {
               }
     });
 
+    app.get('/get-all-users/:uID', async (req, res) => {
+      const { uID } = req.params;
+    
+      const allUsers = await User.find({ userID: { $ne: uID } });
+    
+      res.status(200).json(allUsers);
+    });
+
+    app.get('/get-clicked-user/:uID', async(req, res) => {
+
+      const {uID} = req.params;  
+      try {
+       
+        const intID = parseInt(uID);
+        const result = await User.find({userID: intID});
+      
+        res.status(200).json(result);
+      
+
+      }catch(err){
+        console.log(err);
+      }
+    });
+
+    app.get('/connect-user/:loggedID/:uID', async(req, res) => {
+
+      const {loggedID, uID} = req.params;  
+      try {
+  
+        const result = new UserConnections({followerID: loggedID, followedID: uID});
+   
+        result.save();
+
+        res.status(200).json(result);
+      
+      }catch(err){
+        console.log(err);
+      }
+    });
+
+    app.get('/disconnect-user/:loggedID/:uID', async(req, res) => {
+
+      const {loggedID, uID} = req.params;  
+      try {
+  
+        const result =await UserConnections.deleteOne({followerID: loggedID, followedID: uID});
+   
+        res.status(200).json(result);
+      
+      }catch(err){
+        console.log(err);
+      }
+    });
+
+    app.get('/get-user-connections/:uID', async (req, res) => {
+      const { uID } = req.params;
+    
+      try {
+
+        const userConnections = await UserConnections.find({ followerID: uID }, 'followedID');
+    
+        const followedIDs = userConnections.map(connection => connection.followedID);
+    
+
+        const conUsers = await User.find({ userID: { $in: followedIDs } }, 'imgUrl firstName lastName userID');
+    
+        res.status(200).json(conUsers);
+
+      } catch (error) {
+        console.error(error);
+      }
+    });
+
+
+    app.get('/is-user-connected/:loggedID/:uID', async(req, res) => {
+
+      const {loggedID, uID} = req.params;  
+    
+      try {
+    
+        var followed = false;
+
+        const result = await UserConnections.findOne({followerID: loggedID, followedID: uID});
+
+        if(result != null)
+          followed = true;
+
+        res.status(200).json(followed);
+      
+
+      }catch(err){
+        console.log(err);
+      }
+    });
+
             app.post("/create-payment-intent", async (req, res) => {
               const { items } = req.body;
             
@@ -691,6 +783,8 @@ const startServer = () => {
                 clientSecret: paymentIntent.client_secret,
               });
             });
+            
+
             
         app.listen(8080, () => console.log("Server running at http://localhost:8080"));
 

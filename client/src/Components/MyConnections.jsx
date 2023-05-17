@@ -1,42 +1,39 @@
-import React, { useState } from "react";
-import bis from "../Assets/pictures/bis.jpg";
-import iz from "../Assets/pictures/iz.jpg";
+import React, { useState, useEffect } from "react";
 
-const MyConnections = () => {
-  const connections = [
-    {
-      icon: bis,
-      name: "Bisma-ashar246"
-    },
-    {
-      icon: iz,
-      name: "darkcoder-12"
-    },
-    {
-      icon: iz,
-      name: "darkcoder-12"
-    },
-    {
-      icon: bis,
-      name: "Bisma-ashar246"
-    },
-    {
-      icon: bis,
-      name: "Bisma-ashar246"
-    },
-    {
-      icon: iz,
-      name: "darkcoder-12"
-    },
-    {
-      icon: iz,
-      name: "darkcoder-12"
-    },
-    {
-      icon: bis,
-      name: "Bisma-ashar246"
-    }
-  ];
+import axios from "axios";
+
+import { useNavigate } from "react-router-dom";
+
+const MyConnections = ({user}) => {
+ 
+  const uID = user;
+
+  const navigate = useNavigate();
+
+  const [followedIDs, setFollowedIDs] = useState([]);
+
+  const visitExisting = (index) => {
+      navigate(`/connection/${index}`)
+  }
+
+  useEffect(() => {
+
+    const fetchUserConnections = async () => {
+      try {
+      
+        const response = await axios.get(`http://localhost:8080/get-user-connections/${uID}`);
+        const result = response.data;
+
+        setFollowedIDs(result);
+        console.log(followedIDs)
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUserConnections();
+  }, []);
 
   const [hoveredIndex, setHoveredIndex] = useState(-1);
 
@@ -51,7 +48,8 @@ const MyConnections = () => {
   return (
     <div className="grid grid-rows-8 grid-cols-2 gap-6 par rounded-md and bg-[#2B0202] p-3">
 
-      {connections.map((connection, index) => (
+      {!followedIDs && <p>You have no connections yet.</p>}
+      {followedIDs.map((connection, index) => (
         <div className="relative" key={index}>
           <img
             onMouseEnter={() => handleMouseEnter(index)}
@@ -61,21 +59,14 @@ const MyConnections = () => {
               filter: hoveredIndex === index ? "brightness(10%)" : "brightness(40%)",
               transition: "filter 0.3s ease-in-out"
             }}
-            src={connection.icon}
+            src={connection.imgUrl}
             alt="connection"
+            onClick={() => visitExisting(connection.userID)}
           />
 
-          {hoveredIndex === index && (
-            <button
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-white bg-black p-[2%] rounded-md"
-              style={{ zIndex: 1 }}
-            >
-              View
-            </button>
-          )}
-
           <p className="text-[0.65rem] mt-3 underline hover:underline-offset-4">
-            {connection.name}
+            {connection.firstName}  &nbsp;
+            {connection.lastName}
           </p>
         </div>
       ))}

@@ -8,21 +8,27 @@ import RightConnectionProfile from "../../Components/RightConnectionProfile";
 import PieChartClass from "../../Components/PieChartClass";
 import { options } from "../../Assets/code/options";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const OneConnection = () => {
   
+  const navigate = useNavigate();
+
+  const {id} = useParams();
+  const userID = id;
+
+  const [isFollowed, setIsFollowed] = useState(false);
+
   const [userDets, setUserDets] = useState([]);
   const [userSkills, setUserSkills] = useState([]);
 
   useEffect(() => {
-    const userID = localStorage.getItem('userID');
-    console.log(userID)
 
     axios.get(`http://localhost:8080/get-user-profile/${userID}`)
 
     .then((response) => {
   
-      console.log(response.data);
       setUserDets(response.data);
      
     })
@@ -32,8 +38,19 @@ const OneConnection = () => {
   }, []);
 
   useEffect(() => {
-    const userID = localStorage.getItem('userID');
-    console.log(userID)
+  
+    const uID = userID;
+    const loggedID = localStorage.getItem('userID');
+
+    axios.get(`http://localhost:8080/is-user-connected/${loggedID}/${uID}`)
+
+    .then((response) => {
+  
+      setIsFollowed(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 
     axios.get(`http://localhost:8080/get-user-skills/${userID}`)
 
@@ -48,25 +65,51 @@ const OneConnection = () => {
     });
   }, []);
 
+
+  const handleFollow = () => {
+
+    const uID = userID;
+    const loggedID = localStorage.getItem('userID');
+
+    axios.get(`http://localhost:8080/connect-user/${loggedID}/${uID}`)
+
+    .then((response) => {
+  
+      setIsFollowed(true);
+      
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
+  const handleUnfollow = () => {
+
+    const uID = userID;
+    const loggedID = localStorage.getItem('userID');
+
+    axios.get(`http://localhost:8080/disconnect-user/${loggedID}/${uID}`)
+
+    .then((response) => {
+  
+      setIsFollowed(false);
+      
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
+
+  const handleNavigateToConnections = () => {
+    navigate('/all-connections')
+  }
+
     const particlesInit = async (main) => {
         await loadFull(main);
       };
     
       const particlesLoaded = (container) => {};
-
-      const UserDetails = [
-        {
-            icon: bis,
-            name: 'Bisma Ashar',
-            username: 'Bisma-ashar246',
-            bio: 'Software Engineer by fault - Enthusiast by Choice',
-            followers: '20 followers',
-            communities: '8 communities',
-            education: ['Doctor of Philosophy in Software Project Management' , 'Masters in Software Project Management'],
-            institute:['Massachusetts Institute of Technology - 2030' , 'Technical University of Munich'],
-            skills:['OOP' , 'Blockchain' , 'UI/UX' , 'NLP' , 'AI' , 'Web Dev' , 'App Dev' , 'Database' , 'Testing' , 'Documentation']
-        },
-      ]
     
     return(
       <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black pt-[5%] pb-[5%]">
@@ -85,8 +128,10 @@ const OneConnection = () => {
              imgUrl = {user.imgUrl}
              firsrtName = {user.firstName}
              lastName = {user.lastName}
-             bio = "this is a filler bio"
              email = {user.email}
+            isFollowed = {isFollowed}
+            handleFollow = {handleFollow}
+            handleUnfollow = {handleUnfollow}
             />
            ))}
            </div>
@@ -107,13 +152,18 @@ const OneConnection = () => {
 
            <div className ='w-[15%] mt-20 align-center flex flex-col'>
            <div><PieChartClass/></div>
-         
-           <div className="content-center text-[#979797] text-sm ml-[10%] ">
-            <p className="text-justify text-center hover:underline underline-offset-4 mb-4">GitHub:<br></br>www.github.com/bismaashar</p>
-            <p className="mb-10 text-center hover:underline underline-offset-4 text-justify ">Contact:<br></br> 042-457-246</p>
+        
+           <div className="content-center text-[#979797] text-sm ml-[10%] pt-12 ">
+            <p className="text-justify text-center hover:underline underline-offset-4 mb-4 ">
+              <p className = 'underline pb-2'> GitHub</p>
+             www.github.com/bismaashar</p>
+            
            </div>
           </div> 
           </div>
+          <button className="mt-6 bg-[#3A0303] text-white rounded-md" onClick={handleNavigateToConnections}>Back to Connections</button>
+     
+
           </div>
         </div>
 

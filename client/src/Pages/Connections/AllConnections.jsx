@@ -6,19 +6,28 @@ import LeftNav from "../../Components/LeftNav";
 import MyConnections from "../../Components/MyConnections";
 import SearchedConnection from "../../Components/SearchedConnection";
 
-import bis from "../../Assets/pictures/bis.jpg";
-import iz from "../../Assets/pictures/iz.jpg";
-
 import { options } from "../../Assets/code/options";
 import axios from "axios";
 
+import { useNavigate } from "react-router-dom";
+import { version } from "os";
+
 const AllConnections = () => {
+
+  const userID = localStorage.getItem('userID');
+    console.log(userID)
+
+  const navigate = useNavigate();
 
   const [userDets, setUserDets] = useState([]);
 
+  const [searchedConnection, setSearchedConnection] = useState("");
+
+  const [searchResults, setSearchResults] = useState([]);
+
+  const [allResults, setAllResults] = useState([]);
+
   useEffect(() => {
-    const userID = localStorage.getItem('userID');
-    console.log(userID)
 
     axios.get(`http://localhost:8080/get-user-profile/${userID}`)
 
@@ -31,7 +40,50 @@ const AllConnections = () => {
     .catch((error) => {
       console.error(error);
     });
+ 
+
+  axios.get(`http://localhost:8080/get-all-users/${userID}`)
+
+    .then((response) => {
+  
+      console.log(response.data);
+      setAllResults(response.data);
+     
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }, []);
+
+  
+  const handleConnectionVisit = (uID) => {
+
+    axios.get(`http://localhost:8080/get-clicked-user/${uID}`)
+
+    .then((response) => {
+  
+      console.log(response.data);
+      setAllResults(response.data);   
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+    navigate(`/connection/${uID}`);
+  }
+
+  useEffect(() => {
+
+    if(searchedConnection == "")
+      setSearchResults([]);
+    setSearchResults(allResults.filter(con => {
+
+      return con.firstName.toLowerCase().includes(searchedConnection.toLowerCase())
+      }));
+      if(searchedConnection == "")
+      setSearchResults([]);
+      
+  }, [searchedConnection]);
 
     const particlesInit = async (main) => {
         await loadFull(main);
@@ -39,20 +91,6 @@ const AllConnections = () => {
     
     const particlesLoaded = (container) => {};
 
-    const allUsers = [
-      {
-          icon: bis,
-          name: 'Bisma-ashar246'
-      },
-      {
-          icon: iz,
-          name: 'Izza-coder12'
-      },
-    ]
-
-    const isAdded = [
-      true,false
-    ];
 
     return(
     <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
@@ -81,20 +119,22 @@ const AllConnections = () => {
                     </g>
                 </svg>
                 <input
+                    value = {searchedConnection}
+                    onChange={(e)=> setSearchedConnection(e.target.value)}
                     type="text"
-                    class="w-full rounded-full bg-gray focus:outline-none focus:ring-0 pl-4 font-[100] text-sm"
+                    class="w-full rounded-full bg-gray focus:outline-none focus:ring-0 pl-4 font-[100] text-sm text-black"
                     placeholder="Search Connections!"
                 />
                 </div>
             </div>
 
             <div>
-              {userDets.map((user,index) => (
+              {searchResults.map((u) => (
                 <SearchedConnection 
-                imgUrl={user.imgUrl} 
-                firstName={user.firstName}
-                lastName={user.lastName}
-                isAdded={isAdded[index]}
+                imgUrl={u.imgUrl} 
+                firstName={u.firstName}
+                lastName={u.lastName}
+                handleConnectionVisit = {()=> handleConnectionVisit(u.userID)}
                 />
               ))}
             </div>
@@ -105,11 +145,11 @@ const AllConnections = () => {
             <div>
               <h1 className="ml-4 mb-4">View Your Connections!</h1>
               <MyConnections
+              user = {userID}
               />
             </div>
           </div>
         </div>
-
 
        </div>
         <Particles
