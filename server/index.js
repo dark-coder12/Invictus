@@ -267,17 +267,14 @@ const startServer = () => {
               const {userName,email,phdDegree,phdInstitute,mastersDegree,mastersInstitute,bachelorsDegree,bachelorsInstitute,userID,skills} = req.body;
               const intUserID = parseInt(userID);
               
-              const options = {upsert: false,overwrite:true, new: true};
+              const options = {overwrite:true, new: true};
               const filter = {userID:intUserID};
               const updateDoc = {userName:userName,email:email};
               const user = await User.findOneAndUpdate(filter,updateDoc,options);
-              
 
-              // console.log(user);
-              // if (!user) {
-              //   return res.status(400).send('user_does_not_exist');
-              // }
-              
+              if (!user) {
+                 return res.status(400).send('user_does_not_exist');
+              }            
               
 
               const userSkills = await Skills.findOne({ userID:intUserID });
