@@ -53,7 +53,7 @@ const startServer = () => {
 
                     await newUser.save();
 
-                    res.status(200).send("user_saved");
+                    res.status(200).send(newUser);
                 }
 
             } catch (error) {
@@ -83,7 +83,7 @@ const startServer = () => {
           
               if (passwordMatch) {
 
-                return res.status(200).send({userID: user.userID});
+                return res.status(200).send(user);
               } else {
 
                 return res.status(400).send('password_incorrect');
