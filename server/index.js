@@ -10,7 +10,9 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const TopicOfTheDay = require('./mongodb/models/topicOfTheDay');
-
+const Skills = require('./mongodb/models/skills');
+const Meetup = require('./mongodb/models/meetup');
+const MeetupInfo = require('./mongodb/models/meetupinfo');
 
 const app = express();
 
@@ -36,6 +38,7 @@ const startServer = () => {
     try {
         connectDB(MONGODB_URL);
         
+
         app.post('/signup', async (req, res) => {
             try {
                 const { email, firstName, lastName, userName, password, confirmPassword,imgUrl } = req.body;
@@ -96,12 +99,86 @@ const startServer = () => {
               const { userID } = req.params;
               const intID = parseInt(userID);
               const myBlogs = await BlogPosts.find({ userID: intID });
-              console.log(myBlogs);
+              
               res.status(200).json(myBlogs);
             } catch (error) {
               res.status(500).send(error.message);
             }
           });
+
+        
+        app.post('/addBlog', async (req, res) => {
+          
+            try {
+              const { userID, blogName, imgUrl, date, description } = req.body;
+              const intID = parseInt(userID);
+              
+              const blog = await BlogPosts.findOne({ userID: intID });
+
+              if (blog) {
+                
+                blog.userBlogs.push({ blogName: blogName, imgUrl: imgUrl, date: date, description: description });
+                const success = await blog.save();
+                if (success) {
+                  res.status(200).send("blog_added");
+                }
+                else {
+                  res.status(400).send("blog_not_added");
+                }
+              }
+              else {
+                const newBlog = new BlogPosts();
+                newBlog.userID = intID;
+                newBlog.userBlogs.push({ blogName: blogName, imgUrl: imgUrl, date: date, description: description });
+                const success = await newBlog.save();
+                if (success) {
+                  res.status(200).send("blog_added");
+                }
+                else {
+                  res.status(400).send("blog_not_added");
+                }
+
+              }
+            }
+            catch (error) {
+              res.status(500).send(error.message);
+            }
+        });
+
+        app.post('/deleteBlog', async (req, res) => {
+          try {
+            const userID  = req.body.userID;
+            const blogName = req.body.blogName;
+            
+            const blog = await BlogPosts.findOne({ userID: userID });
+            if (blog) {
+              const index = await blog.userBlogs.findIndex((blog) => blog.blogName === blogName);
+              if (index !== -1) {
+                blog.userBlogs.splice(index, 1);
+                const success = await blog.save();
+                if (success) {
+                  res.status(200).send("blog_deleted");
+                }
+                else {
+                  res.status(400).send("blog_not_deleted");
+                }
+              }
+              else {
+                res.status(400).send("blog_not_found");
+              }
+            }
+            else {
+              res.status(400).send("blog_not_found");
+            }
+          }
+          catch (error) {
+            res.status(500).send(error.message);
+          }
+        });
+
+        
+            
+
 
         app.post('/create-blog', async (req, res) => {  
           try{
@@ -126,6 +203,7 @@ const startServer = () => {
             res.status(500).send(error.message);
           }
         })
+
         app.post('/userexists',async (req,res)=>{
           try { 
             const {email} = req.body;
@@ -142,6 +220,107 @@ const startServer = () => {
           }
         });
 
+        app.post('/get-skills',async (req,res)=>{
+          try{
+            const userID = req.body.userID;
+            
+            
+           
+            const skills = await Skills.findOne({ userID:userID });
+
+            if (!skills) {
+              return res.status(200).send('skills_does_not_exist');
+            }
+            else {
+              return res.status(200).send(skills);
+            }
+          }
+          catch (error){
+            res.status(500).send(error.message);
+          }
+        });
+
+        app.delete('/delete-user',async (req,res)=>{
+          try{
+            const userID = req.body.userID;
+            const success = await User.deleteOne({userID:userID});
+            const success2  = await Skills.deleteOne({userID:userID});
+            if(success && success2){
+              
+              res.status(200).send("user_deleted");
+            }
+            else{
+              res.status(400).send("user_not_deleted");
+            }
+          }
+          catch(error){
+            res.status(500).send(error.message);
+          }
+        });
+
+
+        app.put('/edit-profile',async (req,res)=>{ 
+          try{
+
+              const {userName,email,phdDegree,phdInstitute,mastersDegree,mastersInstitute,bachelorsDegree,bachelorsInstitute,userID,skills} = req.body;
+              const intUserID = parseInt(userID);
+              
+              const options = {overwrite:true, new: true};
+              const filter = {userID:intUserID};
+              const updateDoc = {userName:userName,email:email};
+              const user = await User.findOneAndUpdate(filter,updateDoc,options);
+
+              if (!user) {
+                 return res.status(400).send('user_does_not_exist');
+              }            
+              
+
+              const userSkills = await Skills.findOne({ userID:intUserID });
+              if (!userSkills) {
+                const newSkills = new Skills();
+                newSkills.userID = intUserID;
+                newSkills.phdDegree = phdDegree;
+                newSkills.phdInstitute = phdInstitute;
+                newSkills.mastersDegree = mastersDegree;
+                newSkills.mastersInstitute = mastersInstitute;
+                newSkills.bachelorsDegree = bachelorsDegree;
+                newSkills.bachelorsInstitute = bachelorsInstitute;
+                newSkills.skills = skills;
+                const skillSuccess = await newSkills.save();
+
+                if (skillSuccess){
+                  res.status(200).send("user_updated");
+                }
+                else{   
+                  res.status(400).send("user_not_updated");
+                }
+                
+              }
+              else {
+                userSkills.phdDegree = phdDegree;
+                userSkills.phdInstitute = phdInstitute;
+                userSkills.mastersDegree = mastersDegree;
+                userSkills.mastersInstitute = mastersInstitute;
+                userSkills.bachelorsDegree = bachelorsDegree;
+                userSkills.bachelorsInstitute = bachelorsInstitute;
+                userSkills.skills = skills;
+                const skillSuccess = await userSkills.save();
+                
+                if (skillSuccess){
+                  res.status(200).send("user_updated");
+                }
+                else{
+                  res.status(400).send("user_not_updated");
+                }
+              }
+
+             
+        }
+        catch(error){
+          res.status(500).send(error.message);
+        }
+        });
+        
         app.get('/get-user/:userID', async (req, res)=>{
           const {userID} = req.params;
           
@@ -156,7 +335,96 @@ const startServer = () => {
           }
         });
 
-        
+        app.post('/setMeetup',async (req,res)=>{  
+          try{
+    
+            const {name,description,date,time,location,image,attending,conductedBy} = req.body;
+            const newMeetup = new Meetup();
+            newMeetup.name = name;
+            newMeetup.description = description;
+            newMeetup.date = date;
+            newMeetup.time = time;
+            newMeetup.location = location;
+            newMeetup.image = image;
+            newMeetup.attending = attending;
+            newMeetup.conductedBy = conductedBy;
+            const meetupSuccess = await newMeetup.save();
+            if (meetupSuccess){
+              res.status(200).send("meetup_created");
+            }
+            else{
+              res.status(400).send("meetup_not_created");
+            }
+          }
+          catch(error){
+            res.status(500).send(error.message);
+          }
+        });
+
+        app.get('/getMeetups',async (req,res)=>{
+          try{
+            const meetups = await Meetup.find();
+            res.status(200).json(meetups);
+          }
+          catch(error){
+            res.status(500).send(error.message);
+          }
+        });
+
+
+        app.post('/setMeetUpInfo',async (req,res)=>{
+          try{
+           
+            const {name,details,imgUrl,whoisitfor,prequisites,speakers,tags,attending} = req.body;
+            const newMeetupInfo = new MeetupInfo();
+            newMeetupInfo.name = name;
+            newMeetupInfo.details = details;
+            newMeetupInfo.imgUrl = imgUrl;
+            newMeetupInfo.whoisitfor = whoisitfor;
+            newMeetupInfo.prequisites = prequisites;
+            newMeetupInfo.speakers = speakers;
+            newMeetupInfo.tags = tags;
+            newMeetupInfo.attending = attending;
+            const meetupInfoSuccess = await newMeetupInfo.save();
+            if (meetupInfoSuccess){
+              res.status(200).send("meetupInfo_created");
+            }
+            else{
+              res.status(400).send("meetupInfo_not_created");
+            }
+
+          }
+          catch(error){
+            res.status(500).send(error.message);
+          }
+        });
+
+        app.get('/getMeetUp/:meetupName',async (req,res)=>{
+          try{
+            const name  = req.params.meetupName;
+            const meetup = await Meetup.find({name:name});
+            res.status(200).json(meetup);
+          }
+          catch(error){
+            res.status(500).send(error.message);
+          }
+        });
+
+
+
+        app.get('/getMeetUpInfo/:meetupName',async (req,res)=>{
+          try{
+            const name  = req.params.meetupName;
+            const meetupInfo = await MeetupInfo.find({name:name});
+            res.status(200).json(meetupInfo);
+          }
+          catch(error){
+            res.status(500).send(error.message);
+          }
+        });
+
+
+
         app.post('/home', async (req, res) => {
 
           try {

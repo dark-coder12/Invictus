@@ -5,7 +5,9 @@ import Fab from "@mui/material/Fab";
 import { Avatar, AvatarGroup } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+
+import axios from "axios";
+import EditBlog from "./EditBlog";
 
 const style = {
   position: "absolute",
@@ -40,6 +42,17 @@ export default function BlogModal({
       e.target.style.backgroundColor = "#3A0303";
       e.target.style.color = "white";
     }
+  };  
+
+  const deleteBlog = () => {
+    axios.post("http://localhost:8080/deleteBlog", {
+      blogName,
+      userID: localStorage.getItem("userID"),
+    }).then((res) => {
+      if(res.data === "blog_deleted") {
+        window.location.reload();
+      }
+    });
   };
 
   return (
@@ -112,9 +125,9 @@ export default function BlogModal({
                 <h1>and others.</h1>
               </div>
 
-              <div className="ml-[65%]">
-                <EditIcon sx={{ width: 40, height: 40 }} />
-                <DeleteIcon sx={{ width: 40, height: 40 }} />
+              <div className="ml-[65%] flex">
+                <EditBlog blogName={blogName} description={description} imgUrl={imgSrc} />
+                <DeleteIcon sx={{ width: 40, height: 40 }} style={{color:"black"}} onClick={deleteBlog}/>
               </div>
             </div>
           </div>

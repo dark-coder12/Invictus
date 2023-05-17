@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import classNames from "classnames";
+import BasicModal from "./BasicModal";
+import { Button } from "@mui/material";
 
 const Post = () => {
   const [postText, setPostText] = useState("");
@@ -29,23 +31,18 @@ const Post = () => {
           className={textAreaClasses}
           placeholder="Blog it down."
           value={postText}
-          onChange={handlePostChange}
+          onChange={(e)=> setPostText(e.target.value)}
         />
         <div className="flex justify-between items-center ">
           <div className="flex ">
-            <button
-              className="text-xs ml-2 px-2 mt-3 py-1 text-white rounded-lg hover:text-lg focus:outline-none"
-              type="submit"
-            >
-              Post
-            </button>
+           
+            <BasicModal description={postText}/>
           </div>
           <div className="flex">
             <button
               className="mt-3 text-xs ml-2 px-2 py-1 text-white rounded-lg hover:text-lg focus:outline-none"
               type="submit"
             >
-              Add Details
             </button>
           </div>
         </div>

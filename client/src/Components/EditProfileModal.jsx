@@ -3,7 +3,9 @@ import Button from "@mui/material/Button";
 import InputField from "./inputField";
 import Modal from "@mui/material/Modal";
 import Fab from "@mui/material/Fab";
-import SelectAutoWidth from "./SelectAutoWidth";
+import DegreeSelector from "./DegreeSelector";
+import InstituteSelector from "./InstituteSelector";
+import axios from "axios";
 
 const style = {
   position: "absolute",
@@ -18,12 +20,57 @@ const style = {
 };
 
 export default function EditProfileModal(props) {
+
+  const [newUsername, setNewUsername] = React.useState(props.username);
+  const [newEmail, setNewEmail] = React.useState(props.email);
+  const [phdDegree, setPhdDegree] = React.useState("");
+  const [phdInstitute, setPhdInstitute] = React.useState("");
+
+  const [mastersDegree, setMastersDegree] = React.useState("");
+  const [mastersInstitute, setMastersInstitute] = React.useState("");
+
+  const [bachelorsDegree, setBachelorsDegree] = React.useState("");
+  const [bachelorsInstitute, setBachelorsInstitute] = React.useState("");
+
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const col = React.useRef(null);
+  const [skills,setSkills] = React.useState([]);
 
-  const changeColor = (e) => {
+  const handleClose = () =>{
+    var tempUserName = props.username;
+    var tempEmail = props.email;
+    if (newUsername !== props.username) {
+      tempUserName = newUsername;
+    } 
+    if (newEmail !== props.email) {
+      tempEmail = newEmail;
+    }
+    axios.put("http://localhost:8080/edit-profile", {
+       userID: localStorage.getItem("userID"),
+       userName: tempUserName,
+       email: tempEmail,
+       phdDegree: phdDegree,
+       phdInstitute: phdInstitute,
+       mastersDegree: mastersDegree,
+       mastersInstitute: mastersInstitute,
+       bachelorsDegree: bachelorsDegree,
+       bachelorsInstitute: bachelorsInstitute,
+       skills: skills
+     }).then((res) => {
+       if (res.data === 'user_updated'){
+          localStorage.setItem("userName",tempUserName);
+          localStorage.setItem("email",tempEmail);
+          window.location.reload();
+       }
+       console.log(res);
+    })
+
+    setOpen(false);
+  }
+  
+
+  const changeColor = (e,skill) => {
     if (e.target.style.backgroundColor !== "white") {
       e.target.style.backgroundColor = "white";
       e.target.style.color = "#3A0303";
@@ -31,7 +78,11 @@ export default function EditProfileModal(props) {
       e.target.style.backgroundColor = "#3A0303";
       e.target.style.color = "white";
     }
+    const tempArr = skills;
+    tempArr.push(skill);
+    setSkills(tempArr);
   };
+
 
   return (
     <div>
@@ -67,6 +118,7 @@ export default function EditProfileModal(props) {
               id="username"
               type="text"
               placeholder={props.username}
+              onChange={(e) => setNewUsername(e.target.value)}
             />
             <InputField
               htmlFor="email"
@@ -75,32 +127,38 @@ export default function EditProfileModal(props) {
               id="emial"
               type="email"
               placeholder={props.email}
+              onChange={(e) => setNewEmail(e.target.value)}
             />
 
             {/* Education */}
 
             <label className="block font-bold mb-2">Education</label>
             <div style={{ display: "flex", flexDirection: "column" }}>
+           
               <div style={{ display: "flex" }}>
-                <SelectAutoWidth selectFor="Phd" flag={true} />
-                <SelectAutoWidth selectFor="Institute" flag={false} />
+             
+                <DegreeSelector selectFor="Phd" setVal={setPhdDegree} />
+                <InstituteSelector selectFor="Institute" setVal={setPhdInstitute} />
               </div>
               <div style={{ display: "flex" }}>
-                <SelectAutoWidth selectFor="Masters" flag={true} />
-                <SelectAutoWidth selectFor="Institute" flag={false} />
-              </div>
-              <div style={{ display: "flex" }}>
-                <SelectAutoWidth selectFor="Bachelors" flag={true} />
-                <SelectAutoWidth selectFor="Institute" flag={false} />
-              </div>
-            </div>
+                <DegreeSelector selectFor="Masters" setVal={setMastersDegree} />
+                <InstituteSelector selectFor="Institute" setVal={setMastersInstitute} />
 
-            {/* Technical Skills */}
+              </div>
+              <div style={{ display: "flex" }}>
+                <DegreeSelector selectFor="Bachelors" setVal={setBachelorsDegree} />
+                <InstituteSelector selectFor="Institute" setVal={setBachelorsInstitute} />
+              </div>
+               
+              
+            </div>
+        
+             {/* Technical Skills  */}
 
             <label className="block font-bold mb-2">Technical Skills</label>
             <div style={{ display: "flex", flexWrap: "wrap" }}>
               <Fab
-                onClick={(e) => changeColor(e)}
+                onClick={(e) => changeColor(e,'OOP')}
                 style={{
                   margin: "1%",
                   color: "white",
@@ -113,7 +171,7 @@ export default function EditProfileModal(props) {
               </Fab>
 
               <Fab
-                onClick={changeColor}
+                onClick={(e) => changeColor(e,'Blockchain')}
                 style={{
                   margin: "1%",
                   color: "white",
@@ -126,7 +184,7 @@ export default function EditProfileModal(props) {
               </Fab>
 
               <Fab
-                onClick={changeColor}
+                onClick={(e) => changeColor(e,'UI/UX')}
                 style={{
                   margin: "1%",
                   color: "white",
@@ -139,7 +197,7 @@ export default function EditProfileModal(props) {
               </Fab>
 
               <Fab
-                onClick={changeColor}
+                onClick={(e) => changeColor(e,'NLP')}
                 style={{
                   margin: "1%",
                   color: "white",
@@ -152,7 +210,7 @@ export default function EditProfileModal(props) {
               </Fab>
 
               <Fab
-                onClick={changeColor}
+                onClick={(e) => changeColor(e,'AI')}
                 style={{
                   margin: "1%",
                   color: "white",
@@ -165,7 +223,7 @@ export default function EditProfileModal(props) {
               </Fab>
 
               <Fab
-                onClick={changeColor}
+                onClick={(e) => changeColor(e,'Web Dev')}
                 style={{
                   margin: "1%",
                   color: "white",
@@ -178,7 +236,7 @@ export default function EditProfileModal(props) {
               </Fab>
 
               <Fab
-                onClick={changeColor}
+                onClick={(e) => changeColor(e,'App Dev')}
                 style={{
                   margin: "1%",
                   color: "white",
@@ -190,21 +248,16 @@ export default function EditProfileModal(props) {
                 App Dev
               </Fab>
             </div>
+          
 
-            {/* Save and Cancel Buttons */}
+             {/* Save and Cancel Buttons  */}
             <div style={{ display: "flex", padding: "2%" }}>
               <Button variant="outlined" color="success" onClick={handleClose}>
                 Save
               </Button>
-              <Button
-                style={{ marginLeft: "5%" }}
-                variant="outlined"
-                color="error"
-                onClick={handleClose}
-              >
-                Cancel
-              </Button>
-            </div>
+              <Button style={{ marginLeft: "5%" }} variant="outlined" color="error" onClick={()=> setOpen(false)} >Cancel</Button>
+            </div> 
+            
           </div>
         </div>
       </Modal>

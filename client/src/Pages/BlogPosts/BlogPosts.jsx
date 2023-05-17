@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Blog from "../../Components/Blog";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
@@ -33,6 +33,11 @@ export default function BlogPosts() {
     });
   };
 
+  useEffect(() => {
+    getBlogs();
+  }, []);
+
+
   return (
     <div>
       <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
@@ -43,7 +48,7 @@ export default function BlogPosts() {
           >
             <LeftNav />
           </div>
-          {getBlogs()}
+          
           <div style={{ width: "100%", overflow: "auto" }}>
             <div className="ml-8 flex mb-12 items-center justify-center pt-[5%]">
               <div className="flex-col justify-center items-center">
@@ -61,7 +66,7 @@ export default function BlogPosts() {
                   justifyContent: "center",
                 }}
               >
-                <h1 className="text-2xl mb-[1%]">IzX12</h1>
+                <h1 className="text-2xl mb-[1%]">{localStorage.getItem('firstName')+ ' '+localStorage.getItem('lastName')}</h1>
                 <p className="text-sm">{userDescription}</p>
               </div>
             </div>
@@ -69,7 +74,7 @@ export default function BlogPosts() {
               style={{ width: "100%", overflow: "auto", padding: "2%" }}
               className="grid grid-cols-3 gap-12"
             >
-              <div style={{ margin: "2%", width: "auto", height: "auto" }}>
+              <div style={{ margin: "2%", width: "150vh", height: "auto", display:"flex", flexWrap:"wrap"}}>
                 {
                   blogs.map((blog)=>{
                     return <Blog
@@ -79,6 +84,7 @@ export default function BlogPosts() {
                       authorName = {localStorage.getItem("firstName")+" "+localStorage.getItem("lastName")}
                       date={blog.date}
                       authorImg = {localStorage.getItem("imgUrl")}
+                      likedBy = {blog.likedBy}
                     />
                   } )
                 }

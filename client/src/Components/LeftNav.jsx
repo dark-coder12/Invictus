@@ -5,6 +5,7 @@ import invLogo from "../Assets/pictures/maroonLogo.png";
 import profileLogo from "../Assets/pictures/profile.png";
 import displayPicture from "../Assets/pictures/display-picture.jpg";
 import headphone from "../Assets/pictures/maroonH.png";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -13,6 +14,7 @@ const LeftNav = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
+  const navigate = useNavigate();
   
   useEffect(() => {
    
@@ -37,7 +39,7 @@ const LeftNav = () => {
         </div>
         <div className="flex items-center pb-2 pt-2 hover:bg-none hover:bg-opacity-50 gradientHover cursor-pointer hover:font-[600] pl-[15%]">
           <img src={profileLogo} className="w-4" />
-          <span className="ml-2">Home</span>
+          <span className="ml-2" onClick={()=> navigate('/home')}>Home</span>
         </div>
         <div className="flex items-center pb-2 pt-2 hover:bg-none hover:bg-opacity-50 gradientHover cursor-pointer pl-[15%]">
           <img src={profileLogo} className="w-4" />
@@ -56,8 +58,8 @@ const LeftNav = () => {
         <SpotifyPlayer />
       </div>
 
-      <div className="flex flex-row justify-center items-center pb-[10%] gap-3">
-        <img className="rounded-3xl w-8" src={displayPicture} />
+      <div className="flex flex-row justify-center items-center pb-[10%] gap-3" onClick={()=>navigate('/profile')}>
+        <img className="rounded-3xl w-8" src={localStorage.getItem('imgUrl')} />
         <p>{firstName} {lastName}</p>
       </div>
     </div>

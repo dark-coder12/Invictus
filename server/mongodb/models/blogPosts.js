@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const blogPostSchema = new mongoose.Schema({
     userID: {type: Number, required: true},
-    userDescription: {type: String, required: true},
+    userDescription: {type: String, required: false},
     userBlogs: [{
         blogName: {type: String, required: true},
         imgUrl: {type: String, required: true},

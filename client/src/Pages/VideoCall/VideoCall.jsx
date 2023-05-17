@@ -18,6 +18,7 @@ const socket = io("http://localhost:5000", {
 });
 
 function VideoCall() {
+	console.log("VideoCall.jsx");
 
   const particlesInit = async (main) => {
     await loadFull(main);
