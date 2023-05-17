@@ -560,6 +560,24 @@ const startServer = () => {
                
             }});
 
+            //for search
+            app.get('/get-communityname/:title', async (req, res) => { 
+
+              const {title} = req.params;  
+              try {
+                const t = parseInt(title);
+                const searchCommunity = await CommunityTile.find({ title: t });
+                res.send(searchCommunity);
+                console.log(searchCommunity)
+                
+                res.status(200).json(searchCommunity);
+              
+              } catch (err) {
+                console.error(err);
+              } finally {
+               
+            }});
+
             //for one connection - 1
             app.get('/get-user-profile/:userID', async (req, res) => { 
 

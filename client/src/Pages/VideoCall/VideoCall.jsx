@@ -152,7 +152,7 @@ function VideoCall() {
       
 				<div>
 					{callAccepted && !callEnded ? (
-						<button className='3xl bg-white text-black' onClick={leaveCall}>
+						<button className='3xl bg-black text-white' onClick={leaveCall}>
 							End Call
 						</button>
 					) : (

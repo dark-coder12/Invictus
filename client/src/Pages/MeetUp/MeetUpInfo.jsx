@@ -12,13 +12,15 @@ import axios from "axios";
 import './meetup.css';  
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import Geocode from "react-geocode";
-
+import { useNavigate } from 'react-router-dom';
 
 import './meetup.css';
 export default function MeetUpInfo({}) {
   const particlesInit = async (main) => {
     await loadFull(main);
   };
+
+  const navigate = useNavigate();
 
   const location = {
     address: '1600 Amphitheatre Parkway, Mountain View, california.',
@@ -135,6 +137,9 @@ export default function MeetUpInfo({}) {
 
         <div className="m-6 w-[85%] border-y-2 p-2 overflow-auto">
           <div style={{ borderBottom: "1px solid white" }}>
+          <button class="mb-10 ml-100 bg-[#3a0303] opacity-70 rounded-md py-2 px-4 hover:bg-[#2a0202]" onClick={()=> navigate('/all-communities')}>
+            Go Back To Library
+           </button>
             <h1 className="text-3xl pt-4 pb-2">{eventName}</h1>
             <div className="mt-2 mb-2">
               {/* for now the host */}

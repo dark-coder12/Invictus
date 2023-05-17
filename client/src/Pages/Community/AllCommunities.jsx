@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import LeftNav from "../../Components/LeftNav";
@@ -6,8 +6,55 @@ import InputField from "../../Components/inputField";
 import NewCommunitiesList from "../../Components/NewCommunitiesList";
 import ExistingCommunities from "../../Components/ExistingCommunities";
 import { options } from "../../Assets/code/options"; 
+import CommunityCard from "../../Components/CommunityCard";
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 const AllCommunities = () => {
+
+  const [searchedName, setSearchedName] = useState("");
+  const [searchedResults, setSearchedResults] = useState([]);
+
+  var isSearching = false;
+
+  const onSearch = (e) => {      
+
+  const fetchName = async () => {
+  const name = await axios.get(`http://localhost:8080/get-communityname/${searchedName}`);
+
+  setSearchedResults(name.data);
+  isSearching = true;
+
+  console.log(searchedResults);
+  };
+
+  if (searchedName !== "") fetchName();
+  };
+
+  //for new communities
+  const navigate = useNavigate();
+
+  const [communities, setCommunities] = useState([]);
+
+  useEffect(() => {
+
+    axios.get('http://localhost:8080/get-communities')
+
+      .then((response) => {
+      
+        setCommunities(response.data);
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  const handleOnClick = (index) => {
+
+    console.log(index);
+    navigate(`/community/${index}`);
+  }
 
     const particlesInit = async (main) => {
         await loadFull(main);
@@ -45,13 +92,51 @@ const AllCommunities = () => {
                 </svg>
                 <input
                     type="text"
-                    class="w-full rounded-full bg-gray focus:outline-none focus:ring-0 pl-4 font-[100] text-sm"
+                    class="w-full rounded-full bg-gray focus:outline-none focus:ring-0 pl-4 font-[100] text-sm text-black"
+                    value={searchedName} onChange={(e) => setSearchedName(e.target.value)}
                     placeholder="Explore Communities!"
                 />
+                <button class="text-xs px-2 py-1 text-white bg-[#3a0303] hover:bg-[#2B0202] rounded-lg focus:outline-none" onClick={onSearch}>
+                  Search
+                 </button>
                 </div>           
           </div>
             <div>
-              <NewCommunitiesList/>
+              <div className="container mx-auto py-8 flex flex-row justify-center">
+              {
+               isSearching ? 
+
+               <div className="grid grid-cols-1 sm:grid-cols-2  gap-14 w-[80%] h-[60%]">
+              
+               {searchedResults.map((community, index) => (
+                  <CommunityCard
+                    title={community.title} 
+                    image = {community.image}
+                    members={community.members}
+                    description={community.description}
+                    bg = {community.bg}
+                    handleOnClick = {() => handleOnClick(index+1)}
+                  />
+                ))}
+              </div>
+
+              :
+
+              <div className="grid grid-cols-1 sm:grid-cols-2  gap-14 w-[80%] h-[60%]">
+              
+               {communities.map((community, index) => (
+                  <CommunityCard
+                    title={community.title} 
+                    image = {community.image}
+                    members={community.members}
+                    description={community.description}
+                    bg = {community.bg}
+                    handleOnClick = {() => handleOnClick(index+1)}
+                  />
+                ))}
+              </div>
+              }
+              </div>
             </div>
        </div>
             <div className ='w-[20%]'>

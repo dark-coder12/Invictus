@@ -147,6 +147,8 @@ function MCQList() {
                 Purchase Certificate
               </button>
     </div>}
+    <button className="bg-[#2b0202] hover:bg-red-800 text-white font-bold py-2 px-4 rounded mt-4" onClick={()=> navigate('/all-certifications')}>
+      Go To Certifications</button>
     </div> 
   </div>
 )}
