@@ -51,9 +51,7 @@ const navigate = useNavigate();
         <p className="text-9xl font-medium p-0 mb-8">Invictus</p>
         <div className="w-[40vw] bg-black/50 rounded p-8 text-justify text-lg">
           <p>
-            A professionally deployed web application that caters to all needs
-            coding and learning. Connect to users, get certificates and know
-            that Izzah is the coolest.
+          Invictus is a knowledge sharing and discussion-oriented real-time application designed for coding enthusiasts to connect and involve themselves within the worldwide developer community. The app will allow users to sign up, create personal profiles, and connect with other developers. Users can learn trending topics, make their own blogs, or post in specific communities. The app also includes features like attending tech-based conferences or video-based webinars, a personal AI assistant, and a specialized Topic of the Day page.
           </p>
         </div>
         <button className="mt-8 text-2xl transform transition-all duration-300 w-full z-10 hover:scale-90" 
