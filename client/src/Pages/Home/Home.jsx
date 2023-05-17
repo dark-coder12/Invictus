@@ -76,6 +76,7 @@ const Home = (props) => {
   const handleLogOut = () => {
 
     if (window.confirm("Are you sure you want to logout?")) {
+      localStorage.clear();
       props.handleLogout();
     } 
   }

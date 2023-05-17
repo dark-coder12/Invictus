@@ -98,7 +98,7 @@ function Profile() {
           </div>
 
 
-            <div className="h-50 w-[40%] bg-[#000000] bg-opacity-70 flex-column">
+            <div className="h-50 w-[40%] bg-[#000000] mt-16 bg-opacity-70 flex-column">
               <h1>
                 <b>Personal Information</b>
               </h1>
