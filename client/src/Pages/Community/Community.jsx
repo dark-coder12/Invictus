@@ -9,6 +9,7 @@ import AddToCommunity from "../../Components/AddToCommunity";
 import CommunityPost from "../../Components/CommunityPost";
 import ProgressBar from "../../Components/ProgressBar";
 
+
 import iz from "../../Assets/pictures/iz.jpg";
 import bis from "../../Assets/pictures/bis.jpg";
 import burak from "../../Assets/pictures/burak.jpg";
@@ -24,17 +25,28 @@ const Community = () => {
 
   const {id} = useParams();
   const cID = id;
-  var isUserJoined = false;
+
+   const [isUserJoined, setUserJoined] = useState
+   (false);
+
   const uID = localStorage.getItem('userID');
-  const [communityDets, setCommunityDets] = useState({});
+  const [communityDets, setCommunityDets] = useState([]);
+  var myCommunity;
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
 
     const fetchCurrentCommunity = async () => {
 
-      const myCommunity = axios.get(`http://localhost:8080/get-community/${cID}`)
-      console.log(myCommunity.data);
-      setCommunityDets(myCommunity.data);
+      try {
+        const response = await axios.get(`http://localhost:8080/get-community/${cID}`);
+        console.log(response.data);
+        
+        setCommunityDets(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+      
     }
     fetchCurrentCommunity();
 
@@ -42,12 +54,23 @@ const Community = () => {
 
       .then((response) => {
       
-      isUserJoined = response.data.joined;
+      setUserJoined(response.data);
        
       })
       .catch((error) => {
         console.error(error);
       });
+
+      axios.get(`http://localhost:8080/community-posts/${cID}`)
+      .then((response) => {
+        const postsData = response.data;
+       
+        setPosts(postsData);
+      })
+      .catch((error) => {
+        console.error('error getting posts', error);
+      });
+
   }, []);
   
     const particlesInit = async (main) => {
@@ -58,13 +81,14 @@ const Community = () => {
 
     const addCommunity = () => {
 
+    
       axios.post(`http://localhost:8080/add-user-community/${cID}/${uID}`, {
         title: communityDets.title,
         bg: communityDets.bg
       })
 
       .then((response) => {
-
+          setUserJoined(true);
        
       })
       .catch((error) => {
@@ -72,29 +96,40 @@ const Community = () => {
       });
     }
 
+    const removeCommunity = () => {
+
+      axios.delete(`http://localhost:8080/delete-user-community/${cID}/${uID}`)
+
+      .then((response) => {
+          setUserJoined(false);
+       
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
+
+    
+    const addPostInCommunity = (con) => {
+
+      const postData = {
+        userID: uID ,
+        communityID: cID ,
+        content: con,
+      };
+    
+      axios.post('http://localhost:8080/post-in-community', postData)
+        .then((response) => {
+        
+        })
+        .catch((error) => {
+          console.error('error creating post', error);
+        });
+
+    }
   
 
-    const posts = [
-        {
-          name: 'Bisma-ashar246',
-          icon: bis,
-          description: 'I recently started Deep Learning Specialization course from coursera and need feedback if it is worth it or not.',
-          date: '11-04-2023'
-        },
-        {
-          name: 'burak_munir06',
-          icon: burak,
-          description: 'I heard about this from a friend I can connect you with him. ',
-          date: '12-04-2023'
-        },
-        {
-          name: 'izzah_X12',
-          icon: iz,
-          description: 'I have taken Natural Language Processing Specialization course from coursera and had a very good experience.',
-          date: '12-04-2023'
-        },
-      ];
-
+   
     return(
      <div className="relative font-mono text-white text-opacity-70 font-[700] text-opacity-90 h-screen flex justify-center items-center bg-black ">
       <div className="w-[80%] h-[90%] flex flex-row z-10">
@@ -105,23 +140,24 @@ const Community = () => {
 
         <div className="bg-[#000000] bg-opacity-70 h-full w-[80%] pl-10 overflow-y-auto">      
           <div>
-              {communityDets.map(cd => (
-               < CommunityHeader
-                 title = {cd.title}
-                 description = {cd.description}
-                 bg = {cd.bg}
+              {communityDets && 
+               <CommunityHeader
+                 title = {communityDets.title}
+                 description = {communityDets.description}
+                 bg = {communityDets.bg}
                />    
-              ))}           
+              }        
           </div>
           {
-            isUserJoined ?  <button className="text-sm ml-2 px-2 w-[5rem] h-[1.5rem] mt-3 py-1 text-white bg-[#3a0303] hover:bg-[#2B0202] rounded-lg focus:outline-none" 
+            !isUserJoined ?  <button className="text-sm ml-2 px-2 w-[5rem]  mt-3 py-1 text-white bg-[#3a0303] hover:bg-[#2B0202] rounded-lg focus:outline-none" 
             type="submit" onClick={addCommunity}>
-            Join
+            Join! <i class="bi bi-lock"></i>
           </button>
           : 
-          <button className="text-sm ml-2 px-2 w-[5rem] h-[1.5rem] mt-3 py-1 text-white bg-[#3a0303] hover:bg-[#2B0202] rounded-lg focus:outline-none" 
+          <button className="text-sm ml-2 px-2 w-[5rem]  mt-3 py-1 text-white bg-[#3a0303] hover:bg-[#2B0202] rounded-lg focus:outline-none"
+          onClick={removeCommunity}
           >
-          Already Joined
+          Opt out!
         </button>
           }
          
@@ -140,7 +176,7 @@ const Community = () => {
 
             <div className="flex flex-col">
             <div className="ml-10 w-[25rem]">
-              <AddToCommunity isUserJoined = {isUserJoined}/>
+              <AddToCommunity isUserJoined = {isUserJoined} addPostInCommunity = {addPostInCommunity}/>
             </div>
 
             <div className="bg-[#000010] rounded-md border border-white p-2  ml-10 flex flex-col">
@@ -161,17 +197,7 @@ const Community = () => {
                 <p className="mt-3">Best Community - AI Week 2019 </p>
              </div>
 
-             <div className="mt-5">
-             <p>Community Reach : 1170 users</p>
-             <ProgressBar/>
-             </div>
-
-             <div className="mt-5">
-             <p>Community Members : 600/300 active users</p>
-             <ProgressBar/>
-             </div>
-
-
+          
             </div>
             </div>
           </div>          

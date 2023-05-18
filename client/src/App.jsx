@@ -46,14 +46,17 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Landing />} />
+        
+        <Route path="/" element = { isUserLoggedIn ? <Landing /> : <Navigate to="/signin" replace={true} />}
+        />
+
         <Route
           path="/signup"
-          element={<Signup handleLogin={handleLogin} isUserLoggedIn={isUserLoggedIn} />}
+          element = { !isUserLoggedIn ? <Signup handleLogin={handleLogin} isUserLoggedIn={isUserLoggedIn} /> : <Navigate to="/home" replace={true} />}
         />
         <Route
           path="/signin"
-          element={<Signin handleLogin={handleLogin} isUserLoggedIn={isUserLoggedIn} />}
+          element = { !isUserLoggedIn ? <Signin handleLogin={handleLogin} isUserLoggedIn={isUserLoggedIn} /> : <Navigate to="/home" replace={true} />}
         />
         <Route
           path="/home"
@@ -122,15 +125,15 @@ const App = () => {
         <Route
           path="/all-communities"
           element={
-            // isUserLoggedIn ? <AllCommunities /> : <Navigate to="/signin" replace={true} />
-            <AllCommunities />
+             isUserLoggedIn ? <AllCommunities /> : <Navigate to="/signin" replace={true} />
+           
           }
         />
         <Route
           path="/community/:id"
           element={
-            // isUserLoggedIn ? <Community /> : <Navigate to="/signin" replace={true} />
-            <Community />
+             isUserLoggedIn ? <Community /> : <Navigate to="/signin" replace={true} />
+         
           }
         />
         <Route

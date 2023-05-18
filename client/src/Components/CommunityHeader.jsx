@@ -32,7 +32,7 @@ const CommunityHeader = ({title , description , bg}) => {
           style={{
             border: 'none',
             borderRadius:'0',
-            backgroundImage: {bg},
+            backgroundImage: `url(${bg})`,
             filter: isHovered ? "brightness(10%)" : "brightness(40%)",
             transition: "filter 0.3s ease-in-out",
           }}

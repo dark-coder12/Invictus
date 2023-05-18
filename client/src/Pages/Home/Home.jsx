@@ -129,7 +129,7 @@ const Home = (props) => {
         </div>
 
         <div className="bg-[#020202] h-full w-[20%]    flex flex-col items-center gap-10 rounded-r-md ">
-          <div className="rounded-md  mt-10 w-[80%] h-[40%]">
+          <div className="rounded-md  mt-10 w-[80%] h-[40%] flex flex-col justify-between">
             <div className="flex flex-row flex-wrap gap-8 p-5 items-center justify-center bg-gray-black rounded-md bgcheck  bg-opacity-20">
               <div className="text-lg flex flex-col items-center justify-center pt-2">
                 <p>Quick Access</p>
@@ -147,9 +147,10 @@ const Home = (props) => {
               <img
                 className="w-10  hover:rounded-md hover:p-1"
                 src={connectionsLogo}
-                onClick={()=>navigate('/codebot')}
+                onClick={()=>navigate('/all-connections')}
               />
-              <img className="w-10 hover:rounded-md hover:p-1" src={AILogo} />
+              <img  onClick={()=>navigate('/codebot')} className="w-10 hover:rounded-md hover:p-1" src={AILogo} 
+              />
               <img
                 className="w-10  hover:rounded-md hover:p-1"
                 src={blogLogo}
@@ -171,34 +172,14 @@ const Home = (props) => {
             </div>
            ))}
             </div>
-
-            <div className="text-md flex flex-col items-center justify-center">
-              <p className="pt-12 underline pb-4">My Badges</p>
-            </div>
-
-            <div className="flex flex-row justify-center gap-3 items-center w-[100%] pr-2">
-              <img
-                className="w-10 hover:bg-white hover:rounded-md hover:p-1"
-                src={badgeLogo}
-              />
-              <img
-                className="w-10 hover:bg-white hover:rounded-md hover:p-1"
-                src={badgeLogo}
-              />
-              <img
-                className="w-10 hover:bg-white hover:rounded-md hover:p-1"
-                src={badgeLogo}
-              />
-            </div>
-            <div className='flex flex-row justify-center p-4'>
+            <div className='flex flex-row justify-center p-4 underline'>
             <button onClick={handleLogOut}>Logout</button>
             </div>
             
           </div>
         </div>
       </div>
-      
-
+    
       <Particles
         className="z-0 absolute top-0 left-0 w-full h-full"
         init={particlesInit}
@@ -218,7 +199,6 @@ const Home = (props) => {
             </button>
             </div>
             <p className="text-gray-800 font-md text-justify">{topicOfTheDay.topicDescription}</p>
-
           </div>
         )}
       </div>

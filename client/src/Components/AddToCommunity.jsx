@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 
-const AddToCommunity = ({isUserLogged}) => {
+const AddToCommunity = ({isUserJoined, addPostInCommunity}) => {
 
   const [postText, setPostText] = useState('');
 
   const handlePostChange = (event) => {
     setPostText(event.target.value);
+    
   };
 
   const handleSubmit = (event) => {
@@ -23,23 +24,19 @@ const AddToCommunity = ({isUserLogged}) => {
       
     <div className="flex flex-col bg-[#000000] shadow-md rounded-lg  mt-0 mb-6 ">
       <form onSubmit={handleSubmit} className="flex flex-col">
+       
+        { isUserJoined ?  <div className="flex flex-col justify-between items-center ">
+       
         <textarea
           className={textAreaClasses}
           placeholder="Post in Community!"
           value={postText}
           onChange={handlePostChange}
         />
-        { isUserLogged ?  <div className="flex justify-between items-center ">
-          <div className="flex ">
-            <button className="text-sm ml-2 px-2 w-[5rem] h-[1.5rem] mt-3 py-1 text-white bg-[#3a0303] hover:bg-[#2B0202] rounded-lg focus:outline-none" type="submit">
-              Post
-            </button>
-          </div>
-          <div className="flex">
-          </div>
+       <button className="text-sm ml-2 px-2 mt-3 py-1 text-white bg-[#3a0303] rounded-lg " onClick = {() => addPostInCommunity(postText)}>Post</button>
         </div> :
-         <p className="text-sm ml-2 px-2 w-[5rem] h-[1.5rem] mt-3 py-1 text-white bg-[#3a0303] hover:bg-[#2B0202] rounded-lg focus:outline-none">
-        Join this community first!
+         <p className="text-sm ml-2 px-2 mt-3 py-1 text-white bg-[#3a0303] rounded-lg text-center">
+        Join this community first to post!
        </p>
         }
       </form>

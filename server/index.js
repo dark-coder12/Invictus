@@ -16,6 +16,8 @@ const MeetupInfo = require('./mongodb/models/meetupinfo');
 const CommunityTile = require('./mongodb/models/communityTile')
 const UserCommunities = require('./mongodb/models/userCommunities')
 const CommunityDetails = require('./mongodb/models/communityDetails')
+const Posts = require('./mongodb/models/communityPosts');
+const Like = require('./mongodb/models/like')
 
 const app = express();
 
@@ -618,14 +620,15 @@ const startServer = () => {
             app.post('/add-user-community/:cID/:uID', async (req, res) => { 
 
               const { cID, uID } = req.params;   
-              const {name, picture} = req.body;
+              const {title, bg} = req.body;
 
+              console.log(cID, uID, title)
               try {
                   const userCommunity = new UserCommunities({
                   communityID: parseInt(cID),
                   userID: parseInt(uID),
-                  title: name,
-                  bg: picture
+                  title: title,
+                  bg: bg
                 });
             
                 await userCommunity.save();
@@ -635,6 +638,23 @@ const startServer = () => {
             
             }});
 
+            app.delete('/delete-user-community/:cID/:uID', async (req, res) => {
+
+              const { cID, uID } = req.params;
+            
+              try {
+                await UserCommunities.findOneAndRemove({
+                  communityID: parseInt(cID),
+                  userID: parseInt(uID),
+                });
+            
+                res.status(200).send('User community deleted');
+
+              } catch (error) {
+
+                res.status(500).send('Error deleting');
+              }
+            });
       
             app.get(`/get-community/:cID`, async (req, res) => {
             
@@ -764,7 +784,6 @@ const startServer = () => {
       }
     });
 
-
     app.get('/is-user-connected/:loggedID/:uID', async(req, res) => {
 
       const {loggedID, uID} = req.params;  
@@ -786,6 +805,98 @@ const startServer = () => {
       }
     });
 
+   app.get('/community-posts/:cID', async (req, res) => {
+  try {
+    const { cID } = req.params;
+
+    const posts = await Posts.find({ communityID: cID }).sort({ date: -1 });
+
+    res.json(posts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error fetching posts' });
+  }
+});
+      
+        app.post('/post-in-community', (req, res) => {
+          const { userID, communityID, content } = req.body;
+        
+          User.findOne({ userID })
+            .then((user) => {
+              if (!user) {
+                throw new Error('User not found');
+              }
+        
+              const { firstName, lastName, imgUrl } = user;
+        
+              const newPost = new Posts({
+                userID,
+                communityID,
+                name: `${firstName} ${lastName}`,
+                icon: imgUrl,
+                description: content,
+                date: new Date().toISOString(),
+              });
+        
+              return newPost.save();
+            })
+            .then((post) => {
+              res.json(post);
+            })
+            .catch((error) => {
+              console.error('Error creating post', error);
+              res.status(500).json({ error: 'Error creating post' });
+            });
+        });
+        
+
+        app.get('/post-likes', async (req, res) => {
+          const { name, icon, description, date } = req.query;
+        
+          try {
+   
+            const numLikes = await Like.countDocuments({ name, icon, description, date });
+        
+            res.json({ likes: numLikes });
+          } catch (error) {
+            console.error('Error fetching post likes:', error);
+            res.status(500).json({ error: 'Failed to fetch post likes' });
+          }
+        });
+
+        app.post('/like-post', (req, res) => {
+          const { userID, name, icon, description, date } = req.body;
+        
+          const newLike = new Like({ userID, name, icon, description, date });
+        
+          newLike
+            .save()
+            .then((like) => {
+              res.json(like);
+            })
+            
+            .catch((error) => {
+              console.error('Error adding like', error);
+              res.status(500).json({ error: 'Error adding like' });
+            });
+        });
+        
+        app.delete('/unlike-post', (req, res) => {
+          const { userID, name, icon, description, date } = req.body;
+        
+          Like.findOneAndDelete({ userID, name, icon, description, date })
+
+            .then(() => {
+              res.json({ message: 'Post unliked successfully' });
+            })
+
+            .catch((error) => {
+              console.error('Error removing like', error);
+              res.status(500).json({ error: 'Error removing like' });
+            });
+        });
+
+
             app.post("/create-payment-intent", async (req, res) => {
               const { items } = req.body;
             
@@ -801,9 +912,7 @@ const startServer = () => {
                 clientSecret: paymentIntent.client_secret,
               });
             });
-            
-
-            
+    
         app.listen(8080, () => console.log("Server running at http://localhost:8080"));
 
     } catch (error) {
