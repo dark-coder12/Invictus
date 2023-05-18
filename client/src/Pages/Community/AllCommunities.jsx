@@ -11,19 +11,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 const AllCommunities = () => {
-  const [searchedName, setSearchedName] = useState("");
-  const [searchedResults, setSearchedResults] = useState([]);
-  const [isSearching, setIsSearching] = useState(false);
-
-  const onSearch = (e) => {
-    const fetchName = async () => {
-      const name = await axios.get(`http://localhost:8080/get-communityname/${searchedName}`);
-      setSearchedResults(name.data);
-      setIsSearching(true);
-    };
-
-    if (searchedName !== "") fetchName();
-  };
 
   const navigate = useNavigate();
 
@@ -64,20 +51,7 @@ const AllCommunities = () => {
           </div>
           <div>
             <div className="container mx-auto py-8 flex flex-row justify-center">
-              {isSearching ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-14 w-[80%] h-[60%]">
-                  {searchedResults.map((community, index) => (
-                    <CommunityCard
-                      title={community.title} 
-                      image={community.image}
-                      members={community.members}
-                      description={community.description}
-                      bg={community.bg}
-                      handleOnClick={() => handleOnClick(index+1)}
-                    />
-                  ))}
-                </div>
-              ) : (
+              
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-14 w-[80%] h-[60%]">
                   {communities.map((community, index) => (
                     <CommunityCard
@@ -90,13 +64,11 @@ const AllCommunities = () => {
                     />
                   ))}
                 </div>
-              )}
+   
             </div>
           </div>
         </div>
-        <div className ='w-[20%]'>
-          <ExistingCommunities/>
-        </div>        
+              
       </div>
       <Particles
         className="z-0 absolute top-0 left-0 w-full h-full"
