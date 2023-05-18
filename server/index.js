@@ -100,6 +100,23 @@ const startServer = () => {
             }
           });
 
+        app.get('/get-user/:userID',async (req,res)=>{
+          try {
+            const {userID} = req.params;
+            console.log(userID);
+            const user = User.findOne({userID:userID});;
+            if (user){
+              console.log(user)
+              res.status(200).send(user);
+            }
+            else {
+              res.status(404).send('User not found');
+            }
+          }
+          catch(error){
+            res.status(500).send(error.message);
+          }
+        })
         app.get('/get-myblogs/:userID', async (req, res) => {
             try {
               const { userID } = req.params;
@@ -181,9 +198,22 @@ const startServer = () => {
             res.status(500).send(error.message);
           }
         });
-
         
-            
+      app.get('/get-user-blogs/:userID',async(req,res)=>{
+        try {
+          const {userID} = req.params;
+          const blogs = BlogPosts.findOne({userID: userID});
+          if (blogs){
+            res.status(200).send(blogs);
+          }
+          else{
+            res.status(500).send('Blogs not found');
+          }
+        }
+        catch (error){
+          res.status(500).send(error.message);
+        }
+      });
 
 
         app.post('/create-blog', async (req, res) => {  
@@ -767,7 +797,7 @@ const startServer = () => {
 
     app.get('/get-user-connections/:uID', async (req, res) => {
       const { uID } = req.params;
-    
+      
       try {
 
         const userConnections = await UserConnections.find({ followerID: uID }, 'followedID');
@@ -783,6 +813,25 @@ const startServer = () => {
         console.error(error);
       }
     });
+
+    app.get('/get-connections/:userID',async(req,res)=>{
+      
+      const {userID} = req.params;
+      console.log(userID);
+      try {
+        const connections = await UserConnections.find({followerID:userID});
+      
+        if (connections){
+          res.status(200).send(connections);
+        }
+        else {
+          res.status(404).send('No connections');
+        }
+      }
+      catch(error){
+        res.status(500).send(error.message);
+      }
+    })
 
     app.get('/is-user-connected/:loggedID/:uID', async(req, res) => {
 
