@@ -32,34 +32,80 @@ const Home = (props) => {
 
   const [topicOfTheDay, setTopicOfTheDay] = useState({});
 
+  const [userConnections, setUserConnections] = useState([]);
+
   const [show, setShow] = useState(false);
 
+  const [conBlogs,setConBlogs] = useState([]);
+
+  var temp = [];
+  const blogs = [];
   const navigate = useNavigate();
 
   useEffect(() => {
 
-    const userID = localStorage.getItem('userID');
-  
-     axios.get(`http://localhost:8080/get-certifications/${userID}`)
-      .then(response => {
-
-        setCertifications(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    
+    //  axios.get(`http://localhost:8080/get-certifications/${userID}`)
+    //   .then(response => {
       
-      axios.get(`http://localhost:8080/topic-of-the-day`)
-      .then(response => {
+      //     setCertifications(response.data);
+      //   })
+      //   .catch(error => {
+        //     console.error(error);
+        //   });
+        
+        // axios.get(`http://localhost:8080/topic-of-the-day`)
+        // .then(response => {
+          
+          //  setTopicOfTheDay(response.data)
+          // })
+          // .catch(error => {
+            //   console.error(error);
+            // });
+      const userID = localStorage.getItem('userID');
+      if (userID){
+        axios.get(`http://localhost:8080/get-connections/${userID}`).then((res)=>{
+          
+          const tempCon = [];
+          res.data.forEach((con)=>{
+              tempCon.push(con.followedID);
+          })
+          
+          setUserConnections(tempCon);
+        })
+        console.log(userConnections)
+        if (userConnections.length > 0){
 
-       setTopicOfTheDay(response.data)
-      })
-      .catch(error => {
-        console.error(error);
-      });
-      
+            console.log(userConnections);
+            
+            userConnections.forEach((user)=>{
+              var usrImg='';
+              var usrName='';
+              const userID = user;
+              console.log(userID);
+              axios.get(`http://localhost:8080/get-user-profile/${userID}`).then((res)=>{
+                  usrImg = res.data[0].imgUrl;
+                  usrName = res.data[0].firstName + res.data[0].lastName;
+                  console.log(res.data[0].imgUrl);
+              })
+                
+              axios.get(`http://localhost:8080/get-myblogs/${user}`).then((res)=>{
+                temp.push(res.data[0].userBlogs);
+                res.data[0].userBlogs.forEach((blog)=>{
+                  
+                  var newPost = <ConnectionPost blogName={blog.blogName} date={blog.date} image={blog.imgUrl} text={blog.description}icon={usrImg} authorName={usrName}/>
+                  blogs.push(newPost);
+                  setConBlogs(blogs)
+                })
+                console.log('Blogs outside', conBlogs);
 
-  }, []);
+                
+              })
+            })
+
+        }
+      }
+  },[]);
 
 
   const showTopic = () => {
@@ -108,7 +154,12 @@ const Home = (props) => {
             <Post />
           </div>
           <div className="w-[60%] h-[40%] shadow-xl rounded-md flex flex-col gap-5 overflow-y-auto">
-            <ConnectionPost
+            
+              {console.log('Blogs in render ',conBlogs)}
+            {
+              conBlogs
+            }
+            {/* <ConnectionPost
               blogName='"Invictus: The New Fad"'
               authorName="Coolio"
               date="12/07/22"
@@ -123,8 +174,8 @@ const Home = (props) => {
               date="12/07/22"
               icon={displayPicture}
               image={techImg}
-              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-            />
+              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." 
+            />*/}
           </div>
         </div>
 
