@@ -13,26 +13,38 @@ function FirebaseAuth({handleLogin}) {
   
 
   const addNewUser = (email,password,firstName,lastName,confirmPassword,userName,imgUrl) =>{
+    console.log('In Ad new User')
        axios.post('http://localhost:8080/userexists',{
          email
        })
        .then((response)=>{
           console.log("response aya:" ,response.data);
+          localStorage.setItem("userID",response.data.userID)
          if (response.data === 'user_does_not_exist'){
            console.log(email,password,firstName,lastName,confirmPassword,userName,imgUrl  )
-          axios.post('http://localhost:8080/signup', {
-            email,
-            password,
-            firstName,
-            lastName,
-            confirmPassword,
-            userName,
-            imgUrl
-          })
-          axios.post('http://localhost:8080/userexists',{email}).then((response)=>{localStorage.setItem("userID",response.data.userID)})
+            axios.post('http://localhost:8080/signup', {
+              email,
+              password,
+              firstName,
+              lastName,
+              confirmPassword,
+              userName,
+              imgUrl
+            }).then((response)=>{
+
+              localStorage.setItem("userID",response.data.userID)
+              
+            });
+
+          
+            axios.post('http://localhost:8080/userexists',{email}).then((response)=>{
+              localStorage.setItem("userID",response.data.userID)
+              
+            })
          }
          else {
           localStorage.setItem("userID",response.data.userID)
+          
          }
        })
   }
@@ -50,6 +62,17 @@ function FirebaseAuth({handleLogin}) {
     })
   }
 
+  const newfunc = (email) =>{
+    console.log(email)
+    console.log('vghjvhjkvbnj')
+    axios.post(`http://localhost:8080/userexists`,{email}).then((response)=>{
+      
+      console.log('Setting user: ',response.data)
+      localStorage.setItem('userID',response.data.userID);
+    
+  })
+  }
+
   const handleClick = (e) =>{
     e.preventDefault();
     signInWithPopup(auth,provider).then((data)=>{
@@ -61,8 +84,15 @@ function FirebaseAuth({handleLogin}) {
       const password = data._tokenResponse.email
       const confirmPassword = data._tokenResponse.email
       const imgUrl = data._tokenResponse.photoUrl;
+      console.log(email,firstName,lastName,userName,password,imgUrl)
+      localStorage.setItem('firstName',firstName)
+      localStorage.setItem('lastName', lastName)
+      localStorage.setItem('email',email)
+      localStorage.setItem('userName', userName)
+      localStorage.setItem('password',password)
+      localStorage.setItem('imgUrl',imgUrl);
       addNewUser(email,password,firstName,lastName,confirmPassword,userName,imgUrl);
-      setCurrentUser();
+      newfunc(email);
 
       handleLogin(true)
       navigate('/Home');

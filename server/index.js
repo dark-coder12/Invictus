@@ -21,7 +21,10 @@ const Like = require('./mongodb/models/like')
 
 const app = express();
 
-const stripe = require("stripe")('sk_test_51MwWGPJ5XPx7sfMfIVeSjhWOlDlkaV7TeaeKSGP3jsR7ERAShkyrxnYqIbyXyFPzkl1zksq6BpYzHUK0607H2fgH007F1A1vSc');
+require('dotenv').config();
+
+
+const stripe = require("stripe")(process.env.REACT_APP_STRIPESERVER);
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -57,9 +60,9 @@ const startServer = () => {
 
                     const newUser = new User({ email, firstName, lastName, userName, password, confirmPassword, userID,imgUrl});
 
-                    await newUser.save();
+                    const user = await newUser.save();
 
-                    res.status(200).send(newUser);
+                    res.status(200).send(user);
                 }
 
             } catch (error) {
@@ -243,6 +246,7 @@ const startServer = () => {
         app.post('/userexists',async (req,res)=>{
           try { 
             const {email} = req.body;
+            console.log(email)
             const user = await User.findOne({ email:email });
             if (!user) {
               return res.status(200).send('user_does_not_exist');

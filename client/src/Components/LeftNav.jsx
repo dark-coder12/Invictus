@@ -39,17 +39,17 @@ const LeftNav = () => {
         <div className="flex justify-center gap-1 w-full pt-5">
           <img src={invLogo} className="w-32 pb-10" />
         </div>
-        <div className="flex items-center pb-2 pt-2 hover:bg-none hover:bg-opacity-50 gradientHover cursor-pointer hover:font-[600] pl-[15%]">
+        <div onClick={()=> navigate('/home')} className="flex items-center pb-2 pt-2 hover:bg-none hover:bg-opacity-50 gradientHover cursor-pointer hover:font-[600] pl-[15%]">
           <img src={profileLogo} className="w-4" />
-          <span className="ml-2" onClick={()=> navigate('/home')}>Home</span>
+          <span className="ml-2">Home</span>
         </div>
-        <div className="flex items-center pb-2 pt-2 hover:bg-none hover:bg-opacity-50 gradientHover cursor-pointer pl-[15%]">
+        <div onClick={()=> navigate('/all-communities')} className="flex items-center pb-2 pt-2 hover:bg-none hover:bg-opacity-50 gradientHover cursor-pointer pl-[15%]">
           <img src={people} className="w-4" />
-          <span className="ml-2" onClick={()=> navigate('/all-communities')}>Community</span>
+          <span className="ml-2" >Community</span>
         </div>
-        <div className="flex items-center pb-2 pt-2 hover:bg-none hover:bg-opacity-50 gradientHover cursor-pointer pl-[15%]">
+        <div onClick={()=> navigate('/all-connections')} className="flex items-center pb-2 pt-2 hover:bg-none hover:bg-opacity-50 gradientHover cursor-pointer pl-[15%]">
           <img src={connect} className="w-4" />
-          <span className="ml-2" onClick={()=> navigate('/all-connections')}>Connect</span>
+          <span className="ml-2">Connect</span>
         </div>
       </div>
 

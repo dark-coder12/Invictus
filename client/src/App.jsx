@@ -47,7 +47,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         
-        <Route path="/" element = { isUserLoggedIn ? <Landing /> : <Navigate to="/signin" replace={true} />}
+        <Route path="/" element = { <Landing />}
         />
 
         <Route

@@ -42,70 +42,57 @@ const Home = (props) => {
   const blogs = [];
   const navigate = useNavigate();
 
+
   useEffect(() => {
-
     
-    //  axios.get(`http://localhost:8080/get-certifications/${userID}`)
-    //   .then(response => {
-      
-      //     setCertifications(response.data);
-      //   })
-      //   .catch(error => {
-        //     console.error(error);
-        //   });
-        
-        // axios.get(`http://localhost:8080/topic-of-the-day`)
-        // .then(response => {
-          
-          //  setTopicOfTheDay(response.data)
-          // })
-          // .catch(error => {
-            //   console.error(error);
-            // });
-      const userID = localStorage.getItem('userID');
-      if (userID){
-        axios.get(`http://localhost:8080/get-connections/${userID}`).then((res)=>{
-          
-          const tempCon = [];
-          res.data.forEach((con)=>{
-              tempCon.push(con.followedID);
-          })
-          
+    const fetchData = async () => {
+      try {
+        const userID = localStorage.getItem('userID');
+  
+        const certificationsResponse = await axios.get(`http://localhost:8080/get-certifications/${userID}`);
+        setCertifications(certificationsResponse.data);
+  
+        const topicOfTheDayResponse = await axios.get(`http://localhost:8080/topic-of-the-day`);
+        setTopicOfTheDay(topicOfTheDayResponse.data);
+  
+          const connectionsResponse = await axios.get(`http://localhost:8080/get-connections/${userID}`);
+          const tempCon = connectionsResponse.data.map(con => con.followedID);
+  
           setUserConnections(tempCon);
-        })
-        console.log(userConnections)
-        if (userConnections.length > 0){
 
-            console.log(userConnections);
-            
-            userConnections.forEach((user)=>{
-              var usrImg='';
-              var usrName='';
-              const userID = user;
-              console.log(userID);
-              axios.get(`http://localhost:8080/get-user-profile/${userID}`).then((res)=>{
-                  usrImg = res.data[0].imgUrl;
-                  usrName = res.data[0].firstName + res.data[0].lastName;
-                  console.log(res.data[0].imgUrl);
-              })
-                
-              axios.get(`http://localhost:8080/get-myblogs/${user}`).then((res)=>{
-                temp.push(res.data[0].userBlogs);
-                res.data[0].userBlogs.forEach((blog)=>{
-                  
-                  var newPost = <ConnectionPost blogName={blog.blogName} date={blog.date} image={blog.imgUrl} text={blog.description}icon={usrImg} authorName={usrName}/>
-                  blogs.push(newPost);
-                  setConBlogs(blogs)
-                })
-                console.log('Blogs outside', conBlogs);
+          console.log(tempCon)
+          const t = [];
+          if (tempCon.length > 0) {
+            const blogsPromises = tempCon.map(async (user) => {
+              const userResponse = await axios.get(`http://localhost:8080/get-user-profile/${user}`);
+              const usrImg = userResponse.data[0].imgUrl;
+              const usrName = userResponse.data[0].firstName + userResponse.data[0].lastName;
+  
+              console.log(user)
+              const userBlogsResponse = await axios.get(`http://localhost:8080/get-myblogs/${user}`);
+              const userBlogs = userBlogsResponse.data[0].userBlogs;
+              console.log(user)
+              
+              userBlogs.forEach((blog) => {
+                const n = <ConnectionPost blogName={blog.blogName} date={blog.date} image={blog.imgUrl} text={blog.description} icon={usrImg} authorName={usrName}/>
+                t.push(n)
+            });
+            setConBlogs(t)
+  
+          
+            });
+  
 
-                
-              })
-            })
-
-        }
+          }
+        
+      } catch (error) {
+        console.error(error);
       }
-  },[]);
+    };
+  
+    fetchData();
+  }, []);
+  
 
 
   const showTopic = () => {

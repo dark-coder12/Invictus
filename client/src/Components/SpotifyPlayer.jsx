@@ -5,13 +5,17 @@ import "tailwindcss/tailwind.css";
 import play from "../Assets/pictures/play.png";
 import pause from "../Assets/pictures/pause.png";
 
+
 const SpotifyPlayer = () => {
+
+  
   const [searchTerm, setSearchTerm] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(null);
   const spotifyApi = new SpotifyWebApi();
-  const clientId = "8163eda5c36e4cb98109cc8c558164b6";
-  const clientSecret = "10f6ce26056847b19955ed7a7083cbbd";
+  const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+  const clientSecret = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
+  
   const authEndpoint = "https://accounts.spotify.com/api/token";
 
   const handlePlay = async () => {
