@@ -2,6 +2,32 @@
 
 Invictus is a knowledge sharing and discussion-oriented real-time application designed for coding enthusiasts to connect and involve themselves within the worldwide developer community. The app will allow users to sign up, create personal profiles, and connect with other developers. Users can follow trending topics of their choice, make their own posts, or post in specific communities. The app also includes features like attending tech-based conferences or video-based webinars, a personal AI assistant, and a specialized Topic of the Day page.
 
+![Invictus_Screenshot_Communities](https://github.com/dark-coder12/Invictus/assets/82564549/e2763ec1-680e-4077-bbec-d80e9e01e425)
+![Screenshot 2023-04-15 at 22-48-45 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/075c70c9-300a-4a61-b7bf-e540b98c17e1)
+![Screenshot 2023-04-15 at 22-48-29 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/de3dfe3e-a70a-41dc-bde8-1ce5257b05d6)
+![Screenshot 2023-04-15 at 22-43-33 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/b5f16502-e17c-4cb1-a30a-62612443cff9)
+![Screenshot 2023-04-15 at 22-43-28 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/04615bd4-91a7-4c5b-9d9e-6b0b91154959)
+![Screenshot 2023-04-14 at 23-12-23 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/f122848a-97da-4bbf-b067-79d6875d2ea2)
+![Screenshot 2023-04-14 at 23-12-08 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/25b65efd-c028-4165-a80f-5f5b3c8ca6b9)
+![Screenshot 2023-04-14 at 23-11-54 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/8a6cdd6f-c36c-4d32-beb5-73ab94b855bc)
+![Screenshot 2023-04-14 at 23-11-36 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/f2aa365a-8ae3-48fc-9e47-eaa4afece808)
+![Screenshot 2023-04-14 at 23-10-02 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/c15c48c8-d7c3-4d2b-9a4a-f0414f7e1918)
+![Screenshot 2023-04-14 at 23-09-52 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/be9aa33a-a9a8-41ab-a50b-f05c2d31ece6)
+![Screenshot 2023-04-14 at 23-09-38 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/c3e416f0-d07e-43f9-b8a0-6487d3daecdb)
+![Screenshot 2023-04-14 at 23-09-23 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/c06f0b18-ae0c-47ff-ab24-baea0769a58c)
+![Screenshot 2023-04-14 at 23-09-23 3 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/e581a0f8-6a6e-4888-bbcb-cac92e13a695)
+![Screenshot 2023-04-14 at 23-09-23 2 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/465373b9-fc8b-4441-adbe-95e5028ad14c)
+![Screenshot 2023-04-14 at 22-09-23 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/7d3134d3-9637-402a-9719-c6ddb62309b2)
+![Screenshot 2023-04-14 at 21-09-23 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/0273b2a9-415c-44dc-a136-d3f9d9c5854d)
+![template_Certificate](https://github.com/dark-coder12/Invictus/assets/82564549/fc614b99-5858-4062-939f-c1799f8c9116)
+![Screenshot 2023-04-15 at 22-57-58 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/cc0f7112-cc8e-40fe-918d-a1423d8721b3)
+![Screenshot 2023-04-15 at 22-52-05 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/542cdaf3-5c15-4bf2-ae6a-d7f00450f42e)
+![Screenshot 2023-04-15 at 22-51-47 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/8af325c7-98d4-4cf3-af3d-4f0ca5c73a78)
+![Screenshot 2023-04-15 at 22-51-22 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/91e6ae9f-8d7d-4339-9258-0042b3ee1246)
+![Screenshot 2023-04-15 at 22-51-01 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/7bbefe6d-3ad7-4825-a418-9a5758812c0a)
+![Screenshot 2023-04-15 at 22-48-58 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/a4481af1-d79c-430e-b963-111aed87e165)
+
+
 ## Target Audience & Goals
 
 The target audience for Invictus is developers and coding enthusiasts who are interested in knowledge sharing and raising awareness regarding events relating to technology. The app's main goals are to provide a platform for knowledge sharing, creating an immersive environment for developers, and allowing users to get certified in different languages or concepts.
