@@ -2,7 +2,6 @@
 
 Invictus is a knowledge sharing and discussion-oriented real-time application designed for coding enthusiasts to connect and involve themselves within the worldwide developer community. The app will allow users to sign up, create personal profiles, and connect with other developers. Users can follow trending topics of their choice, make their own posts, or post in specific communities. The app also includes features like attending tech-based conferences or video-based webinars, a personal AI assistant, and a specialized Topic of the Day page.
 
-![Invictus_Screenshot_Communities](https://github.com/dark-coder12/Invictus/assets/82564549/e2763ec1-680e-4077-bbec-d80e9e01e425)
 ![Screenshot 2023-04-15 at 22-48-45 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/075c70c9-300a-4a61-b7bf-e540b98c17e1)
 ![Screenshot 2023-04-15 at 22-48-29 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/de3dfe3e-a70a-41dc-bde8-1ce5257b05d6)
 ![Screenshot 2023-04-15 at 22-43-33 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/b5f16502-e17c-4cb1-a30a-62612443cff9)
@@ -26,7 +25,7 @@ Invictus is a knowledge sharing and discussion-oriented real-time application de
 ![Screenshot 2023-04-15 at 22-51-22 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/91e6ae9f-8d7d-4339-9258-0042b3ee1246)
 ![Screenshot 2023-04-15 at 22-51-01 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/7bbefe6d-3ad7-4825-a418-9a5758812c0a)
 ![Screenshot 2023-04-15 at 22-48-58 Invictus](https://github.com/dark-coder12/Invictus/assets/82564549/a4481af1-d79c-430e-b963-111aed87e165)
-
+![Invictus_Screenshot_Communities](https://github.com/dark-coder12/Invictus/assets/82564549/e2763ec1-680e-4077-bbec-d80e9e01e425)
 
 ## Target Audience & Goals
 
